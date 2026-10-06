@@ -525,36 +525,46 @@
 <script>
 // ==========================================
 // [싱글 탭(One-Tab) 스마트 동기화 & 새창 자동 방지 시스템]
-// ==========================================
-const cbtChannel = new BroadcastChannel('cbt_one_tab_sync');
+function getTargetQFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const qParam = params.get('q');
+  if (qParam) return parseInt(qParam, 10);
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#q')) {
+    return parseInt(hash.replace('#q', ''), 10);
+  }
+  return null;
+}
+
+const cbtChannel = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('cbt_one_tab_sync') : null;
 const targetQFromUrl = getTargetQFromUrl();
 
 let isMasterTab = false;
 
 // 1. 이미 열려 있는 기존 마스터 창이 있는지 확인 요청
-cbtChannel.postMessage({ type: 'CHECK_MASTER', q: targetQFromUrl });
+if (cbtChannel) {
+  cbtChannel.postMessage({ type: 'CHECK_MASTER', q: targetQFromUrl });
 
-cbtChannel.onmessage = function(event) {
-  if (!event.data) return;
+  cbtChannel.onmessage = function(event) {
+    if (!event.data) return;
 
-  // 기존 마스터 창인 경우: 새로운 문제 번호로 즉각 화면 업데이트!
-  if (isMasterTab && event.data.type === 'CHECK_MASTER') {
-    const newQ = event.data.q;
-    const newIdx = rawData.findIndex(item => item.id === newQ);
-    if (newIdx !== -1) {
-      currentQIndex = newIdx;
-      renderCurrentQuestion();
-      highlightGrid();
-      window.focus();
+    if (isMasterTab && event.data.type === 'CHECK_MASTER') {
+      const newQ = event.data.q;
+      if (typeof rawData !== 'undefined') {
+        const newIdx = rawData.findIndex(item => item.id === newQ);
+        if (newIdx !== -1) {
+          currentQIndex = newIdx;
+          renderCurrentQuestion();
+          highlightGrid();
+          window.focus();
+        }
+      }
+      cbtChannel.postMessage({ type: 'MASTER_UPDATED', q: newQ });
+    } else if (!isMasterTab && event.data.type === 'MASTER_UPDATED') {
+      closeThisTabImmediately(event.data.q);
     }
-    // "마스터 창에서 갱신 완료했으니 새로 뜬 탭은 즉시 닫혀라" 응답
-    cbtChannel.postMessage({ type: 'MASTER_UPDATED', q: newQ });
-  } 
-  // 새로 뜬 탭인 경우: 기존 창이 업데이트되었으므로 즉시 자동 닫힘 실행!
-  else if (!isMasterTab && event.data.type === 'MASTER_UPDATED') {
-    closeThisTabImmediately(event.data.q);
-  }
-};
+  };
+}
 
 // 탭 자동 닫기 함수 (Chromium 닫기 방어막 우회 트릭)
 function closeThisTabImmediately(qNum) {
@@ -930,46 +940,69 @@ function setMode(mode) {
   const singleBox = document.getElementById('singleModeContainer');
   const allBox = document.getElementById('allModeContainer');
   const expBox = document.getElementById('explainModeContainer');
+  const excelBox = document.getElementById('excelModeContainer');
 
   const btnSingle = document.getElementById('btnSingleMode');
   const btnAll = document.getElementById('btnAllMode');
   const btnExp = document.getElementById('btnExplainMode');
 
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+
   if (mode === 'single') {
-    singleBox.style.display = 'block';
-    allBox.style.display = 'none';
+    if (singleBox) singleBox.style.display = 'block';
+    if (allBox) allBox.style.display = 'none';
     if (expBox) expBox.style.display = 'none';
+    if (excelBox) excelBox.style.display = 'none';
 
-    btnSingle.classList.add('active');
-    btnAll.classList.remove('active');
-    if (btnExp) btnExp.classList.remove('active');
-
+    if (btnSingle) btnSingle.classList.add('active');
     renderCurrentQuestion();
   } else if (mode === 'all') {
-    singleBox.style.display = 'none';
-    allBox.style.display = 'block';
+    if (singleBox) singleBox.style.display = 'none';
+    if (allBox) allBox.style.display = 'block';
     if (expBox) expBox.style.display = 'none';
+    if (excelBox) excelBox.style.display = 'none';
 
-    btnSingle.classList.remove('active');
-    btnAll.classList.add('active');
-    if (btnExp) btnExp.classList.remove('active');
-
+    if (btnAll) btnAll.classList.add('active');
     renderAllQuestions();
     setTimeout(() => {
       const el = document.getElementById('card_q' + rawData[currentQIndex].id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }, 60);
   } else if (mode === 'explain') {
-    singleBox.style.display = 'none';
-    allBox.style.display = 'none';
+    if (singleBox) singleBox.style.display = 'none';
+    if (allBox) allBox.style.display = 'none';
+    if (excelBox) excelBox.style.display = 'none';
     if (expBox) expBox.style.display = 'block';
 
-    btnSingle.classList.remove('active');
-    btnAll.classList.remove('active');
     if (btnExp) btnExp.classList.add('active');
-
     renderExplainHandbook();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function answerAllMode(qId, optIdx, isCorrect) {
+  userAnswers[qId] = { optIdx, isCorrect };
+  updateOMRStats();
+  highlightGrid();
+
+  const card = document.getElementById('card_q' + qId);
+  if (card) {
+    const buttons = card.querySelectorAll('.choice-btn');
+    const item = rawData.find(q => q.id === qId);
+    const options = item ? getOptionsForItem(item) : [];
+
+    buttons.forEach((btn, idx) => {
+      btn.classList.remove('correct-choice', 'wrong-choice');
+      if (idx === optIdx) {
+        btn.classList.add(isCorrect ? 'correct-choice' : 'wrong-choice');
+      }
+      if (!isCorrect && options[idx] && options[idx].isCorrect) {
+        btn.classList.add('correct-choice');
+      }
+    });
+
+    const expl = document.getElementById('expl_' + qId);
+    if (expl) expl.classList.add('show');
   }
 }
 
@@ -997,7 +1030,7 @@ function renderAllQuestions() {
         else if (userAns.optIdx === oIdx) cls = 'wrong-choice';
       }
       optHtml += `
-        <button class="choice-btn ${cls}" onclick="answerSingle(${item.id}, ${oIdx}, ${opt.isCorrect}); renderAllQuestions();">
+        <button class="choice-btn ${cls}" onclick="answerAllMode(${item.id}, ${oIdx}, ${opt.isCorrect})">
           <span class="choice-num">${numLabels[oIdx]}</span>
           <span>${opt.text}</span>
         </button>
@@ -1131,33 +1164,6 @@ function filterExcelTable() {
     r.style.display = r.innerText.toLowerCase().includes(q) ? '' : 'none';
   });
 }
-
-// setMode 함수 확장
-const origSetMode = setMode;
-setMode = function(mode) {
-  currentMode = mode;
-  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-  
-  if (mode === 'single') {
-    document.getElementById('singleModeContainer').style.display = 'block';
-    document.getElementById('excelModeContainer').style.display = 'none';
-    document.getElementById('allModeContainer').style.display = 'none';
-    document.getElementById('btnSingleMode').classList.add('active');
-    renderCurrentQuestion();
-  } else if (mode === 'excel') {
-    document.getElementById('singleModeContainer').style.display = 'block';
-    document.getElementById('excelModeContainer').style.display = 'block';
-    document.getElementById('allModeContainer').style.display = 'none';
-    document.getElementById('btnExcelMode').classList.add('active');
-    buildExcelTable();
-    renderCurrentQuestion();
-  } else if (mode === 'all') {
-    document.getElementById('singleModeContainer').style.display = 'none';
-    document.getElementById('excelModeContainer').style.display = 'none';
-    document.getElementById('allModeContainer').style.display = 'block';
-    document.getElementById('btnAllMode').classList.add('active');
-  }
-};
 
 // 시작
 initApp();

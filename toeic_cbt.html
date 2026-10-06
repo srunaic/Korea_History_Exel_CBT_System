@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>토익(TOEIC) 800+ 실전 1:1 CBT 시험 시스템 (30문항 마스터)</title>
   <style>
     :root {
@@ -32,22 +32,23 @@
       color: var(--text);
       padding-bottom: 50px;
       -webkit-text-size-adjust: 100%;
+      min-width: 0;
     }
     p, span, div, h1, h2, h3, button, label {
       word-break: keep-all;
-      overflow-wrap: break-word;
+      overflow-wrap: anywhere;
     }
 
+    /* ========== HEADER ========== */
     header {
       background: linear-gradient(135deg, #1B365D 0%, #0F2038 100%);
       color: white;
-      padding: 12px 18px;
+      padding: 10px 16px;
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       width: 100%;
-      box-sizing: border-box;
     }
     .header-inner {
       max-width: 1200px;
@@ -58,11 +59,19 @@
       gap: 12px;
       width: 100%;
     }
-    .brand { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .brand { display: flex; align-items: center; gap: 8px; flex-shrink: 0; min-width: 0; }
     .brand h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; white-space: nowrap; line-height: 1.2; }
     .brand .badge { background: #E67E22; color: white; padding: 3px 7px; border-radius: 4px; font-size: 0.72rem; font-weight: bold; white-space: nowrap; }
 
-    .nav-tabs { display: flex; gap: 6px; }
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
     .nav-tab {
       background: rgba(255,255,255,0.15);
       border: 1px solid rgba(255,255,255,0.25);
@@ -74,20 +83,23 @@
       font-weight: 600;
       transition: all 0.2s;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .nav-tab.active, .nav-tab:hover { background: white; color: var(--lc-primary); }
 
+    /* ========== MAIN CONTAINER (2-column grid) ========== */
     .container {
       max-width: 1200px;
       margin: 18px auto;
       padding: 0 16px;
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 300px;
       gap: 18px;
       width: 100%;
-      box-sizing: border-box;
+      min-width: 0;
     }
 
+    /* ========== QUIZ CARD ========== */
     .quiz-card {
       background: var(--card-bg);
       border-radius: 12px;
@@ -95,8 +107,8 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       border: 1px solid var(--border);
       width: 100%;
-      box-sizing: border-box;
       min-width: 0;
+      overflow: hidden;
     }
     .quiz-meta {
       display: flex;
@@ -113,6 +125,7 @@
     .part-tag { background: var(--lc-light); color: var(--lc-primary); padding: 4px 8px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; white-space: nowrap; }
     .category-tag { font-size: 0.82rem; color: #555; font-weight: 600; }
 
+    /* ========== AUDIO PLAYER ========== */
     .audio-player-box {
       background: #F8FAFC;
       border: 2px dashed #CBD5E1;
@@ -124,7 +137,7 @@
       justify-content: space-between;
       gap: 12px;
       width: 100%;
-      box-sizing: border-box;
+      flex-wrap: wrap;
     }
     .audio-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .btn-audio {
@@ -143,9 +156,10 @@
       white-space: nowrap;
     }
     .btn-audio:hover { background: #0E2442; }
-    .audio-status { font-size: 0.82rem; color: #475569; font-weight: 600; }
+    .audio-status { font-size: 0.82rem; color: #475569; font-weight: 600; word-break: break-all; }
     .speed-select { padding: 6px 8px; border-radius: 6px; border: 1px solid #CBD5E1; font-size: 0.82rem; font-weight: 600; background: white; }
 
+    /* ========== PART 1 IMAGE ========== */
     .part1-image-box {
       text-align: center;
       margin-bottom: 18px;
@@ -154,10 +168,11 @@
       border-radius: 8px;
       padding: 12px;
       width: 100%;
-      box-sizing: border-box;
     }
+    .part1-image-box img { max-width: 100%; height: auto; border-radius: 6px; display: block; margin: 0 auto; max-height: 420px; object-fit: contain; }
     .part1-image-box svg { max-width: 100%; height: auto; border-radius: 6px; display: block; margin: 0 auto; }
 
+    /* ========== PASSAGE / QUESTION / OPTIONS ========== */
     .passage-box {
       background: #F8FAFC;
       border-left: 4px solid var(--rc-primary);
@@ -169,9 +184,8 @@
       color: #1E293B;
       white-space: pre-line;
       width: 100%;
-      box-sizing: border-box;
       word-break: normal;
-      overflow-wrap: break-word;
+      overflow-wrap: anywhere;
     }
 
     .question-text {
@@ -181,7 +195,7 @@
       margin-bottom: 20px;
       color: #0F172A;
       word-break: normal;
-      overflow-wrap: break-word;
+      overflow-wrap: anywhere;
     }
 
     .options-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; width: 100%; }
@@ -195,7 +209,6 @@
       transition: all 0.2s;
       background: white;
       width: 100%;
-      box-sizing: border-box;
       min-width: 0;
     }
     .option-item:hover { border-color: #94A3B8; background: #F8FAFC; }
@@ -223,9 +236,10 @@
       flex: 1;
       min-width: 0;
       word-break: normal;
-      overflow-wrap: break-word;
+      overflow-wrap: anywhere;
     }
 
+    /* ========== EXPLANATION BOX ========== */
     .explanation-box {
       display: none;
       background: #F8FAFC;
@@ -234,11 +248,11 @@
       padding: 16px;
       margin-top: 18px;
       width: 100%;
-      box-sizing: border-box;
       word-break: keep-all;
-      overflow-wrap: break-word;
+      overflow-wrap: anywhere;
     }
     .explanation-box.show { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
     .result-badge {
       display: inline-block;
       padding: 5px 12px;
@@ -262,6 +276,7 @@
       color: #334155;
     }
 
+    /* ========== NAVIGATION BUTTONS ========== */
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -283,6 +298,7 @@
     }
     .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; }
 
+    /* ========== SIDEBAR / OMR ========== */
     .sidebar { display: flex; flex-direction: column; gap: 14px; min-width: 0; width: 100%; }
     .omr-card {
       background: white;
@@ -291,7 +307,6 @@
       border: 1px solid var(--border);
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
       width: 100%;
-      box-sizing: border-box;
     }
     .omr-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 10px; display: flex; justify-content: space-between; }
     .omr-grid {
@@ -299,7 +314,6 @@
       grid-template-columns: repeat(5, 1fr);
       gap: 5px;
       width: 100%;
-      box-sizing: border-box;
     }
     .omr-btn {
       aspect-ratio: 1;
@@ -319,9 +333,27 @@
     .omr-btn.answered-correct { background: #10B981; color: white; border-color: #10B981; }
     .omr-btn.answered-wrong { background: #EF4444; color: white; border-color: #EF4444; }
 
-    /* ========================================================= */
-    /* MOBILE OPTIMIZATIONS (iOS / Android 완벽 대응) */
-    /* ========================================================= */
+    /* ============================================================ */
+    /* TABLET (769px ~ 1024px)                                      */
+    /* ============================================================ */
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 1fr 250px;
+        gap: 14px;
+        padding: 0 12px;
+      }
+      .quiz-card {
+        padding: 20px 16px;
+      }
+      .omr-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+      }
+    }
+
+    /* ============================================================ */
+    /* MOBILE (≤768px) - iOS / Android 완벽 대응                     */
+    /* ============================================================ */
     @media (max-width: 768px) {
       header {
         padding: 10px 12px;
@@ -336,30 +368,29 @@
         justify-content: space-between;
       }
       .brand h1 {
-        font-size: 1rem;
+        font-size: 0.95rem;
       }
       .nav-tabs {
         width: 100%;
-        display: flex;
-        gap: 4px;
-        box-sizing: border-box;
+        gap: 6px;
       }
       .nav-tab {
-        flex: 1;
-        min-width: 0;
-        text-align: center;
-        padding: 7px 4px;
+        padding: 8px 12px;
         font-size: 0.75rem;
       }
 
+      /* Single column layout for mobile */
       .container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         padding: 0 10px;
         margin: 10px auto;
-        gap: 12px;
+        gap: 14px;
+        width: 100%;
       }
+
       .quiz-card {
-        padding: 16px 14px;
+        padding: 16px 12px;
         border-radius: 10px;
       }
       .q-number { font-size: 1.2rem; }
@@ -369,27 +400,37 @@
       .audio-player-box {
         flex-direction: column;
         align-items: stretch;
-        gap: 8px;
-        padding: 10px 12px;
+        gap: 10px;
+        padding: 12px;
       }
       .audio-controls {
         width: 100%;
         justify-content: space-between;
       }
       .btn-audio {
-        padding: 8px 12px;
-        font-size: 0.82rem;
+        width: 100%;
+        justify-content: center;
+        padding: 11px;
+        font-size: 0.85rem;
+        min-height: 44px; /* iOS touch target */
       }
       .audio-status {
-        font-size: 0.75rem;
+        font-size: 0.78rem;
+        text-align: center;
       }
       .speed-select {
         width: 100%;
+        min-height: 44px; /* iOS touch target */
+        font-size: 0.85rem;
+      }
+
+      .part1-image-box img {
+        max-height: 250px;
       }
 
       .passage-box {
         padding: 12px;
-        font-size: 0.85rem;
+        font-size: 0.88rem;
         line-height: 1.6;
         margin-bottom: 14px;
       }
@@ -403,29 +444,134 @@
         margin-bottom: 16px;
       }
       .option-item {
-        padding: 10px 12px;
+        padding: 12px;
+        min-height: 44px; /* iOS touch target */
+      }
+      .opt-letter {
+        width: 24px;
+        height: 24px;
+        font-size: 0.78rem;
+        margin-right: 10px;
+      }
+      .opt-text {
+        font-size: 0.88rem;
+        line-height: 1.45;
+      }
+
+      /* Nav buttons full width on mobile */
+      .nav-buttons {
+        gap: 10px;
+      }
+      .btn-nav {
+        flex: 1;
+        text-align: center;
+        padding: 12px 10px;
+        font-size: 0.85rem;
+        min-height: 44px; /* iOS touch target */
+      }
+
+      /* OMR grid: 5 columns on mobile */
+      .omr-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+      }
+      .omr-btn {
+        font-size: 0.8rem;
+        min-height: 40px;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+    }
+
+    /* ============================================================ */
+    /* SMALL MOBILE (≤480px)                                        */
+    /* ============================================================ */
+    @media (max-width: 480px) {
+      header {
+        padding: 8px 10px;
+      }
+      .brand h1 {
+        font-size: 0.88rem;
+      }
+      .brand .badge {
+        font-size: 0.65rem;
+        padding: 2px 5px;
+      }
+
+      .container {
+        padding: 0 8px;
+        margin: 8px auto;
+        gap: 12px;
+      }
+
+      .quiz-card {
+        padding: 14px 10px;
+        border-radius: 8px;
+      }
+      .quiz-meta {
+        padding-bottom: 10px;
+        margin-bottom: 14px;
+      }
+      .q-number { font-size: 1.1rem; }
+
+      .question-text {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 14px;
+      }
+
+      .option-item {
+        padding: 10px;
       }
       .opt-letter {
         width: 22px;
         height: 22px;
         font-size: 0.75rem;
-        margin-right: 10px;
+        margin-right: 8px;
       }
       .opt-text {
         font-size: 0.85rem;
-        line-height: 1.4;
       }
 
       .omr-grid {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         gap: 4px;
       }
       .omr-btn {
-        font-size: 0.72rem;
+        font-size: 0.75rem;
+        min-height: 36px;
+      }
+      .omr-card {
+        padding: 12px;
+      }
+
+      .explanation-box {
+        padding: 12px;
+        font-size: 0.85rem;
       }
     }
-  
-    /* TOEIC Handbook Styles */
+
+    /* ============================================================ */
+    /* SAFE AREA (iPhone X+ 노치 대응)                               */
+    /* ============================================================ */
+    @supports (padding: env(safe-area-inset-top)) {
+      header {
+        padding-top: calc(10px + env(safe-area-inset-top));
+        padding-left: calc(16px + env(safe-area-inset-left));
+        padding-right: calc(16px + env(safe-area-inset-right));
+      }
+      .container {
+        padding-left: calc(10px + env(safe-area-inset-left));
+        padding-right: calc(10px + env(safe-area-inset-right));
+      }
+      html, body {
+        padding-bottom: calc(50px + env(safe-area-inset-bottom));
+      }
+    }
+
+    /* ========== TOEIC HANDBOOK STYLES ========== */
     .toeic-handbook-card {
       background: white;
       border: 1.5px solid var(--border);
@@ -447,6 +593,23 @@
     .th-badge-lc { background: #E8EEF5; color: #1B365D; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; }
     .th-badge-rc { background: #E6F3ED; color: #1D5B41; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; }
     .th-btn-jump { background: #1B365D; color: white; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 0.82rem; cursor: pointer; }
+
+    @media (max-width: 768px) {
+      .toeic-handbook-card {
+        padding: 14px;
+        margin-bottom: 12px;
+      }
+      .th-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .th-btn-jump {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        min-height: 44px;
+      }
+    }
 
 </style>
 </head>
@@ -495,14 +658,6 @@
             <option value="1.0">배속: 1.0x (표준)</option>
             <option value="1.1">배속: 1.1x</option>
             <option value="1.2">배속: 1.2x (실전 고난도)</option>
-          </select>
-        </div>
-      </div>
-        <div>
-          <select class="speed-select" id="speedSelect" onchange="changeSpeed()">
-            <option value="1.0">배속: 1.0x</option>
-            <option value="1.1">배속: 1.1x</option>
-            <option value="1.2">배속: 1.2x (실전대비)</option>
           </select>
         </div>
       </div>
@@ -566,6 +721,10 @@
     let filteredQuestions = [...questions];
     let activeFilter = 'ALL';
     let currentUtterance = null;
+    let isPlaying = false;
+    let isTestMode = false;
+    let audioSequenceActive = false;
+    let audioTimeoutId = null;
 
     function init() {
       const params = new URLSearchParams(window.location.search);
@@ -581,8 +740,8 @@
 
     function filterSection(sec) {
       document.getElementById('toeicHandbookContainer').style.display = 'none';
-      document.getElementById('quizMainCard').style.display = 'block';
-      const side = document.querySelector('.sidebar'); if(side) side.style.display = 'flex';
+      document.getElementById('quizMainCard').style.display = '';
+      const side = document.querySelector('.sidebar'); if(side) side.style.display = '';
 
       activeFilter = sec;
       document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
@@ -771,10 +930,6 @@
     // ========================================================
     // ETS 표준 실전 오디오 엔진 (실전 징소리 + 시험 간격 대기 + 화자 전환)
     // ========================================================
-    let isPlaying = false;
-    let isTestMode = false;
-    let audioSequenceActive = false;
-    let audioTimeoutId = null;
 
     function toggleTestMode() {
       isTestMode = !isTestMode;
@@ -966,8 +1121,6 @@
       if (pText) pText.innerText = '실전 원어민 듣기 재생';
     }
 
-    }
-
     function setupKeyboard() {
       window.addEventListener('keydown', (e) => {
         if (e.key >= '1' && e.key <= '4') {
@@ -1057,9 +1210,9 @@
 
     function jumpToSolve(idx) {
       document.getElementById('toeicHandbookContainer').style.display = 'none';
-      document.getElementById('quizMainCard').style.display = 'block';
+      document.getElementById('quizMainCard').style.display = '';
       const side = document.querySelector('.sidebar');
-      if (side) side.style.display = 'flex';
+      if (side) side.style.display = '';
 
       document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
       const allBtn = document.getElementById('btnTabAll');
