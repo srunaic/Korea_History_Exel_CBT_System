@@ -1,11 +1,10 @@
-name: "Release CBT System"
+name: "Release Educational CBT System"
 
 on:
   push:
     tags:
       - 'v*'
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -20,31 +19,35 @@ jobs:
       - name: Setup Release Package
         run: |
           mkdir -p dist
-          # ZIP 파일이 이미 존재하면 복사, 없으면 생성
-          if [ -f "통합_한국사_시험_CBT_v1.0.0.zip" ]; then
-            cp "통합_한국사_시험_CBT_v1.0.0.zip" dist/
+          if [ -f "한국사_토익_통합_CBT_교구재_v2.0.0.zip" ]; then
+            cp "한국사_토익_통합_CBT_교구재_v2.0.0.zip" dist/
           else
-            zip -r dist/통합_한국사_시험_CBT_v1.0.0.zip cbt_player.html *.xlsx *.bat README.md
+            zip -r dist/한국사_토익_통합_CBT_교구재_v2.0.0.zip *.html *.xlsx README.md
           fi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
         with:
           tag_name: ${{ github.ref_name }}
-          name: "통합 한국사 시험 CBT 배포판 (${{ github.ref_name }})"
+          name: "한국사 & 토익 통합 실전 교구재 배포판 (${{ github.ref_name }})"
           body: |
-            ## 🇰🇷 통합 한국사 시험 CBT & 엑셀 족보 배포판
+            ## 🎓 한국사능력검정시험 & 토익(TOEIC) 통합 실전 교구재 시스템 v2.0.0
 
-            - **국사편찬위원회 공식 기출 77개 불변 공식 수록**
-            - **무설치 웹 브라우저 단독 실행 (`cbt_player.html`)**
-            - **전 시대별 엑셀 마스터 족보 (`.xlsx`)**
+            ### 📦 최신 기능 안내
+            1. **🇰🇷 한국사능력검정시험(심화) 실전 CBT (77문항)**
+               - 국사편찬위원회 기출 77개 불변 공식 및 줄글 사료 원문 100% 수록
+               - 1문제 집중 모드, 전체 모아보기, 1초 해설/암기팁 탑재
+               - iOS & Android 모바일 반응형 완벽 최적화
+            2. **🇬🇧 토익(TOEIC) 800+ 실전 CBT (30문항)**
+               - Listening (LC): Part 1 사진 묘사 그래픽 및 브라우저 원어민 오디오 음성(1.0x/1.2x) 내장
+               - Reading (RC): Part 5 최빈출 10대 문법 공식, Part 6 장문공란, Part 7 실전 독해
+               - Listening / Reading / 정답해설집 분리형 엑셀 워크북 제공
 
-            ### 📦 다운로드 안내
-            아래 **Assets**에서 `통합_한국사_시험_CBT_v1.0.0.zip`을 다운로드하여 압축을 풀고 실행하세요!
+            ### 📥 다운로드 안내
+            아래 **Assets**에서 `한국사_토익_통합_CBT_교구재_v2.0.0.zip`을 다운로드하여 압축을 풀고 더블클릭하여 바로 사용하세요!
           files: |
             dist/*.zip
-            cbt_player.html
+            *.html
             *.xlsx
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
