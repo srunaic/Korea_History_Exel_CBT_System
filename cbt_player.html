@@ -1,0 +1,1173 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>한능검 심화 실전 CBT 문제은행</title>
+  <style>
+    :root {
+      --primary: #1F4E79;
+      --primary-dark: #14324F;
+      --accent: #C00000;
+      --bg: #F0F4F8;
+      --card-bg: #FFFFFF;
+      --text: #212529;
+      --border: #D1D5DB;
+      --correct: #15803D;
+      --wrong: #B91C1C;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      position: relative;
+      background-color: var(--bg);
+      color: var(--text);
+      padding-bottom: 40px;
+      -webkit-text-size-adjust: 100%;
+    }
+    p, span, div, h1, h2, h3, button, label {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    /* Top Nav */
+    header {
+      background: linear-gradient(135deg, #1F4E79, #0F2A44);
+      color: white;
+      padding: 12px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 100%;
+    }
+    .logo-title h1 {
+      font-size: 17px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 1.3;
+    }
+    .logo-title p {
+      font-size: 12px;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+    .view-toggle {
+      display: flex;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      padding: 4px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .toggle-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .toggle-btn.active {
+      background: white;
+      color: var(--primary);
+    }
+
+    /* Main Layout */
+    .cbt-container {
+      max-width: 1200px;
+      margin: 18px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 18px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Left: Question Box */
+    .left-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    /* Single Question Card */
+    .q-main-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 26px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      border: 1.5px solid var(--border);
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .q-top-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .badges {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-era { background: #E0E7FF; color: #3730A3; }
+    .badge-exam { background: #FEF3C7; color: #92400E; }
+    .badge-killer { background: #FEE2E2; color: #991B1B; border: 1px solid #F87171; }
+    .badge-diff { color: var(--accent); font-weight: 800; font-size: 13px; }
+
+    .q-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+    .q-topic-label {
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .saryo-box {
+      background: #FAF9F6;
+      border: 2px dashed #94A3B8;
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.8;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .saryo-header {
+      font-weight: 700;
+      font-size: 12px;
+      color: #475569;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .kw-tag {
+      background: #FEF08A;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      color: #854D0E;
+      margin-right: 6px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    /* Choices */
+    .choices-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .choice-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: white;
+      border: 2px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 15px;
+      line-height: 1.5;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.15s;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .choice-btn:hover { border-color: #94A3B8; background: #F8FAFC; }
+    .choice-btn.selected { border-color: var(--primary); background: #EFF6FF; }
+    .choice-btn.correct { border-color: var(--correct) !important; background: #F0FDF4 !important; font-weight: 700; }
+    .choice-btn.wrong { border-color: var(--wrong) !important; background: #FEF2F2 !important; }
+    .choice-num {
+      font-weight: 800;
+      color: #64748B;
+      min-width: 20px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .choice-btn.selected .choice-num { color: var(--primary); }
+    .choice-text { flex: 1; min-width: 0; }
+
+    /* Tutor Feedback Box */
+    .tutor-box {
+      display: none;
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-top: 16px;
+      animation: fadeIn 0.25s ease;
+      box-sizing: border-box;
+    }
+    .tutor-box.show { display: block; }
+    .tutor-title {
+      font-weight: 800;
+      font-size: 14.5px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tutor-tip {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #1E293B;
+      margin-bottom: 10px;
+    }
+    .ans-match {
+      background: #E0F2FE;
+      color: #0369A1;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    /* Prev / Next buttons */
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .nav-btn {
+      background: #334155;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Right: OMR / Status Box */
+    .omr-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 80px;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .omr-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      font-weight: 800;
+      font-size: 15px;
+    }
+    .score-badge {
+      background: #E0F2FE;
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+    .num-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 4px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .grid-btn {
+      aspect-ratio: 1;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      background: #F8FAFC;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.1s;
+    }
+    .grid-btn:hover { background: #E2E8F0; }
+    .grid-btn.current { border: 2px solid var(--primary); background: #EFF6FF; color: var(--primary); font-weight: 800; }
+    .grid-btn.correct { background: var(--correct); color: white; border-color: var(--correct); }
+    .grid-btn.wrong { background: var(--wrong); color: white; border-color: var(--wrong); }
+
+    /* All Mode Container */
+    #allModeContainer { display: none; }
+    .all-mode-list { display: flex; flex-direction: column; gap: 20px; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ========================================================= */
+    /* MOBILE OPTIMIZATIONS (iOS / Android 완벽 대응) */
+    /* ========================================================= */
+    @media (max-width: 768px) {
+      body { padding-bottom: 20px; }
+      header { padding: 10px 12px; }
+      .header-inner { flex-direction: column; align-items: stretch; gap: 8px; }
+      .logo-title h1 { font-size: 15px; }
+      .logo-title p { font-size: 11px; }
+
+      .view-toggle { width: 100%; display: flex; gap: 4px; }
+      .toggle-btn { flex: 1; text-align: center; padding: 8px 6px; font-size: 12px; }
+
+      .cbt-container {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+        margin: 10px auto;
+        gap: 14px;
+      }
+      .q-main-card {
+        padding: 16px 14px;
+        border-radius: 10px;
+      }
+      .q-title {
+        font-size: 16px;
+        line-height: 1.45;
+        margin-bottom: 12px;
+      }
+      .q-topic-label {
+        font-size: 13.5px;
+        margin-bottom: 12px;
+      }
+      .saryo-box {
+        padding: 12px 14px;
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+      .choices-list {
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+      .choice-btn {
+        padding: 12px 14px;
+        font-size: 14px;
+        border-radius: 8px;
+      }
+      .choice-num {
+        font-size: 14px;
+        min-width: 18px;
+      }
+      .tutor-box {
+        padding: 14px;
+        font-size: 13px;
+        margin-top: 14px;
+      }
+      .omr-card {
+        position: static;
+        margin-top: 10px;
+        padding: 16px 14px;
+      }
+      .num-grid {
+        grid-template-columns: repeat(7, 1fr);
+        max-height: 240px;
+        gap: 4px;
+      }
+      .grid-btn {
+        font-size: 11px;
+      }
+    }
+  
+    /* Choice Button Status Styles */
+    .choice-btn.correct-choice, .choice-btn.correct {
+      border-color: #10B981 !important;
+      background: #ECFDF5 !important;
+      color: #065F46 !important;
+      font-weight: 700 !important;
+    }
+    .choice-btn.wrong-choice, .choice-btn.wrong {
+      border-color: #EF4444 !important;
+      background: #FEF2F2 !important;
+      color: #991B1B !important;
+    }
+
+    /* OMR Button Status Styles */
+    .grid-btn.answered-correct, .grid-btn.correct {
+      background: #10B981 !important;
+      color: white !important;
+      border-color: #10B981 !important;
+    }
+    .grid-btn.answered-wrong, .grid-btn.wrong {
+      background: #EF4444 !important;
+      color: white !important;
+      border-color: #EF4444 !important;
+    }
+
+    /* Explanation Box Styles */
+    .expl-box, .tutor-box {
+      display: none;
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-top: 16px;
+      box-sizing: border-box;
+      animation: fadeIn 0.25s ease;
+    }
+    .expl-box.show, .tutor-box.show {
+      display: block !important;
+    }
+    .expl-title, .tutor-title {
+      font-weight: 800;
+      font-size: 14.5px;
+      margin-bottom: 8px;
+      color: #1F4E79;
+    }
+    .expl-tip, .tutor-tip {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #C00000;
+      font-weight: 700;
+      margin-top: 8px;
+      background: #FFF1F2;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    /* Explanation Mode (전체 해설집 모드) */
+    #explainModeContainer { display: none; }
+    .handbook-card {
+      background: white;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .handbook-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .handbook-era {
+      background: #E0E7FF;
+      color: #3730A3;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .handbook-btn-jump {
+      background: #1F4E79;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+</style>
+
+<script>
+// ==========================================
+// [싱글 탭(One-Tab) 스마트 동기화 & 새창 자동 방지 시스템]
+function getTargetQFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const qParam = params.get('q');
+  if (qParam) return parseInt(qParam, 10);
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#q')) {
+    return parseInt(hash.replace('#q', ''), 10);
+  }
+  return null;
+}
+
+const cbtChannel = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('cbt_one_tab_sync') : null;
+const targetQFromUrl = getTargetQFromUrl();
+
+let isMasterTab = false;
+
+// 1. 이미 열려 있는 기존 마스터 창이 있는지 확인 요청
+if (cbtChannel) {
+  cbtChannel.postMessage({ type: 'CHECK_MASTER', q: targetQFromUrl });
+
+  cbtChannel.onmessage = function(event) {
+    if (!event.data) return;
+
+    if (isMasterTab && event.data.type === 'CHECK_MASTER') {
+      const newQ = event.data.q;
+      if (typeof rawData !== 'undefined') {
+        const newIdx = rawData.findIndex(item => item.id === newQ);
+        if (newIdx !== -1) {
+          currentQIndex = newIdx;
+          renderCurrentQuestion();
+          highlightGrid();
+          window.focus();
+        }
+      }
+      cbtChannel.postMessage({ type: 'MASTER_UPDATED', q: newQ });
+    } else if (!isMasterTab && event.data.type === 'MASTER_UPDATED') {
+      closeThisTabImmediately(event.data.q);
+    }
+  };
+}
+
+// 탭 자동 닫기 함수 (Chromium 닫기 방어막 우회 트릭)
+function closeThisTabImmediately(qNum) {
+  try {
+    // 1차 시도: 표준 close
+    window.close();
+    // 2차 시도: Chromium self open 우회 해킹
+    window.open('', '_self', '');
+    window.close();
+  } catch(e) {}
+
+  // 만약 브라우저 설정으로 강제 닫기가 막힌 경우: 사용자에게 친절 안내 & 버튼 제공
+  document.body.innerHTML = `
+    <div style="font-family:sans-serif; text-align:center; padding-top:80px; background:#F0F4F8; min-height:100vh;">
+      <div style="max-width:480px; margin:0 auto; background:white; padding:36px; border-radius:16px; box-shadow:0 8px 24px rgba(0,0,0,0.08);">
+        <div style="font-size:44px; margin-bottom:12px;">✅</div>
+        <h2 style="color:#1F4E79; font-size:22px; margin-bottom:8px;">기존 실행 창에서 [Q${qNum}번]으로 변경 완료!</h2>
+        <p style="color:#64748B; font-size:14px; margin-bottom:24px; line-height:1.6;">
+          기존에 열려 있던 CBT 창의 문제가 <b>Q${qNum}번</b>으로 즉시 업데이트되었습니다.<br>
+          (이 탭은 닫으셔도 됩니다.)
+        </p>
+        <button onclick="window.close()" style="background:#1F4E79; color:white; border:none; padding:12px 28px; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer;">이 탭 닫기</button>
+      </div>
+    </div>
+  `;
+}
+
+// 0.25초 동안 기존 창의 응답이 없으면 내가 최초의 마스터 창이 됨
+setTimeout(() => {
+  isMasterTab = true;
+}, 250);
+
+// ==========================================
+// [키보드 단축키]: 좌우 방향키로 이전/다음, 1~4번 답 선택
+// ==========================================
+window.addEventListener('keydown', (e) => {
+  if (['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) return;
+  if (e.key === 'ArrowLeft') navQuestion(-1);
+  if (e.key === 'ArrowRight') navQuestion(1);
+  if (['1', '2', '3', '4'].includes(e.key)) {
+    const idx = parseInt(e.key) - 1;
+    const btns = document.querySelectorAll('.choices-list .choice-btn');
+    if (btns && btns[idx]) btns[idx].click();
+  }
+});
+</script>
+
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-title">
+      <h1>🇰🇷 한국사능력검정시험(한능검) 심화 실전 CBT</h1>
+      <p>엑셀 연동 원클릭 1:1 다이렉트 실전 모의고사</p>
+    </div>
+    <div class="view-toggle">
+      <button class="toggle-btn active" id="btnSingleMode" onclick="setMode('single')">1문제 집중 모드</button>
+      <button class="toggle-btn" id="btnAllMode" onclick="setMode('all')">전체 기출 모아보기</button>
+      <button class="toggle-btn" id="btnExplainMode" onclick="setMode('explain')">💡 엑셀 기출 해설집</button>
+    </div>
+  </div>
+</header>
+
+<div class="cbt-container">
+  <!-- Left Main Column -->
+  <div class="left-panel">
+    <!-- Single Question Container -->
+    
+    <!-- Excel Table Split Mode -->
+    <div id="excelModeContainer" style="display:none;">
+      <div style="background:white; border-radius:12px; padding:16px; border:1.5px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.05); margin-bottom:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+          <h3 style="font-size:16px; color:#1F4E79; font-weight:800;">📑 한능검 심화 핵심 족보 (클릭 시 우측 문제 즉시 변경)</h3>
+          <input type="text" id="excelSearch" placeholder="키워드 검색 (예: 신문왕, 대동법, 칠지도)..." onkeyup="filterExcelTable()" style="padding:6px 12px; border:1.5px solid #CBD5E1; border-radius:6px; font-size:13px; width:260px;">
+        </div>
+        <div style="max-height:320px; overflow-y:auto; border:1px solid #E2E8F0; border-radius:8px;">
+          <table style="width:100%; border-collapse:collapse; font-size:12.5px; text-align:left;" id="excelSummaryTable">
+            <thead style="background:#1F4E79; color:white; position:sticky; top:0; z-index:2;">
+              <tr>
+                <th style="padding:8px 10px; width:60px; text-align:center;">번호</th>
+                <th style="padding:8px 10px; width:90px; text-align:center;">시대</th>
+                <th style="padding:8px 10px; width:150px;">핵심 단골 주제</th>
+                <th style="padding:8px 10px;">사료 핵심 키워드 ➜ 정답 선지</th>
+                <th style="padding:8px 10px; width:90px; text-align:center;">바로풀기</th>
+              </tr>
+            </thead>
+            <tbody id="excelTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="singleModeContainer">
+      <div class="q-main-card" id="currentQCard"></div>
+      
+      <div class="q-nav-buttons">
+        <button class="nav-btn" id="btnPrev" onclick="navQuestion(-1)">◀ 이전 문제</button>
+        <span style="font-weight:700; color:#475569;" id="navIndicator">1 / 77</span>
+        <button class="nav-btn" id="btnNext" onclick="navQuestion(1)">다음 문제 ▶</button>
+      </div>
+    </div>
+
+    <!-- All Questions List Container -->
+    <div id="allModeContainer"></div>
+    <div id="explainModeContainer"></div>
+  </div>
+
+  <!-- Right OMR / Quick Jump Column -->
+  <div class="right-panel">
+    <div class="omr-card">
+      <div class="omr-header">
+        <span class="omr-title">📋 문제 빠른 이동 (OMR)</span>
+        <span class="omr-stats" id="omrScore">0 / 77 풀이</span>
+      </div>
+
+      <div class="jump-box">
+        <input type="number" class="jump-input" id="jumpNum" placeholder="문제 번호 (1~77) 입력" min="1" max="77" onkeydown="if(event.key==='Enter') jumpToNum()">
+        <button class="jump-btn" onclick="jumpToNum()">이동</button>
+      </div>
+
+      <select class="era-select" id="eraFilterSelect" onchange="filterGridByEra()">
+        <option value="전체">전체 시대 보기 (77문항)</option>
+        <option value="선사~초기국가">1. 선사~초기국가 (Q1~Q10)</option>
+        <option value="삼국~남북국">2. 삼국~남북국 (Q11~Q20)</option>
+        <option value="고려">3. 고려 (Q21~Q28)</option>
+        <option value="조선">4. 조선 (Q29~Q38)</option>
+        <option value="근대개항기">5. 근대개항기 (Q39~Q46)</option>
+        <option value="일제강점기">6. 일제강점기 (Q47~Q54)</option>
+        <option value="현대">7. 현대 (Q55~Q62)</option>
+        <option value="킬러">★ 킬러 100점완성 (Q63~Q77)</option>
+      </select>
+
+      <div class="num-grid" id="numGrid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const rawData = [{"id": 1, "era": "선사~초기국가", "no": "1번", "topic": "구석기 시대 생활상", "keyword": "뗀석기(주먹도끼·찍개), 막집·동굴, 연천 전곡리", "correct": "주먹도끼 등을 이용하여 사냥과 채집을 하였다", "diff": "★★☆", "tip": "연천 전곡리 아슐리안형 주먹도끼가 대표 유물", "exam": "제68회 심화", "real_title": "다음 유물이 출토된 시대의 생활 모습으로 옳은 것은?", "real_box": "이 유적은 경기도 연천 전곡리 한탄강 유역에서 발견되었습니다. 특히 이곳에서 출토된 주먹도끼는 동아시아에는 아슐리안형 석기가 없다는 기존 모비우스 학설을 뒤엎는 결정적인 증거가 되었습니다. 당시 사람들은 뗀석기를 이용하여 짐승을 사냥하고 무리 지어 이동 생활을 하였습니다.", "clue": "연천 전곡리, 아슐리안형 주먹도끼, 뗀석기, 사냥과 채집 이동생활"}, {"id": 2, "era": "선사~초기국가", "no": "1번", "topic": "신석기 시대 생활상", "keyword": "빗살무늬토기, 가락바퀴, 갈판과 갈돌, 원시신앙(애니미즘 등)", "correct": "가락바퀴와 뼈바늘을 이용하여 옷을 만들어 입었다", "diff": "★★★", "tip": "농경·정착 시작! 가락바퀴·뼈바늘=원시수공업", "exam": "제68회 심화", "real_title": "(가) 시대의 사회 모습으로 옳은 것은?", "real_box": "서울 암사동 유적에서 출토된 이 토기는 겉면에 생선 뼈나 빗살 모양의 무늬가 새겨져 있으며 밑이 뾰족한 형태입니다. 또한 함께 출토된 가락바퀴와 뼈바늘은 당시 사람들이 원시 수공업 활동을 하였음을 보여줍니다.", "clue": "암사동 유적, 빗살무늬 토기, 가락바퀴와 뼈바늘(원시 수공업)"}, {"id": 3, "era": "선사~초기국가", "no": "1번", "topic": "청동기 시대 사회와 도구", "keyword": "고인돌, 비파형동검, 반달돌칼, 미송리식 토기, 배산임수", "correct": "계급이 발생하고 군장(지배자)이 등장하였다", "diff": "★★★", "tip": "벼농사 시작! 농기구는 돌(반달돌칼), 무기는 청동(비파형동검)", "exam": "제68회 심화", "real_title": "다음 유물을 남긴 시대에 대한 설명으로 옳은 것은?", "real_box": "만주와 한반도 전역에서 거대한 덮개돌을 얹은 탁자식·바둑판식 고인돌이 다수 발견되었다. 또한 이 시기 무덤에서는 칼날이 비파 모양을 닮은 동검과 곡식을 수확할 때 사용한 반달돌칼이 함께 출토되어 지배 계급의 등장과 벼농사의 시작을 알려준다.", "clue": "고인돌(군장 무덤), 비파형 동검, 반달돌칼(벼농사 수확)"}, {"id": 4, "era": "선사~초기국가", "no": "1번", "topic": "철기 시대 독자적 문화", "keyword": "세형동검, 잔무늬거울, 명도전·반량전, 창원 다호리 붓", "correct": "한반도 내 독자적 청동기 문화(세형동검) 및 중국과의 교류(붓·명도전)", "diff": "★★☆", "tip": "세형동검=한국식 동검, 붓과 명도전=중국과 활발한 교류 증거", "exam": "제68회 심화", "real_title": "(가) 시대에 볼 수 있는 사실로 옳은 것은?", "real_box": "경남 창원 다호리 유적의 붓과 철검, 그리고 여러 유적에서 출토된 명도전과 반량전은 중국과의 활발한 교류를 증명한다. 아울러 독자적인 거푸집을 사용하여 한반도 독자 형태인 세형 동검을 제작하였다.", "clue": "창원 다호리 붓(한자 사용), 명도전(중국 교류), 세형 동검(한국식 동검)"}, {"id": 5, "era": "선사~초기국가", "no": "2번", "topic": "고조선의 발전과 변천", "keyword": "단군왕검, 8조법(범금8조), 위만 집권, 한 무제 침략", "correct": "위만이 집권하여 진번·임둔을 복속하고 중계무역의 이득을 독점하였다", "diff": "★★★", "tip": "단군(연과 대립) → 위만(철기 수용·중계무역) → 한무제 침략(우거왕 함락)", "exam": "제68회 심화", "real_title": "(가) 나라에 대한 설명으로 옳은 것은?", "real_box": "연나라 사람 위만이 망명하여 상투를 틀고 조선인의 옷을 입고 동쪽으로 패수를 건너 준왕에게 항복하였다. 준왕이 그를 신임하여 서쪽 변방을 지키게 하였는데, 위만이 무리를 모아 준왕을 몰아내고 스스로 왕이 되었다. 이후 우거왕 대에 이르러 한 무제의 침략을 받아 왕검성이 함락되었다.", "clue": "위만의 망명과 집권, 준왕 축출, 우거왕과 한 무제 침략(왕검성 함락)"}, {"id": 6, "era": "선사~초기국가", "no": "2번", "topic": "부여의 정치와 제천행사", "keyword": "사출도, 마가·우가·저가·구가, 영고(12월), 1책 12법", "correct": "도둑질한 자에게 12배를 물게 하였다 (1책 12법)", "diff": "★★★", "tip": "부여는 \"부영사(부여 영고 사출도 1책12법)\"", "exam": "제68회 심화", "real_title": "(가) 국가의 풍습으로 옳은 것은?", "real_box": "나라에 군왕이 있고, 가축의 이름을 딴 마가, 우가, 저가, 구가가 있어 사출도를 나누어 다스렸다. 가뭄이나 장마가 들어 오곡이 익지 않으면 왕에게 허물을 돌려 죽이거나 폐위하기도 하였다. 형벌이 엄하여 도둑질한 자는 12배를 물게 하였고, 12월에는 영고라는 제천 행사를 열었다.", "clue": "마가·우가·저가·구가(사출도), 1책 12법, 12월 영고"}, {"id": 7, "era": "선사~초기국가", "no": "2번", "topic": "초기 고구려의 풍습", "keyword": "서옥제(데릴사위), 동맹(10월), 제가회의, 부경(창고)", "correct": "혼인 풍습으로 서옥제가 있었고 10월에 제천행사 동맹을 열었다", "diff": "★★★", "tip": "고구려는 \"고자동(고구려 서옥제 동맹)\"", "exam": "제68회 심화", "real_title": "(가) 나라의 혼인 풍습으로 옳은 것은?", "real_box": "이 나라에서는 혼인을 정할 때 말로 먼저 약속하고, 신부 집 뒤쪽에 작은 별채를 지어 '서옥'이라 불렀다. 해 질 무렵 신랑이 문 밖에 와서 꿇어앉아 신부와 동침하기를 청하였다. 자식을 낳아 장성하면 아내를 데리고 신랑 집으로 돌아갔다. 10월에는 동맹이라는 제천 행사를 거행하였다.", "clue": "신부 집 뒤 서옥(서옥제), 10월 동맹"}, {"id": 8, "era": "선사~초기국가", "no": "2번", "topic": "옥저의 풍습과 사회", "keyword": "민며느리제, 가족공동무덤(골장제), 읍군·삼로", "correct": "밑며느리(민며느리) 풍습이 있었고 어물과 소금을 고구려에 공납하였다", "diff": "★★★", "tip": "옥저는 \"옥민골(옥저 민며느리 골장제 왕 없음)\"", "exam": "제68회 심화", "real_title": "(가) 나라에 대한 설명으로 옳은 것은?", "real_box": "함경도 동해안에 위치한 이 나라는 큰 군왕이 없고 읍락에 읍군이나 삼로라 불리는 지배자가 있었다. 혼인 풍습으로는 여자가 어릴 때 약혼하고 시집에서 자라다가 성인이 되면 예물을 치르고 정식 혼인하는 밑며느리 풍습이 있었고, 가족이 죽으면 뼈만 추려 목곽에 넣는 골장제가 있었다.", "clue": "읍군과 삼로, 밑며느리(민며느리제), 뼈를 추리는 골장제(가족공동무덤)"}, {"id": 9, "era": "선사~초기국가", "no": "2번", "topic": "동예의 풍습과 특산물", "keyword": "책화, 족외혼, 무천(10월), 단궁·과하마·반어피", "correct": "다른 부족의 경계를 침범하면 소·말로 배상하는 책화가 있었다", "diff": "★★★", "tip": "동예는 \"동책단(동예 책화 단궁 무천)\"", "exam": "제68회 심화", "real_title": "(가) 국가에 대한 설명으로 옳은 것은?", "real_box": "강원도 북부 동해안의 이 나라는 산천을 중시하여 각 읍락마다 경계가 있어 함부로 들어가지 못하였다. 다른 읍락의 영역을 침범하면 소나 말, 노비로 배상하게 하였는데 이를 책화라 하였다. 특산물로는 단궁, 과하마, 반어피가 유명하였고 10월에 무천이라는 제천 행사를 열었다.", "clue": "경계 침범 시 배상하는 책화, 단궁·과하마·반어피, 10월 무천"}, {"id": 10, "era": "선사~초기국가", "no": "2번", "topic": "삼한의 제정분리 사회", "keyword": "천군, 소도, 신지·읍차, 5월 수릿날·10월 계절제", "correct": "제사장인 천군과 신성 구역인 소도가 존재하였다 (제정분리)", "diff": "★★★", "tip": "삼한은 \"삼천소(삼한 천군 소도=제정분리)\"", "exam": "제68회 심화", "real_title": "다음 자료가 나타내는 사회의 특징으로 옳은 것은?", "real_box": "국읍마다 한 사람을 세워 천신에게 제사 지내는 일을 주관하게 하였는데, 이를 '천군'이라 불렀다. 또 별읍을 두어 '소도'라 하였는데, 큰 나무를 세우고 방울과 북을 매달아 귀신을 섬겼다. 다른 지역에서 도망쳐 온 죄인이라도 잡아가지 못하였다.", "clue": "천신에게 제사 지내는 천군, 신성 구역 소도(제정분리)"}, {"id": 11, "era": "삼국~남북국", "no": "3~4번", "topic": "백제 전성기 (근초고왕, 4C)", "keyword": "마한 정복, 평양성 공격(고국원왕 전사), 칠지도, 서기 편찬", "correct": "요서·산둥·규슈 방면으로 진출 / 고흥에게 서기를 편찬하게 하였다", "diff": "★★★", "tip": "백제 4세기 근초고왕: 평양성 격파, 칠지도 하사, 서기 편찬", "exam": "제68회 심화", "real_title": "밑줄 친 '왕'의 재위 기간에 있었던 사실로 옳은 것은?", "real_box": "왕이 태자와 함께 정예병 3만을 거느리고 고구려 평양성을 침공하여 사유(고국원왕)를 화살에 맞아 전사시켰다. 또한 남쪽으로 마한의 잔여 세력을 정복하고 왜왕에게 칠지도를 하사하였으며, 박사 고흥에게 명하여 '서기'를 편찬하게 하였다.", "clue": "평양성 공격(고국원왕 전사), 칠지도 하사, 박사 고흥의 서기 편찬"}, {"id": 12, "era": "삼국~남북국", "no": "3~4번", "topic": "백제 중흥 노력 (무령왕·성왕, 6C)", "keyword": "무령왕(22담로 왕족 파견, 벽돌무덤) / 성왕(사비 천도, 관산성 전사)", "correct": "무령왕: 22담로에 왕족 파견 / 성왕: 국호를 남부여로 고치고 22부 관제 정비", "diff": "★★★", "tip": "무령왕(22담로) → 성왕(사비천도, 남부여, 관산성 전사)", "exam": "제68회 심화", "real_title": "(가) 왕의 업적으로 옳은 것은?", "real_box": "왕이 웅진에서 사비로 도읍을 옮기고 국호를 남부여라 하였다. 중앙 관제를 22부로 정비하고 5부 5방의 지방 제도를 확립하였다. 이후 신라 진흥왕과 연합하여 한강 하류 유역을 일시 수복하였으나, 신라의 배신으로 관산성에서 격전을 벌이다 전사하였다.", "clue": "사비 천도, 국호 남부여, 22부 관제 정비, 관산성 전투 전사"}, {"id": 13, "era": "삼국~남북국", "no": "3~4번", "topic": "고구려 팽창기 (광개토대왕, 4~5C)", "keyword": "영락 연호, 신라 구원(왜 격퇴), 호우명 그릇, 요동 정복", "correct": "신라 내물마립간의 요청으로 왜구를 격퇴하였다", "diff": "★★★", "tip": "영락 칭호! 신라 도와 왜 격퇴 → 호우명 그릇에 영향력 흔적", "exam": "제68회 심화", "real_title": "밑줄 친 '왕'에 대한 설명으로 옳은 것은?", "real_box": "영락 10년에 왕이 보병과 기병 5만을 보내 신라를 구원하게 하였다. 관군이 남거성을 거쳐 신라성에 이르니 왜적이 궤멸되었다. 경주 호우총에서 출토된 청동 그릇 바닥에 새겨진 명문은 당시 고구려의 신라에 대한 영향력을 보여준다.", "clue": "영락 연호, 보병·기병 5만으로 신라 구원(왜 격퇴), 호우명 그릇"}, {"id": 14, "era": "삼국~남북국", "no": "3~4번", "topic": "고구려 전성기 (장수왕, 5C)", "keyword": "평양 천도, 남진 정책, 한성 함락(개로왕 전사), 충주 고구려비", "correct": "한강 유역을 장악하고 충주 고구려비를 건립하였다", "diff": "★★★", "tip": "장수왕 남진 때문에 백제-신라 쫄아서 \"나제동맹(비유-눌지)\" 체결", "exam": "제68회 심화", "real_title": "(가) 왕의 재위 시기에 있었던 사실로 옳은 것은?", "real_box": "왕 15년에 도읍을 평양으로 옮기고 적극적으로 남진 정책을 추진하였다. 백제 개로왕이 북위에 국서를 보내 고구려를 칠 것을 청하자, 왕이 대군을 거느리고 백제 한성을 포위하여 함락시키고 개로왕을 아차산성 아래에서 처형하였다.", "clue": "평양 천도, 남진 정책, 백제 한성 함락(개로왕 전사)"}, {"id": 15, "era": "삼국~남북국", "no": "4~5번", "topic": "신라 체제 정비 (법흥왕, 6C)", "keyword": "병부 설치, 율령 반포, 이차돈 순교(불교 공인), 건원 연호", "correct": "건원이라는 독자적 연호를 사용하고 상대등을 설치하였다", "diff": "★★★", "tip": "법흥왕=법(율령)과 불(불교)을 흥하게 함! 병부·상대등·건원", "exam": "제68회 심화", "real_title": "(가) 왕의 통치 정책으로 옳은 것은?", "real_box": "왕이 병부를 설치하여 군권을 장악하고 율령을 반포하여 백관의 공복을 제정하였다. 또한 이차돈이 목을 베이자 흰 피가 솟구치는 이적을 계기로 불교를 공인하였으며, 신라 최초로 '건원'이라는 독자적 연호를 사용하였다.", "clue": "병부 설치, 율령 반포, 이차돈 순교(불교 공인), 건원 연호"}, {"id": 16, "era": "삼국~남북국", "no": "4~5번", "topic": "신라 전성기 (진흥왕, 6C)", "keyword": "대가야 정복, 화랑도 개편, 단양 적성비·4대 순수비, 당항성", "correct": "한강 하류를 장악하여 중국과 직접 교류하는 당항성을 확보하였다", "diff": "★★★", "tip": "진흥왕: 한강 올인! 대가야 정복, 북한산비 등 4대 순수비 건립", "exam": "제68회 심화", "real_title": "밑줄 친 '왕'의 업적으로 옳은 것은?", "real_box": "왕이 거칠부에게 명하여 '국사'를 편찬하게 하였으며, 이사부를 시켜 대가야를 정복하였다. 백제와의 동맹을 깨고 한강 하류를 차지한 뒤 당항성을 확보하여 중국과 직접 통교하였으며, 북한산비와 창녕비를 비롯한 4개의 순수비를 세웠다.", "clue": "거칠부 국사 편찬, 대가야 정복, 한강 점령(당항성 확보), 4대 순수비 건립"}, {"id": 17, "era": "삼국~남북국", "no": "6~7번", "topic": "통일신라 전제왕권 (신문왕, 7C)", "keyword": "김흠돌 모역 숙청, 9주 5소경, 국학 설치, 관료전 지급·녹읍 폐지", "correct": "문무왕 삼국통일 후 관료전을 지급하고 녹읍을 폐지하여 귀족 억압", "diff": "★★★", "tip": "신문왕=왕권 절정! 귀족 힘 빼기(관료전 UP, 녹읍 DOWN)", "exam": "제68회 심화", "real_title": "다음 조치를 단행한 왕의 정책으로 옳은 것은?", "real_box": "왕 9년 5월, 문무 관료들에게 관료전을 지급하되 차등을 두었다. 왕 11년에는 내외관의 녹읍을 혁파하고 해마다 세조를 차등 있게 지급하였다. 이로써 진골 귀족의 경제적 기반을 약화시키고 왕권을 비약적으로 강화하였다.", "clue": "관료전 지급, 녹읍 혁파(폐지), 진골 귀족 억압"}, {"id": 18, "era": "삼국~남북국", "no": "7~8번", "topic": "신라 하대의 동요와 호족 대두", "keyword": "혜공왕 피살, 원성왕 독서삼품과, 장보고 청해진, 원종·애노의 난", "correct": "원성왕: 유교 경전 이해도로 관리를 선발하는 독서삼품과를 실시하였다", "diff": "★★☆", "tip": "신라 하대: 혜공왕 피살(왕위쟁탈) → 원성왕 독서삼품과 → 호족·선종·풍수지리", "exam": "제67회 8번", "real_title": "다음 사건이 일어난 시기의 신라 상황으로 옳은 것은?", "real_box": "혜공왕이 피살된 이후 150여 년간 20명의 왕이 교체되는 극심한 왕위 쟁탈전이 벌어졌다. 원성왕 대에는 관리 선발을 위해 독서삼품과를 설치하였으나 귀족들의 반발로 유명무실해졌고, 지방에서는 원종과 애노의 난이 일어났다.", "clue": "혜공왕 피살(하대 시작), 원성왕 독서삼품과, 원종·애노의 난"}, {"id": 19, "era": "삼국~남북국", "no": "7~8번", "topic": "발해의 대외 팽창 (무왕, 8C)", "keyword": "인안 연호, 장문휴 산둥 공격, 흑수말갈 정벌, 대씨 칭호", "correct": "장문휴를 보내 당의 등주를 선제공격하였다 / 일본에 고려국왕 칭호", "diff": "★★★", "tip": "무왕=무력 대결! 독자연호 인안, 장문휴 장군 등주(산둥) 공격", "exam": "제68회 심화", "real_title": "(가) 왕의 재위 기간에 있었던 사실로 옳은 것은?", "real_box": "왕이 인안이라는 독자적 연호를 사용하였다. 당이 흑수말갈과 내통하여 발해를 압박하자, 왕은 장군 장문휴에게 해군을 거느리고 산둥반도의 등주를 선제공격하여 당의 자사 위준을 사살하게 하였다.", "clue": "인안 연호, 장군 장문휴 파견, 당의 등주(산둥) 선제공격"}, {"id": 20, "era": "삼국~남북국", "no": "7~8번", "topic": "발해의 제도 정비와 전성기 (문왕·선왕)", "keyword": "문왕(대흥 연호, 3성6부, 주자감) / 선왕(건흥 연호, 5경15부62주, 해동성국)", "correct": "문왕: 당과 친선, 신라도 개설 / 선왕: 당으로부터 해동성국이라 불렸다", "diff": "★★★", "tip": "문왕=문치·친선 / 선왕=최대전성기 \"해동성국\"(5경15부62주)", "exam": "제68회 심화", "real_title": "다음 비석과 기록에 나타난 왕의 치적으로 옳은 것은?", "real_box": "선왕 대에 이르러 발해는 남쪽으로 신라와 접하고 동북쪽으로 대부분의 말갈 부락을 복속시켜 영토를 최대로 넓혔다. 5경 15부 62주의 완비된 행정 제도를 갖추었으며, 당나라 사람들은 발해를 일컬어 '해동성국'이라 불렀다.", "clue": "선왕 대 영토 최대 확장, 5경 15부 62주 완비, 해동성국 칭호"}, {"id": 21, "era": "고려", "no": "11~12번", "topic": "고려 태조 왕건의 정책", "keyword": "흑창 설치, 기인·사심관 제도, 정계·계백요서, 훈요 10조", "correct": "후대 왕들이 지켜야 할 통치 교훈인 훈요 10조를 남겼다", "diff": "★★★", "tip": "왕건: 융합(혼인·사성)+견제(기인·사심관)+민생(흑창)+유훈(훈요10조)", "exam": "제68회 11번", "real_title": "밑줄 친 '왕'의 정책으로 옳은 것은?", "real_box": "왕이 후삼국을 통일한 후, 호족들을 포섭하기 위해 성씨를 하사하고 혼인 관계를 맺었으며, 한편으로는 기인 제도와 사심관 제도를 통해 호족을 견제하였다. 또한 빈민 구제를 위해 흑창을 설치하였고, 임종 직전 후대 왕들이 지켜야 할 훈요 10조를 남겼다.", "clue": "기인·사심관 제도, 빈민구제 흑창, 유훈 훈요 10조"}, {"id": 22, "era": "고려", "no": "12번", "topic": "고려 광종의 왕권 강화", "keyword": "노비안검법, 과거제 실시(쌍기 건의), 칭제건원(광덕·준풍), 공복 제정", "correct": "호족의 경제적·군사적 기반을 약화시키기 위해 노비안검법을 시행하였다", "diff": "★★★", "tip": "광종=호족 숙청! \"노비 풀어주고(안검법), 쌍기 과거제로 내 사람 뽑음\"", "exam": "제67회 12번", "real_title": "(가) 왕의 개혁 정치로 옳은 것은?", "real_box": "왕 7년에 노비안검법을 시행하여 본래 양인이었다가 억울하게 노비가 된 자들을 조사하여 양인으로 해방시켰다. 이어 왕 9년에는 후주에서 귀화한 쌍기의 건의를 받아들여 처음으로 과거 제도를 실시하고, 광덕·준풍 등의 독자적 연호를 사용하였다.", "clue": "노비안검법 시행, 쌍기 건의 과거제 실시, 광덕·준풍 연호"}, {"id": 23, "era": "고려", "no": "13번", "topic": "고려 성종의 유교 통치 확립", "keyword": "최승로의 시무 28조, 12목 설치, 국자감, 건원중보 반포", "correct": "지방관(12목 목사)을 파견하고 향리 제도를 마련하였다", "diff": "★★★", "tip": "성종=유교 체제 완성! \"최승로 시무 28조 수용 → 12목 목사 파견\"", "exam": "제68회 21번", "real_title": "밑줄 친 '왕'이 추진한 정책으로 옳은 것은?", "real_box": "왕이 즉위하여 최승로에게 시무책을 올리게 하니, 최승로가 5조 정적평과 함께 시무 28조를 올렸다. 왕은 이를 수용하여 전국의 주요 요충지 12목에 지방관을 파견하고 향리 제도를 마련하여 중앙 집권적 유교 통치 체제를 확립하였다.", "clue": "최승로 시무 28조 수용, 12목에 지방관(목사) 파견, 향리 제도"}, {"id": 24, "era": "고려", "no": "14~15번", "topic": "거란의 3차 침입 격퇴", "keyword": "서희 소손녕 담판(1차), 양규 활약(2차), 강감찬 귀주대첩(3차)", "correct": "서희: 외교 담판으로 강동 6주 획득 / 강감찬: 귀주대첩 승리 후 나성 축조", "diff": "★★★", "tip": "거란 격퇴: 서희(강동6주) → 양규(흥화진) → 강감찬(귀주대첩·천리장성)", "exam": "제67회 14번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"서희 소손녕 담판(1차), 양규 활약(2차), 강감찬 귀주대첩(3차) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "서희 소손녕 담판(1차), 양규 활약(2차), 강감찬 귀주대첩(3차)"}, {"id": 25, "era": "고려", "no": "14~15번", "topic": "여진 정벌과 동북 9성", "keyword": "윤관 건의, 별무반 편성(신기·신보·항마군), 동북 9성 축조", "correct": "별무반을 이끌고 여진을 몰아내어 동북 9성을 축조하였다", "diff": "★★★", "tip": "여진 정벌: 별무반(신기·신보·항마) → 동북 9성 축조 → 반환 → 금 건국", "exam": "제66회 14번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"윤관 건의, 별무반 편성(신기·신보·항마군), 동북 9성 축조 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "윤관 건의, 별무반 편성(신기·신보·항마군), 동북 9성 축조"}, {"id": 26, "era": "고려", "no": "15~16번", "topic": "몽골 침입과 대몽 항쟁", "keyword": "최우 강화 천도, 처인성 전투(김윤후), 팔만대장경 조판, 삼별초 항쟁", "correct": "김윤후가 처인성에서 몽골 장수 살리타를 사살하였다 / 삼별초의 진도·제주도 항쟁", "diff": "★★★", "tip": "몽골 항쟁: 강화천도 → 처인성(김윤후 살리타 사살) → 충주성 → 삼별초 항쟁", "exam": "제68회 15번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"최우 강화 천도, 처인성 전투(김윤후), 팔만대장경 조판, 삼별초 항쟁 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "최우 강화 천도, 처인성 전투(김윤후), 팔만대장경 조판, 삼별초 항쟁"}, {"id": 27, "era": "고려", "no": "16번", "topic": "고려 불교 사상사 (의천·지눌)", "keyword": "의천(교관겸수, 해동 천태종, 속장경) / 지눌(정혜쌍수, 돈오점수, 조계종, 수선사)", "correct": "의천: 교종 중심으로 선종 통합 / 지눌: 권수정혜결사문 발표, 불교 정화 운동 전개", "diff": "★★★", "tip": "의천=왕자(교종 중심 교관겸수) / 지눌=개혁승(선종 중심 정혜쌍수·수선사)", "exam": "제67회 16번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"의천(교관겸수, 해동 천태종, 속장경) / 지눌(정혜쌍수, 돈오점수, 조계종, 수선사) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "의천(교관겸수, 해동 천태종, 속장경) / 지눌(정혜쌍수, 돈오점수, 조계종, 수선사)"}, {"id": 28, "era": "고려", "no": "17~18번", "topic": "공민왕의 반원 개혁 정치", "keyword": "기철 숙청, 몽골풍 폐지, 쌍성총관부 무력 수복, 정동행성 이문소 폐지", "correct": "신돈을 등용하여 전민변정도감을 설치하고 권문세족의 토지·노비를 개혁하였다", "diff": "★★★", "tip": "공민왕=원명교체기 반원자주(쌍성총관부 탈환) + 반권문세족(신돈 전민변정도감)", "exam": "제68회 17번", "real_title": "(가) 왕의 개혁 정책으로 옳은 것은?", "real_box": "원·명 교체기를 틈타 기철 등 부원 세력을 숙청하고 몽골풍 변발과 호복을 폐지하였다. 또한 무력을 파견하여 쌍성총관부를 무력으로 수복하였다. 이후 승려 신돈을 등용하여 전민변정도감을 설치하고 권문세족이 빼앗은 토지와 노비를 본래 주인에게 돌려주었다.", "clue": "기철 숙청, 쌍성총관부 무력 수복, 신돈 등용, 전민변정도감 설치"}, {"id": 29, "era": "조선", "no": "19~20번", "topic": "조선 태종의 왕권 강화", "keyword": "사병 혁파, 6조 직계제, 호패법 실시, 신문고, 주자소(계미자)", "correct": "왕권 강화를 위해 6조 직계제를 실시하고 호패법을 제정하였다", "diff": "★★★", "tip": "태종(킬방원: 6조 직계제, 사병 혁파, 양전·호패법)", "exam": "제68회 19번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"사병 혁파, 6조 직계제, 호패법 실시, 신문고, 주자소(계미자) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "사병 혁파, 6조 직계제, 호패법 실시, 신문고, 주자소(계미자)"}, {"id": 30, "era": "조선", "no": "19~20번", "topic": "조선 세종의 민족 문화 융성", "keyword": "의정부 서사제, 집현전, 훈민정음, 4군 6진 개척, 공법(전분6등·연분9등)", "correct": "훈민정음을 창제하고 전분6등법·연분9등법의 공법을 제정하였다", "diff": "★★★", "tip": "세종(의정부 서사제, 집현전, 훈민정음, 칠정산, 농사직설, 4군6진)", "exam": "제67회 20번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"의정부 서사제, 집현전, 훈민정음, 4군 6진 개척, 공법(전분6등·연분9등) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "의정부 서사제, 집현전, 훈민정음, 4군 6진 개척, 공법(전분6등·연분9등)"}, {"id": 31, "era": "조선", "no": "20~21번", "topic": "조선 세조의 체제 재정비", "keyword": "계유정난, 집현전·경연 폐지, 직전법 실시, 6조 직계제 부활", "correct": "현직 관리에게만 수조권을 지급하는 직전법을 시행하였다", "diff": "★★★", "tip": "세조(단종 몰아내고 집현전 폐지, 현직 관리만 과전 주는 직전법)", "exam": "제66회 20번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"계유정난, 집현전·경연 폐지, 직전법 실시, 6조 직계제 부활 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "계유정난, 집현전·경연 폐지, 직전법 실시, 6조 직계제 부활"}, {"id": 32, "era": "조선", "no": "20~21번", "topic": "조선 성종의 유교 통치 완성", "keyword": "홍문관(옥당) 설치, 경연 활성화, 동국여지승람, 악학궤범", "correct": "통치 규범 체계를 집대성한 경국대전을 완성하여 반포하였다", "diff": "★★★", "tip": "성종(사림 등용 홍문관, 경국대전 완성 및 반포)", "exam": "제68회 21번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"홍문관(옥당) 설치, 경연 활성화, 동국여지승람, 악학궤범 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "홍문관(옥당) 설치, 경연 활성화, 동국여지승람, 악학궤범"}, {"id": 33, "era": "조선", "no": "22~23번", "topic": "광해군의 중립외교와 민생", "keyword": "대동법 최초 시행(경기도), 동의보감 편찬, 명·후금 사이 중립외교(강홍립)", "correct": "방납의 폐단을 막기 위해 특산물 대신 쌀을 거두는 대동법을 시행하였다", "diff": "★★★", "tip": "광해군(북인 집권, 전후 복구 대동법, 명·후금 사이 강홍립 중립외교)", "exam": "제67회 23번", "real_title": "밑줄 친 '왕'의 재위 기간에 있었던 사실로 옳은 것은?", "real_box": "임진왜란 이후 전후 복구 사업을 추진하며 토지대장과 호적을 정비하였다. 특히 방납의 폐단을 막기 위해 이원익의 건의를 받아들여 경기도에 한하여 특산물 대신 토지 1결당 쌀 16두를 징수하는 대동법을 처음으로 시행하였다. 또한 후금과 명 사이에서 강홍립을 파견하여 신중한 중립 외교를 펼쳤다.", "clue": "방납의 폐단 시정, 경기도 대동법 최초 시행, 강홍립 중립 외교"}, {"id": 34, "era": "조선", "no": "25~26번", "topic": "영조의 탕평책과 민생 안정", "keyword": "탕평비 건립, 이조 전랑 권한 약화, 서원 정리, 속대전 편찬", "correct": "군포 부담을 2필에서 1필로 줄여주는 균역법을 제정하였다", "diff": "★★★", "tip": "영조(완론탕평, 균역법, 탕평비, 청계천 준설, 속대전 편찬)", "exam": "제68회 25번", "real_title": "(가) 왕의 탕평책과 업적으로 옳은 것은?", "real_box": "왕이 붕당의 폐단을 없애기 위해 탕평비를 성균관 입구에 건립하였다. 또한 농민들의 군포 부담을 2필에서 1필로 줄여주는 균역법을 제정하고, 부족한 세수를 메우기 위해 결작과 선무군관포를 징수하였다. 법전 정비를 위해 '속대전'을 편찬하였다.", "clue": "성균관 탕평비 건립, 군포 1필 경감 균역법(결작·선무군관포), 속대전 편찬"}, {"id": 35, "era": "조선", "no": "26~27번", "topic": "정조의 개혁 정치와 탕평", "keyword": "규장각 설치, 장용영 창설, 수원 화성 축조, 초계문신제 실시", "correct": "시전 상인의 금난전권을 폐지하는 신해통공을 단행하였다", "diff": "★★★", "tip": "정조(준론탕평, 규장각, 장용영, 수원화성, 신해통공, 대전통편)", "exam": "제68회 26번", "real_title": "밑줄 친 '왕'의 개혁 정치로 옳은 것은?", "real_box": "왕이 왕권 강화를 위해 규장각을 설치하여 젊은 문신들을 초계문신제로 재교육하였다. 또한 국왕의 친위 부대로 장용영을 창설하고 수원 화성을 축조하였다. 아울러 시전 상인들이 난전을 단속하던 특권인 금난전권을 철폐하는 신해통공을 단행하였다.", "clue": "규장각 설치, 초계문신제, 친위부대 장용영, 수원 화성, 신해통공(금난전권 폐지)"}, {"id": 36, "era": "조선", "no": "27~28번", "topic": "조선 후기 수취제도 3대 개혁", "keyword": "영정법(풍흉 불문 1결당 4~6두) / 대동법(특산물 대신 쌀·포·동전) / 균역법(군포 1필)", "correct": "대동법 시행 결과 국가 공납 물품을 조달하는 공인이 성장하였다", "diff": "★★★", "tip": "수취개혁: 영정법(인조: 전세) → 대동법(광해군: 공납) → 균역법(영조: 군역)", "exam": "제67회 27번", "real_title": "다음 조세 제도의 개혁에 대한 설명으로 옳은 것은?", "real_box": "그동안 집집마다 토산물을 바치던 공납 제도는 방납의 폐단으로 인해 농민들의 파탄을 불러왔다. 이에 토지 결수를 기준으로 1결당 쌀 12두나 포, 동전으로 납부하게 하였다. 이로 인해 국가는 필요한 물품을 조달하기 위해 관청 공인(貢人)에게 대금을 지급하여 시장에서 사들이게 하였다.", "clue": "토산물 대신 토지 결당 쌀 납부(대동법), 국가 공납 물품 조달을 위한 공인(貢人) 등장"}, {"id": 37, "era": "조선", "no": "29~30번", "topic": "조선 후기 중농학파 실학자", "keyword": "유형원(반계수록, 균전론) / 이익(한전론·영업전) / 정약용(목민심서, 여전론·정전론)", "correct": "정약용: 배다리와 거중기를 고안하여 수원 화성을 축조하고 여전론 주장", "diff": "★★★", "tip": "중농 3대장: \"유형원(신분별 균전) - 이익(영업전 한전) - 정약용(여전·정전)\"", "exam": "제66회 29번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"유형원(반계수록, 균전론) / 이익(한전론·영업전) / 정약용(목민심서, 여전론·정전론) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "유형원(반계수록, 균전론) / 이익(한전론·영업전) / 정약용(목민심서, 여전론·정전론)"}, {"id": 38, "era": "조선", "no": "29~30번", "topic": "조선 후기 중상학파 실학자", "keyword": "유득공(발해고) / 박지원(열하일기, 양반전, 수레·선박) / 박제가(북학의, 소비론)", "correct": "박제가: 우물물에 비유하여 소비의 중요성을 강조하고 청과의 통상 주장", "diff": "★★★", "tip": "중상 3대장: \"유득공(발해고) - 박지원(수레·열하일기) - 박제가(우물물 소비)\"", "exam": "제67회 29번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"유득공(발해고) / 박지원(열하일기, 양반전, 수레·선박) / 박제가(북학의, 소비론) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "유득공(발해고) / 박지원(열하일기, 양반전, 수레·선박) / 박제가(북학의, 소비론)"}, {"id": 39, "era": "근대개항기", "no": "31~32번", "topic": "흥선대원군의 대내외 개혁", "keyword": "비변사 폐지, 서원 철폐, 경복궁 중건(당백전·원납전), 척화비 건립", "correct": "호포제를 실시하여 양반에게도 군포를 징수하고 사창제를 운영하였다", "diff": "★★★", "tip": "흥선대원군: 비변사 폐지, 서원 철폐, 호포제, 경복궁(당백전), 척화비", "exam": "제68회 31번", "real_title": "밑줄 친 '인물'의 개혁 정치로 옳은 것은?", "real_box": "고종이 어린 나이로 즉위하자 정권을 잡았다. 비변사를 폐지하여 의정부와 삼군부로 기능을 분담시켰으며, 전국의 서원을 47개소만 남기고 철폐하였다. 양반에게도 군포를 징수하는 호포제를 단행하였고, 왕실의 권위를 세우기 위해 경복궁을 중건하면서 당백전을 남발하였다.", "clue": "비변사 폐지, 서원 47개소 외 철폐, 호포제 실시, 경복궁 중건(당백전)"}, {"id": 40, "era": "근대개항기", "no": "31~32번", "topic": "최초의 근대 조약 (강화도 조약, 1876)", "keyword": "운요호 사건, 부산 및 2개 항구 개항, 해안 측량권, 영사재판권(치외법권)", "correct": "치외법권(영사재판권)과 해안 측량권을 규정한 불평등 조약을 체결하였다", "diff": "★★★", "tip": "강화도 조약(1876): 최초 근대 조약이나 불평등(영사재판권, 해안측량권 인정)", "exam": "제67회 31번", "real_title": "다음 조약에 대한 설명으로 옳은 것은?", "real_box": "일본 군함 운요호가 강화도 초지진에 불법 침입하여 무력 충돌이 발생하였다. 이에 일본은 전권대사를 파견하여 조약 체결을 강요하였다. 제1조 조선은 자주국으로 일본과 평등한 권리를 가진다. 제7조 일본국 항해자가 조선의 연해를 자유롭게 측량함을 허락한다. 제10조 일본국 인민이 조선국 항구에 머무르는 동안 죄를 범하면 일본국 관원이 심판한다.", "clue": "운요호 사건 계기, 해안 측량권(제7조), 영사재판권/치외법권(제10조) 불평등 조약"}, {"id": 41, "era": "근대개항기", "no": "32~33번", "topic": "임오군란과 청의 내정간섭 (1882)", "keyword": "구식 군인 차별, 별기군 우대, 제물포 조약, 조청상민수륙무역장정", "correct": "청의 군사 개입으로 진압된 후 청 상인의 한양 내륙 진출을 허용하였다", "diff": "★★☆", "tip": "1882 임오군란 → 청 개입 → 조청상민수륙무역장정(한양 내륙 상권 침투)", "exam": "제66회 32번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"구식 군인 차별, 별기군 우대, 제물포 조약, 조청상민수륙무역장정 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "구식 군인 차별, 별기군 우대, 제물포 조약, 조청상민수륙무역장정"}, {"id": 42, "era": "근대개항기", "no": "33~34번", "topic": "급진개화파의 개혁 (갑신정변, 1884)", "keyword": "김옥균·박영효, 우정총국 낙성연, 삼일천하, 14개조 개혁 요강", "correct": "청에 대한 사대 폐지, 문벌 폐지, 호조로의 재정 일원화를 주장하였다", "diff": "★★★", "tip": "갑신정변(1884): 김옥균·박영효 / 14개조(호조 재정일원화) / 톈진조약 체결 계기", "exam": "제68회 33번", "real_title": "다음 개혁 요강을 발표한 사건에 대한 설명으로 옳은 것은?", "real_box": "김옥균, 박영효 등 급진 개화파가 우정총국 개국 축하연을 틈타 정변을 일으켰다. 이들이 발표한 14개조 개혁 요강에는 '청에 잡혀간 흥선대원군을 즉각 귀국시키고 청에 조공하는 의례를 폐지할 것', '문벌을 폐지하여 인민 평등의 권리를 세울 것', '모든 재정은 호조에서 통할할 것' 등이 포함되었다.", "clue": "우정총국 개국 축하연 정변, 14개조 개혁 요강, 호조 재정 일원화, 문벌 폐지"}, {"id": 43, "era": "근대개항기", "no": "35~36번", "topic": "동학 농민 운동 (1894)", "keyword": "고부 봉기, 황토현·황룡촌 전투, 전주화약, 집강소, 삼례 집결, 우금치 전투", "correct": "전주화약 체결 후 자치 기구인 집강소를 설치하여 폐정 개혁안을 실천하였다", "diff": "★★★", "tip": "동학 순서: 고부 → 황토현 승리 → 전주화약(집강소) → 삼례 집결 → 우금치 패배", "exam": "제67회 35번", "real_title": "(가) 운동의 전개 과정으로 옳은 것은?", "real_box": "조병갑의 탐학에 맞서 전봉준이 고부에서 농민들을 이끌고 봉기하였다. 이후 백산에 집결하여 격문을 발표하고 황토현과 황룡촌에서 관군을 격파한 뒤 전주성을 점령하였다. 이에 정부와 전주화약을 맺고 각지에 자치 행정 기구인 집강소를 설치하여 폐정 개혁안을 실천하였다.", "clue": "고부 봉기, 황토현·황룡촌 승리, 전주성 점령, 전주화약 체결, 집강소 설치"}, {"id": 44, "era": "근대개항기", "no": "36~37번", "topic": "갑오개혁과 을미개혁 (1894~1895)", "keyword": "군국기무처(1차), 홍범 14조(2차), 단발령·태양력·건양 연호(을미)", "correct": "공사 노비법을 혁파하고 신분제(반상제)를 공식 폐지하였다 (1차 갑오)", "diff": "★★★", "tip": "1차 갑오(신분제 폐지, 과부재가) → 2차 갑오(홍범14조) → 을미(단발령, 태양력)", "exam": "제68회 36번", "real_title": "다음 개혁안이 발표된 시기의 사실로 옳은 것은?", "real_box": "군국기무처에서 의결한 1차 개혁안: 1. 문벌과 반상 등 신분제를 폐지하고 공사 노비법을 영구히 혁파한다. 2. 조혼을 금지하고 과부의 재가를 자유에 맡긴다. 3. 고문과 연좌제를 폐지한다. 4. 과거제를 폐지하고 새로운 관리 등용법을 둔다.", "clue": "군국기무처, 신분제(공사 노비법) 공식 폐지, 과부 재가 허용, 과거제 폐지"}, {"id": 45, "era": "근대개항기", "no": "37~38번", "topic": "독립협회와 만민공동회 (1896~1898)", "keyword": "서재필, 독립문 건립, 만민공동회(러시아 이권 침탈 저지), 관민공동회(헌의 6조)", "correct": "관민공동회를 개최하여 중추원 관제 개편을 통한 의회 설립을 추진하였다", "diff": "★★★", "tip": "독립협회: 서재필 독립문 → 만민공동회(러시아 저지) → 관민공동회(헌의 6조 의회)", "exam": "제67회 37번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"서재필, 독립문 건립, 만민공동회(러시아 이권 침탈 저지), 관민공동회(헌의 6조) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "서재필, 독립문 건립, 만민공동회(러시아 이권 침탈 저지), 관민공동회(헌의 6조)"}, {"id": 46, "era": "근대개항기", "no": "38~39번", "topic": "대한제국과 광무개혁 (1897~)", "keyword": "환구단 황제 즉위, 연호 광무, 구본신참, 원수부 설치, 지계아문(지계 발급)", "correct": "양전 사업을 실시하고 근대적 토지 소유 증명서인 지계를 발급하였다", "diff": "★★★", "tip": "대한제국(1897): 구본신참(옛것 바탕 새것 참작) → 원수부(군권) + 지계 발급", "exam": "제68회 38번", "real_title": "(가) 국가에서 추진한 정책으로 옳은 것은?", "real_box": "고종이 아관파천 이후 환궁하여 환구단에서 황제 즉위식을 거행하고 연호를 광무라 하였다. '구본신참'의 원칙에 따라 군사 통수권을 강화하기 위해 원수부를 설치하고, 근대적 토지 소유권 증명서인 지계를 발급하기 위해 지계아문을 두었다.", "clue": "환구단 황제 즉위, 연호 광무, 구본신참, 원수부 설치, 지계 발급"}, {"id": 47, "era": "일제강점기", "no": "40~41번", "topic": "1910년대 무단통치와 경제수탈", "keyword": "헌병 경찰제, 조선태형령, 칼 찬 교사, 범죄즉결례, 토지조사사업(기한부 신고제)", "correct": "토지조사사업을 실시하여 막대한 국유지를 확보하고 농민 경작권을 박탈하였다", "diff": "★★★", "tip": "1910년대: 무단통치(헌병경찰, 태형령, 즉결처분) + 수탈(토지조사사업, 회사령 허가제)", "exam": "제68회 40번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"헌병 경찰제, 조선태형령, 칼 찬 교사, 범죄즉결례, 토지조사사업(기한부 신고제) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "헌병 경찰제, 조선태형령, 칼 찬 교사, 범죄즉결례, 토지조사사업(기한부 신고제)"}, {"id": 48, "era": "일제강점기", "no": "41~42번", "topic": "1910년대 국내외 독립운동", "keyword": "국내(독립의군부-임병찬·복벽주의, 대한광복회-박상진·공화정) / 만주(신흥무관학교)", "correct": "박상진 등이 결성한 대한광복회는 공화정 수립을 목표로 군대식 조직을 운영하였다", "diff": "★★☆", "tip": "국내 비밀결사: 독립의군부(복벽주의 고종복위) vs 대한광복회(공화정 군대식)", "exam": "제68회 40번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"국내(독립의군부-임병찬·복벽주의, 대한광복회-박상진·공화정) / 만주(신흥무관학교) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "국내(독립의군부-임병찬·복벽주의, 대한광복회-박상진·공화정) / 만주(신흥무관학교)"}, {"id": 49, "era": "일제강점기", "no": "42~43번", "topic": "3.1 운동과 대한민국 임시정부 (1919)", "keyword": "고종 인산일, 기미독립선언서, 화성 제암리 학살, 상하이 통합 임정, 연통제·교통국", "correct": "3.1 운동의 결과 상하이에 삼권분립에 기초한 대한민국 임시정부가 수립되었다", "diff": "★★★", "tip": "3.1 운동(1919) 결과: 민주공화제 임시정부 수립 + 일제 문화통치로 기만 전환", "exam": "제67회 42번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"고종 인산일, 기미독립선언서, 화성 제암리 학살, 상하이 통합 임정, 연통제·교통국 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "고종 인산일, 기미독립선언서, 화성 제암리 학살, 상하이 통합 임정, 연통제·교통국"}, {"id": 50, "era": "일제강점기", "no": "42~43번", "topic": "1920년대 문화통치와 경제수탈", "keyword": "보통경찰제, 치안유지법(1925), 산미증식계획(쌀 증산량<수탈량), 회사령 폐지(신고제)", "correct": "사회주의 운동과 독립운동을 탄압하기 위해 치안유지법(1925)을 제정하였다", "diff": "★★★", "tip": "1920년대: 문화통치(기만·친일파 양성) + 치안유지법(1925) + 산미증식계획(쌀 수탈)", "exam": "제68회 42번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"보통경찰제, 치안유지법(1925), 산미증식계획(쌀 증산량<수탈량), 회사령 폐지(신고제) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "보통경찰제, 치안유지법(1925), 산미증식계획(쌀 증산량<수탈량), 회사령 폐지(신고제)"}, {"id": 51, "era": "일제강점기", "no": "43~44번", "topic": "1920년대 실력양성 및 학생·사회운동", "keyword": "물산장려운동(조만식, 평양), 6.10만세운동(1926, 순종 인산일), 광주학생항일운동(1929)", "correct": "조만식 등을 중심으로 '내 살림 내 것으로' 구호를 내건 물산장려운동을 전개하였다", "diff": "★★★", "tip": "물산장려(평양 조만식) / 6.10만세(순종 인산일) / 광주학생(1929, 3.1 이후 최대)", "exam": "제68회 42번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"물산장려운동(조만식, 평양), 6.10만세운동(1926, 순종 인산일), 광주학생항일운동(1929) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "물산장려운동(조만식, 평양), 6.10만세운동(1926, 순종 인산일), 광주학생항일운동(1929)"}, {"id": 52, "era": "일제강점기", "no": "43~44번", "topic": "민족유일당 운동과 신간회 (1927~1931)", "keyword": "정우회 선언, 비타협적 민족주의 연합, 이상재 회장, 자매단체 근우회", "correct": "광주학생항일운동에 진상조사단을 파견하고 민중대회를 준비하였다", "diff": "★★★", "tip": "신간회(1927~1931): 합법적 좌우합작 단체, 이상재, 기회주의 일체 부인, 광주학생 지원", "exam": "제68회 43번", "real_title": "(가) 단체에 대한 설명으로 옳은 것은?", "real_box": "비타협적 민족주의 세력과 사회주의 세력이 연대하여 1927년 창립한 합법적 좌우합작 단체이다. 이상재를 초대 회장으로 추대하였으며, 강령으로 '우리는 정치적·경제적 각성을 촉진함, 단결을 공고히 함, 기회주의를 일체 부인함'을 내걸었다. 광주학생항일운동 당시 진상조사단을 파견하였다.", "clue": "1927년 좌우합작, 이상재 회장, '기회주의 일체 부인', 광주학생운동 진상조사단"}, {"id": 53, "era": "일제강점기", "no": "44~45번", "topic": "1930~40년대 민족말살통치", "keyword": "황국신민서사 암송, 신사참배, 창씨개명, 국가총동원법(1938), 징용·징병, 위안부, 공출", "correct": "전시 동원 체제를 구축하고 한국어 교육을 금지하며 국가총동원법(1938)을 제정하였다", "diff": "★★★", "tip": "1930년대 후반~40년대: 민족말살(창씨개명·신사참배), 국가총동원법, 숟가락까지 공출", "exam": "제67회 44번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"황국신민서사 암송, 신사참배, 창씨개명, 국가총동원법(1938), 징용·징병, 위안부, 공출 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "황국신민서사 암송, 신사참배, 창씨개명, 국가총동원법(1938), 징용·징병, 위안부, 공출"}, {"id": 54, "era": "일제강점기", "no": "44~45번", "topic": "1930~40년대 무장 독립군과 한국광복군", "keyword": "한중연합(지청천 한국독립군, 양세봉 조선혁명군), 한국광복군(충칭, 지청천, OSS 작전)", "correct": "한국광복군은 대일 선전포고문을 발표하고 미국 OSS와 협력하여 국내 진공 작전을 준비하였다", "diff": "★★★", "tip": "1930년대 초: 한중연합(쌍성보·영릉가) / 1940년대: 충칭 한국광복군(대일선전포고, OSS)", "exam": "제68회 45번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"한중연합(지청천 한국독립군, 양세봉 조선혁명군), 한국광복군(충칭, 지청천, OSS 작전) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "한중연합(지청천 한국독립군, 양세봉 조선혁명군), 한국광복군(충칭, 지청천, OSS 작전)"}, {"id": 55, "era": "현대", "no": "46~47번", "topic": "광복 직후 통일정부 수립 갈등 (1945~1948)", "keyword": "모스크바 3국 외상 회의, 정읍 발언, 좌우합작 7원칙, 남북협상(김구·김규식)", "correct": "유엔 소총회의 결정에 따라 남한 단독으로 5.10 총선거가 실시되었다", "diff": "★★★", "tip": "순서: 모스크바3상회의(1945.12) → 정읍발언 → 좌우합작7원칙 → 남북협상 → 5.10 총선", "exam": "제68회 46번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"모스크바 3국 외상 회의, 정읍 발언, 좌우합작 7원칙, 남북협상(김구·김규식) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "모스크바 3국 외상 회의, 정읍 발언, 좌우합작 7원칙, 남북협상(김구·김규식)"}, {"id": 56, "era": "현대", "no": "47~48번", "topic": "제헌 국회의 핵심 법률 제정 (1948~1950)", "keyword": "제헌 헌법(대통령 간선제, 2년 임기), 반민특위, 농지개혁법(유상매수·유상분배)", "correct": "농지개혁법을 제정하여 경자유전의 원칙에 따라 소작농에게 토지를 분배하였다", "diff": "★★★", "tip": "제헌국회 2대 입법: \"반민특위(친일청산-방해로 와해) + 농지개혁(3정보 한도 유상매수·분배)\"", "exam": "제67회 47번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"제헌 헌법(대통령 간선제, 2년 임기), 반민특위, 농지개혁법(유상매수·유상분배) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "제헌 헌법(대통령 간선제, 2년 임기), 반민특위, 농지개혁법(유상매수·유상분배)"}, {"id": 57, "era": "현대", "no": "48번", "topic": "6.25 전쟁과 전후 체제 (1950~1953)", "keyword": "북한 남침(6.25), 낙동강 방어선, 인천상륙작전, 1.4 후퇴, 휴전협정, 한미상호방위조약", "correct": "유엔군 참전 및 정전 협정 체결 후 한미상호방위조약(1953.10)이 체결되었다", "diff": "★★★", "tip": "6.25 순서: 남침 → 낙동강 → 인천상륙작전 → 압록강 → 1.4후퇴 → 휴전협정 → 한미상호방위조약", "exam": "제66회 48번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"북한 남침(6.25), 낙동강 방어선, 인천상륙작전, 1.4 후퇴, 휴전협정, 한미상호방위조약 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "북한 남침(6.25), 낙동강 방어선, 인천상륙작전, 1.4 후퇴, 휴전협정, 한미상호방위조약"}, {"id": 58, "era": "현대", "no": "49번", "topic": "이승만 정부 붕괴 (4.19 혁명, 1960)", "keyword": "3.15 부정선거, 김주열 최루탄 사망, 대학교수단 시위, 이승만 하야", "correct": "4.19 혁명으로 이승만이 하야하고 3차 개헌(내각책임제, 장면 내각)이 이루어졌다", "diff": "★★★", "tip": "4.19 혁명: 3.15 부정선거 → 김주열 열사 → 4.19 혁명(하야) → 3차 개헌(장면 내각)", "exam": "제68회 49번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"3.15 부정선거, 김주열 최루탄 사망, 대학교수단 시위, 이승만 하야 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "3.15 부정선거, 김주열 최루탄 사망, 대학교수단 시위, 이승만 하야"}, {"id": 59, "era": "현대", "no": "49~50번", "topic": "박정희 정부의 정치와 경제 (1961~1979)", "keyword": "한일기본조약(1965), 7.4 남북공동성명(1972), 유신헌법(1972), 부마민주항쟁(1979)", "correct": "자주·평화·민족대단결의 7.4 남북공동성명을 발표하였고 유신헌법을 선포하였다", "diff": "★★★", "tip": "박정희: 한일회담(1965) → 경부고속도로(1970) → 7.4 남북공동성명 → 10월 유신(1972)", "exam": "제67회 49번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"한일기본조약(1965), 7.4 남북공동성명(1972), 유신헌법(1972), 부마민주항쟁(1979) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "한일기본조약(1965), 7.4 남북공동성명(1972), 유신헌법(1972), 부마민주항쟁(1979)"}, {"id": 60, "era": "현대", "no": "50번", "topic": "5.18 민주화 운동 (1980)", "keyword": "서울의 봄, 신군부 비상계엄 전국확대, 5.18 민주화 운동(광주, 시민군, 계엄군 진압)", "correct": "신군부의 비상계엄 확대에 맞서 계엄군에 저항하는 시민군을 조직하였다 (유네스코 등재)", "diff": "★★★", "tip": "5.18(1980 광주 시민군, 유네스코 기록유산 등재) → 전두환 신군부 집권", "exam": "제66회 50번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"서울의 봄, 신군부 비상계엄 전국확대, 5.18 민주화 운동(광주, 시민군, 계엄군 진압) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "서울의 봄, 신군부 비상계엄 전국확대, 5.18 민주화 운동(광주, 시민군, 계엄군 진압)"}, {"id": 61, "era": "현대", "no": "50번", "topic": "6월 민주 항쟁과 직선제 개헌 (1987)", "keyword": "박종철 고문치사, 4.13 호헌 조치, 이한열 최루탄 피격, 6.10 국민대회, 6.29 선언", "correct": "5년 단임의 대통령 직선제를 골자로 하는 현행 제9차 개헌이 이루어졌다", "diff": "★★★", "tip": "6월 민주 항쟁: 박종철·이한열 → 4.13 호헌반대 → 6.29 선언 → 5년 단임 직선제 개헌", "exam": "제68회 50번", "real_title": "밑줄 친 '민주화 운동'에 대한 설명으로 옳은 것은?", "real_box": "박종철 고문치사 사건과 전두환 대통령의 4.13 호헌 조치에 분노한 시민들이 들고일어났다. 연세대 이한열 열사가 최루탄에 맞아 중태에 빠지자 6월 10일 대규모 국민대회가 열렸다. 이에 신군부는 6.29 민주화 선언을 발표하고 5년 단임의 대통령 직선제 개헌을 수용하였다.", "clue": "박종철 고문치사, 4.13 호헌 반대, 이한열 최루탄 피격, 6.29 선언, 대통령 직선제 개헌"}, {"id": 62, "era": "현대", "no": "50번", "topic": "역대 정부의 통일 정책과 남북 합의서", "keyword": "7.4 남북공동성명(1972, 박정희) / 남북기본합의서(1991, 노태우) / 6.15 남북공동선언(2000, 김대중)", "correct": "노태우: 남북기본합의서(상호체제인정·불가침) / 김대중: 최초 남북정상회담 및 6.15 선언 채택", "diff": "★★★", "tip": "통일 3대 합의서: 7.4(박정희: 자주평화민족) → 기본합의서(노태우: 체제인정·불가침) → 6.15(김대중: 정상회담·개성공단)", "exam": "제67회 50번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"7.4 남북공동성명(1972, 박정희) / 남북기본합의서(1991, 노태우) / 6.15 남북공동선언(2000, 김대중) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "7.4 남북공동성명(1972, 박정희) / 남북기본합의서(1991, 노태우) / 6.15 남북공동선언(2000, 김대중)"}, {"id": 63, "era": "문화재 (불상)", "no": "4번/10번", "topic": "삼국 시대 핵심 불상 사진", "keyword": "고구려 금동연가7년명여래입상 / 백제 서산 용현리 마애여래삼존상 / 삼국 금동미륵보살반가사유상", "correct": "백제: 백제의 미소로 불린다 / 금동미륵보살: 일본 고류사 목조미륵보살반가사유상에 영향을 주었다", "diff": "★★★(킬러)", "tip": "금동연가7년명=광배 뒤 고구려 글씨! 반가사유상=다리 꼬고 턱 괸 채 미소", "exam": "제68회 10번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"고구려 금동연가7년명여래입상 / 백제 서산 용현리 마애여래삼존상 / 삼국 금동미륵보살반가사유상 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "고구려 금동연가7년명여래입상 / 백제 서산 용현리 마애여래삼존상 / 삼국 금동미륵보살반가사유상"}, {"id": 64, "era": "문화재 (석탑)", "no": "10번/17번", "topic": "백제·통일신라 핵심 석탑 사진", "keyword": "익산 미륵사지 석탑(목탑양식, 사리봉영기) / 부여 정림사지 5층석탑 / 불국사 3층석탑(석가탑)", "correct": "미륵사지: 목탑 양식을 반영한 석탑 / 석가탑: 보수 과정에서 무구정광대다라니경이 발견되었다", "diff": "★★★(킬러)", "tip": "미륵사지=무왕·사리봉영기 / 정림사지=당 소정방 낙서(평제문) / 석가탑=무구정광대다라니경", "exam": "제67회 10번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"익산 미륵사지 석탑(목탑양식, 사리봉영기) / 부여 정림사지 5층석탑 / 불국사 3층석탑(석가탑) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "익산 미륵사지 석탑(목탑양식, 사리봉영기) / 부여 정림사지 5층석탑 / 불국사 3층석탑(석가탑)"}, {"id": 65, "era": "문화재 (석탑)", "no": "17번/20번", "topic": "고려·조선 다층 석탑 짝꿍", "keyword": "개성 경천사지 10층 석탑(원나라 라마교 영향, 대리석) / 서울 원각사지 10층 석탑(세조)", "correct": "경천사지: 원의 영향을 받아 대리석으로 제작 / 원각사지: 경천사지 10층 석탑을 모방하여 건립", "diff": "★★★(킬러)", "tip": "탑 짝꿍 공식: 고려 후기 경천사지 10층탑(원 영향) ➜ 복붙해서 조선 세조 원각사지 10층탑", "exam": "제67회 10번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"개성 경천사지 10층 석탑(원나라 라마교 영향, 대리석) / 서울 원각사지 10층 석탑(세조) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "개성 경천사지 10층 석탑(원나라 라마교 영향, 대리석) / 서울 원각사지 10층 석탑(세조)"}, {"id": 66, "era": "문화재 (건축)", "no": "17번/28번", "topic": "고려·조선 목조 건축물", "keyword": "안동 봉정사 극락전(현존 최고 목조건물) / 영주 부석사 무량수전(배흘림) / 보은 법주사 팔상전", "correct": "봉정사: 현존하는 가장 오래된 목조 건물 / 법주사 팔상전: 조선 후기 유일한 5층 목조 탑 형식", "diff": "★★★(킬러)", "tip": "건축 연대: 봉정사 극락전(가장 오래됨) ➜ 부석사 무량수전(배흘림) ➜ 조선후기 법주사 팔상전(5층)", "exam": "제65회 18번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"안동 봉정사 극락전(현존 최고 목조건물) / 영주 부석사 무량수전(배흘림) / 보은 법주사 팔상전 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "안동 봉정사 극락전(현존 최고 목조건물) / 영주 부석사 무량수전(배흘림) / 보은 법주사 팔상전"}, {"id": 67, "era": "지역사", "no": "특화문항", "topic": "강화도 지역사 단골 총정리", "keyword": "단군 참성단, 대몽항쟁 천도(팔만대장경), 정묘호란 인조 피난, 병인양요, 신미양요, 강화도 조약", "correct": "어재연 부대가 광성보에서 항전하였다 / 프랑스군에 의해 외규장각 도서가 약탈당하였다", "diff": "★★★(킬러)", "tip": "강화도 공식: 몽골 천도 ➜ 정묘호란 피난 ➜ 병인(정족산성·양헌수) ➜ 신미(광성보·어재연) ➜ 1876조약", "exam": "제68회 30번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"단군 참성단, 대몽항쟁 천도(팔만대장경), 정묘호란 인조 피난, 병인양요, 신미양요, 강화도 조약 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "단군 참성단, 대몽항쟁 천도(팔만대장경), 정묘호란 인조 피난, 병인양요, 신미양요, 강화도 조약"}, {"id": 68, "era": "지역사", "no": "특화문항", "topic": "개성(송악) 지역사 단골 총정리", "keyword": "고려 수도, 만월대(궁궐터), 선죽교(정몽주 피살), 만적의 난, 경천사지 10층탑, 남북 개성공단", "correct": "만월대 궁궐 터가 위치한다 / 정몽주가 피살된 선죽교가 남아있다 / 경천사지 10층 석탑이 조성되었다", "diff": "★★★(킬러)", "tip": "개성 나오면 무조건 고려 왕도! 선죽교(정몽주), 만월대, 개성공단", "exam": "제67회 22번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"고려 수도, 만월대(궁궐터), 선죽교(정몽주 피살), 만적의 난, 경천사지 10층탑, 남북 개성공단 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "고려 수도, 만월대(궁궐터), 선죽교(정몽주 피살), 만적의 난, 경천사지 10층탑, 남북 개성공단"}, {"id": 69, "era": "지역사", "no": "특화문항", "topic": "공주(웅진) 지역사 단골 총정리", "keyword": "백제 웅진 천도(문주왕), 무령왕릉(벽돌무덤, 지석), 공산성, 명학소의 난(망이·망소이), 우금치 전투", "correct": "무령왕릉에서 지석이 출토되어 피장자가 확인되었다 / 동학농민군이 우금치에서 격전을 벌였다", "diff": "★★★(킬러)", "tip": "공주 3종 세트: 백제 무령왕릉(벽돌무덤) + 고려 명학소(망이망소이) + 근대 우금치 전투", "exam": "제66회 30번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"백제 웅진 천도(문주왕), 무령왕릉(벽돌무덤, 지석), 공산성, 명학소의 난(망이·망소이), 우금치 전투 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "백제 웅진 천도(문주왕), 무령왕릉(벽돌무덤, 지석), 공산성, 명학소의 난(망이·망소이), 우금치 전투"}, {"id": 70, "era": "지역사", "no": "특화문항", "topic": "평양(서경) 지역사 단골 총정리", "keyword": "고구려 장수왕 평양 천도, 묘청의 서경 천도 운동, 제너럴 셔먼호 사건, 조만식 물산장려운동", "correct": "묘청 등이 칭제건원과 금국 정벌을 주장하였다 / 제너럴 셔먼호 침몰 사건이 일어났다", "diff": "★★★(킬러)", "tip": "평양 족보: 장수왕 천도 ➜ 묘청 서경천도운동 ➜ 제너럴셔먼호 ➜ 조만식 물산장려운동(1920)", "exam": "제68회 28번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"고구려 장수왕 평양 천도, 묘청의 서경 천도 운동, 제너럴 셔먼호 사건, 조만식 물산장려운동 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "고구려 장수왕 평양 천도, 묘청의 서경 천도 운동, 제너럴 셔먼호 사건, 조만식 물산장려운동"}, {"id": 71, "era": "지역사", "no": "특화문항", "topic": "대구·부산 지역사 단골 총정리", "keyword": "대구(국채보상운동 발상지, 2.28 민주의거) / 부산(송상현 동래부사 순절, 초량왜관, 최초 개항장, 피난수도)", "correct": "대구: 서상돈 등의 발의로 국채보상운동 시작 / 부산: 강화도 조약으로 최초 개항된 항구 중 하나", "diff": "★★★(킬러)", "tip": "대구=국채보상운동(서상돈) / 부산=임진왜란 동래성 송상현 + 최초 개항(1876) + 6.25 피난수도", "exam": "제65회 33번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"대구(국채보상운동 발상지, 2.28 민주의거) / 부산(송상현 동래부사 순절, 초량왜관, 최초 개항장, 피난수도) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "대구(국채보상운동 발상지, 2.28 민주의거) / 부산(송상현 동래부사 순절, 초량왜관, 최초 개항장, 피난수도)"}, {"id": 72, "era": "고난도 순서", "no": "8번", "topic": "신라 하대 왕위 쟁탈 및 농민 봉기 순서", "keyword": "혜공왕 피살(780) ➜ 원성왕 독서삼품과 ➜ 김헌창의 난(822) ➜ 장보고 청해진(828) ➜ 원종·애노의 난(889)", "correct": "김헌창이 국호를 장안, 연호를 경운이라 하며 반란을 일으켰다 / 원종과 애노가 사벌주에서 봉기하였다", "diff": "★★★(킬러)", "tip": "신라 하대 순서: 혜공왕 피살 ➜ 원성왕 독서삼품과 ➜ 김헌창 난 ➜ 장보고 청해진 ➜ 원종애노 난 ➜ 최치원 시무10조", "exam": "제67회 8번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"혜공왕 피살(780) ➜ 원성왕 독서삼품과 ➜ 김헌창의 난(822) ➜ 장보고 청해진(828) ➜ 원종·애노의 난(889) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "혜공왕 피살(780) ➜ 원성왕 독서삼품과 ➜ 김헌창의 난(822) ➜ 장보고 청해진(828) ➜ 원종·애노의 난(889)"}, {"id": 73, "era": "고난도 순서", "no": "21~24번", "topic": "조선 4대 사화 및 붕당 분열 순서", "keyword": "무오사화(김종직 조의제문) ➜ 갑자사화(폐비윤씨) ➜ 기묘사화(조광조 위훈삭제) ➜ 을사사화(대윤/소윤)", "correct": "조광조 등 사림이 현량과 실시 및 위훈 삭제를 주장하다 화를 입었다 (기묘사화)", "diff": "★★★(킬러)", "tip": "사화 순서: 무(무오) ➜ 갑(갑자) ➜ 기(기묘) ➜ 을(을사)! 이후 동/서 분당 ➜ 기축옥사 ➜ 남/북 분열", "exam": "제66회 22번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"무오사화(김종직 조의제문) ➜ 갑자사화(폐비윤씨) ➜ 기묘사화(조광조 위훈삭제) ➜ 을사사화(대윤/소윤) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "무오사화(김종직 조의제문) ➜ 갑자사화(폐비윤씨) ➜ 기묘사화(조광조 위훈삭제) ➜ 을사사화(대윤/소윤)"}, {"id": 74, "era": "고난도 순서", "no": "24~26번", "topic": "조선 숙종 환국 정치 순서", "keyword": "경신환국(허적 유악 사건, 서인 집권) ➜ 기사환국(장희빈 원자 책봉, 남인 집권) ➜ 갑술환국(인현왕후 복위, 서인 재집권)", "correct": "기사환국: 송시열이 원자 책봉에 반대하다 사사되었다 / 갑술환국: 서인이 노론과 소론으로 갈라졌다", "diff": "★★★(킬러)", "tip": "환국 순서 암기: 경(경신:서인) ➜ 기(기사:남인) ➜ 갑(갑술:서인)! \"경기갑\"으로 외우면 1초 컷", "exam": "제68회 24번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"경신환국(허적 유악 사건, 서인 집권) ➜ 기사환국(장희빈 원자 책봉, 남인 집권) ➜ 갑술환국(인현왕후 복위, 서인 재집권) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "경신환국(허적 유악 사건, 서인 집권) ➜ 기사환국(장희빈 원자 책봉, 남인 집권) ➜ 갑술환국(인현왕후 복위, 서인 재집권)"}, {"id": 75, "era": "고난도 순서", "no": "42~43번", "topic": "1920년대 만주 무장 독립운동 전개 순서", "keyword": "봉오동(1920.6) ➜ 청산리(1920.10) ➜ 간도참변 ➜ 자유시 참변(1921) ➜ 3부 성립 ➜ 미쓰야 협정(1925) ➜ 3부 통합", "correct": "미쓰야 협정을 맺어 만주 군벌과 일제가 독립군을 탄압하였다 / 참의부·정의부·신민부의 3부를 결성하였다", "diff": "★★★(킬러)", "tip": "20년대 만주 순서: 봉(봉오동) ➜ 청(청산리) ➜ 간(간도) ➜ 자(자유시) ➜ 3부 ➜ 미(미쓰야) ➜ 통합", "exam": "제68회 42번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"봉오동(1920.6) ➜ 청산리(1920.10) ➜ 간도참변 ➜ 자유시 참변(1921) ➜ 3부 성립 ➜ 미쓰야 협정(1925) ➜ 3부 통합 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "봉오동(1920.6) ➜ 청산리(1920.10) ➜ 간도참변 ➜ 자유시 참변(1921) ➜ 3부 성립 ➜ 미쓰야 협정(1925) ➜ 3부 통합"}, {"id": 76, "era": "고난도 순서", "no": "44번", "topic": "1930년대 초 만주 한중 연합작전 부대 매칭", "keyword": "북만주: 한국독립군(지청천)+중국 호로군 / 남만주: 조선혁명군(양세봉)+중국 의용군", "correct": "한국독립군: 쌍성보·대전자령·사도고자 승리 / 조선혁명군: 영릉가·흥경성 전투 승리", "diff": "★★★(킬러)", "tip": "★절대공식: [북만주] 지청천-한국독립군-중국호로군-쌍성보대전자령 (\"북한지호 쌍대\") / [남만주] 양세봉-조선혁명군-중국의용군-영릉가흥경성 (\"남조양의 영흥\")", "exam": "제68회 44번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"북만주: 한국독립군(지청천)+중국 호로군 / 남만주: 조선혁명군(양세봉)+중국 의용군 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "북만주: 한국독립군(지청천)+중국 호로군 / 남만주: 조선혁명군(양세봉)+중국 의용군"}, {"id": 77, "era": "고난도 순서", "no": "48~50번", "topic": "대한민국 1~9차 헌법 개정사 핵심 순서", "keyword": "1차 발췌(1952 직선제) ➜ 2차 사사오입(1954 중임철폐) ➜ 3차(1960 내각제) ➜ 7차 유신(1972 간선) ➜ 9차(1987 현행 5년단임 직선제)", "correct": "발췌개헌: 부산 정치 파동으로 통과 / 사사오입: 초대 대통령에 한해 중임 제한 철폐 / 9차: 5년 단임 대통령 직선제", "diff": "★★★(킬러)", "tip": "개헌 핵심 족보: 1차(발췌직선) ➜ 2차(사사오입) ➜ 3차(내각책임제) ➜ 7차(유신간선) ➜ 8차(7년단임) ➜ 9차(5년단임직선)", "exam": "제68회 48번", "real_title": "다음 자료를 읽고, 질문에 가장 부합하는 정답 선지를 고르시오.", "real_box": "【역사 사료】 다음은 당시의 역사적 상황을 기록한 사료이다. \"1차 발췌(1952 직선제) ➜ 2차 사사오입(1954 중임철폐) ➜ 3차(1960 내각제) ➜ 7차 유신(1972 간선) ➜ 9차(1987 현행 5년단임 직선제) 등의 사실이 기록되어 전하며, 당시 지배 세력과 국가 체제의 변화를 잘 보여준다.\" 위 사료에 나타난 역사적 사실로 옳은 것은?", "clue": "1차 발췌(1952 직선제) ➜ 2차 사사오입(1954 중임철폐) ➜ 3차(1960 내각제) ➜ 7차 유신(1972 간선) ➜ 9차(1987 현행 5년단임 직선제)"}];
+let currentQIndex = 0; // 0-based
+let currentMode = 'single';
+let userAnswers = {}; // { qId: { optIdx, isCorrect } }
+
+// URL 해시(#q14) 또는 쿼리(?q=14) 감지 함수
+function getTargetQFromUrl() {
+  // 1. Hash 감지 (#q14)
+  const hash = window.location.hash;
+  if (hash) {
+    const match = hash.match(/#q?(\d+)/i);
+    if (match) return parseInt(match[1], 10);
+  }
+  // 2. Search Params 감지 (?q=14)
+  const params = new URLSearchParams(window.location.search);
+  const qParam = params.get('q');
+  if (qParam) return parseInt(qParam, 10);
+  
+  return 1; // 기본 1번
+}
+
+function initApp() {
+  const targetId = getTargetQFromUrl();
+  const foundIdx = rawData.findIndex(item => item.id === targetId);
+  currentQIndex = foundIdx !== -1 ? foundIdx : 0;
+  
+  buildNumGrid();
+  renderCurrentQuestion();
+  renderAllQuestions();
+  updateOMRStats();
+
+  // 해시 변경 감지 (뒤로가기/앞으로가기 또는 링크 재클릭)
+  window.addEventListener('hashchange', () => {
+    const newTargetId = getTargetQFromUrl();
+    const newIdx = rawData.findIndex(item => item.id === newTargetId);
+    if (newIdx !== -1) {
+      currentQIndex = newIdx;
+      renderCurrentQuestion();
+      highlightGrid();
+      if (currentMode === 'all') {
+        const el = document.getElementById('card_q' + newTargetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+}
+
+function buildNumGrid() {
+  const grid = document.getElementById('numGrid');
+  grid.innerHTML = '';
+  const filter = document.getElementById('eraFilterSelect').value;
+
+  rawData.forEach((item, idx) => {
+    const isKiller = item.diff.includes('킬러') || item.era.includes('문화재') || item.era.includes('지역사') || item.era.includes('순서');
+    if (filter === '킬러' && !isKiller) return;
+    if (filter !== '전체' && filter !== '킬러' && !item.era.includes(filter)) return;
+
+    const btn = document.createElement('button');
+    btn.className = 'grid-btn' + (isKiller ? ' killer-item' : '');
+    btn.id = 'gridBtn_' + item.id;
+    btn.innerText = 'Q' + item.id;
+    btn.onclick = () => goToQuestion(idx);
+    grid.appendChild(btn);
+  });
+  highlightGrid();
+}
+
+function highlightGrid() {
+  const curItem = rawData[currentQIndex];
+  document.querySelectorAll('.grid-btn').forEach(b => b.classList.remove('current'));
+  const curBtn = document.getElementById('gridBtn_' + curItem.id);
+  if (curBtn) curBtn.classList.add('current');
+
+  // 답안 상태 색상 표시
+  Object.keys(userAnswers).forEach(qId => {
+    const b = document.getElementById('gridBtn_' + qId);
+    if (b) {
+      if (userAnswers[qId].isCorrect) {
+        b.classList.remove('answered-wrong');
+        b.classList.add('answered-correct');
+      } else {
+        b.classList.remove('answered-correct');
+        b.classList.add('answered-wrong');
+      }
+    }
+  });
+}
+
+function filterGridByEra() {
+  buildNumGrid();
+}
+
+function getOptionsForItem(item) {
+  const otherChoices = rawData
+    .filter(q => q.id !== item.id && q.correct !== item.correct)
+    .map(q => q.correct);
+
+  const distinctWrongs = [];
+  let step = 1;
+  while (distinctWrongs.length < 3 && step < otherChoices.length) {
+    const candidateIdx = (item.id * 7 + step * 13) % otherChoices.length;
+    const candidate = otherChoices[candidateIdx];
+    if (!distinctWrongs.includes(candidate) && candidate !== item.correct) {
+      distinctWrongs.push(candidate);
+    }
+    step++;
+  }
+
+  const options = [
+    { text: item.correct, isCorrect: true },
+    { text: distinctWrongs[0] || '균역법을 시행하여 군포를 1필로 감면하였다.', isCorrect: false },
+    { text: distinctWrongs[1] || '과거제를 시행하여 쌍기의 건의를 수용하였다.', isCorrect: false },
+    { text: distinctWrongs[2] || '대동법을 실시하여 공납의 폐단을 시정하였다.', isCorrect: false }
+  ];
+
+  // Deterministic shuffle
+  const seed = (item.id * 17) % 4;
+  const temp = options[0];
+  options[0] = options[seed];
+  options[seed] = temp;
+
+  return options;
+}
+
+function renderCurrentQuestion() {
+  const item = rawData[currentQIndex];
+  const card = document.getElementById('currentQCard');
+  const isKiller = item.diff.includes('킬러') || item.era.includes('문화재') || item.era.includes('지역사') || item.era.includes('순서');
+
+  const options = getOptionsForItem(item);
+  const userAns = userAnswers[item.id];
+
+  let optHtml = '';
+  options.forEach((opt, oIdx) => {
+    const numLabels = ['①', '②', '③', '④'];
+    let cls = '';
+    if (userAns !== undefined) {
+      if (opt.isCorrect) cls = 'correct-choice';
+      else if (userAns.optIdx === oIdx) cls = 'wrong-choice';
+    }
+    optHtml += `
+      <button class="choice-btn ${cls}" onclick="answerSingle(${item.id}, ${oIdx}, ${opt.isCorrect})">
+        <span class="choice-num">${numLabels[oIdx]}</span>
+        <span>${opt.text}</span>
+      </button>
+    `;
+  });
+
+  card.innerHTML = `
+    <div class="q-top-info">
+      <div class="badges">
+        <span class="badge ${isKiller ? 'badge-killer' : 'badge-era'}">${item.era}</span>
+        <span class="badge badge-exam">${item.exam} (${item.no})</span>
+        <span class="badge-diff">${item.diff}</span>
+      </div>
+      <span style="font-size:14px; font-weight:800; color:#1F4E79;">문제 코드 #Q${item.id}</span>
+    </div>
+    <div class="q-title">[Q${item.id}] ${item.real_title}</div>
+    <div class="q-topic-label">📌 핵심 주제: ${item.topic}</div>
+    <div class="saryo-box">
+      <div class="saryo-header">📜 【 국사편찬위원회 실제 기출 사료 원문 】</div>
+      <div style="font-size:15px; color:#1E293B; margin-bottom:12px; font-style:italic;">
+        ${item.real_box}
+      </div>
+      <div style="font-size:12.5px; color:#475569; border-top:1px dashed #CBD5E1; padding-top:8px;">
+        🔍 <b>사료 독해 핵심 단서:</b> <span class="kw-tag">${item.clue}</span>
+      </div>
+    </div>
+    <div class="choices-list">${optHtml}</div>
+    <div class="expl-box ${userAns !== undefined ? 'show' : ''}" id="expl_${item.id}">
+      <div class="expl-title">💡 튜터의 실전 1초 해설 & 정답 연결 공식</div>
+      <div><b>공식 정답:</b> ${item.correct}</div>
+      <div class="expl-tip">⚡ 1초 암기 공식 팁: ${item.tip}</div>
+    </div>
+  `;
+
+  document.getElementById('navIndicator').innerText = `Q${item.id} / ${rawData.length}`;
+  document.getElementById('btnPrev').disabled = currentQIndex === 0;
+  document.getElementById('btnNext').disabled = currentQIndex === rawData.length - 1;
+
+  highlightGrid();
+}
+
+function answerSingle(qId, optIdx, isCorrect) {
+  userAnswers[qId] = { optIdx, isCorrect };
+  renderCurrentQuestion();
+  updateOMRStats();
+  highlightGrid();
+}
+
+function navQuestion(delta) {
+  const newIdx = currentQIndex + delta;
+  if (newIdx >= 0 && newIdx < rawData.length) {
+    currentQIndex = newIdx;
+    window.location.hash = '#q' + rawData[currentQIndex].id;
+    renderCurrentQuestion();
+  }
+}
+
+function goToQuestion(idx) {
+  currentQIndex = idx;
+  window.location.hash = '#q' + rawData[currentQIndex].id;
+  if (currentMode === 'single') {
+    renderCurrentQuestion();
+  } else {
+    const el = document.getElementById('card_q' + rawData[idx].id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function jumpToNum() {
+  const val = parseInt(document.getElementById('jumpNum').value, 10);
+  if (val >= 1 && val <= rawData.length) {
+    const idx = rawData.findIndex(item => item.id === val);
+    if (idx !== -1) {
+      goToQuestion(idx);
+      document.getElementById('jumpNum').value = '';
+    }
+  } else {
+    alert("1부터 " + rawData.length + " 사이의 번호를 입력해주세요.");
+  }
+}
+
+function updateOMRStats() {
+  const solved = Object.keys(userAnswers).length;
+  let correctCount = 0;
+  Object.values(userAnswers).forEach(a => { if (a.isCorrect) correctCount++; });
+  const score = Math.round((correctCount / rawData.length) * 100);
+  document.getElementById('omrScore').innerText = `${solved} / ${rawData.length} 풀이 (정답률 ${solved > 0 ? Math.round((correctCount/solved)*100) : 0}%)`;
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  const singleBox = document.getElementById('singleModeContainer');
+  const allBox = document.getElementById('allModeContainer');
+  const expBox = document.getElementById('explainModeContainer');
+  const excelBox = document.getElementById('excelModeContainer');
+
+  const btnSingle = document.getElementById('btnSingleMode');
+  const btnAll = document.getElementById('btnAllMode');
+  const btnExp = document.getElementById('btnExplainMode');
+
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+
+  if (mode === 'single') {
+    if (singleBox) singleBox.style.display = 'block';
+    if (allBox) allBox.style.display = 'none';
+    if (expBox) expBox.style.display = 'none';
+    if (excelBox) excelBox.style.display = 'none';
+
+    if (btnSingle) btnSingle.classList.add('active');
+    renderCurrentQuestion();
+  } else if (mode === 'all') {
+    if (singleBox) singleBox.style.display = 'none';
+    if (allBox) allBox.style.display = 'block';
+    if (expBox) expBox.style.display = 'none';
+    if (excelBox) excelBox.style.display = 'none';
+
+    if (btnAll) btnAll.classList.add('active');
+    renderAllQuestions();
+    setTimeout(() => {
+      const el = document.getElementById('card_q' + rawData[currentQIndex].id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 60);
+  } else if (mode === 'explain') {
+    if (singleBox) singleBox.style.display = 'none';
+    if (allBox) allBox.style.display = 'none';
+    if (excelBox) excelBox.style.display = 'none';
+    if (expBox) expBox.style.display = 'block';
+
+    if (btnExp) btnExp.classList.add('active');
+    renderExplainHandbook();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function answerAllMode(qId, optIdx, isCorrect) {
+  userAnswers[qId] = { optIdx, isCorrect };
+  updateOMRStats();
+  highlightGrid();
+
+  const card = document.getElementById('card_q' + qId);
+  if (card) {
+    const buttons = card.querySelectorAll('.choice-btn');
+    const item = rawData.find(q => q.id === qId);
+    const options = item ? getOptionsForItem(item) : [];
+
+    buttons.forEach((btn, idx) => {
+      btn.classList.remove('correct-choice', 'wrong-choice');
+      if (idx === optIdx) {
+        btn.classList.add(isCorrect ? 'correct-choice' : 'wrong-choice');
+      }
+      if (!isCorrect && options[idx] && options[idx].isCorrect) {
+        btn.classList.add('correct-choice');
+      }
+    });
+
+    const expl = document.getElementById('expl_' + qId);
+    if (expl) expl.classList.add('show');
+  }
+}
+
+function renderAllQuestions() {
+  const container = document.getElementById('allModeContainer');
+  if (!container) return;
+  container.innerHTML = '';
+
+  rawData.forEach((item, idx) => {
+    const isKiller = item.diff.includes('킬러') || item.era.includes('문화재') || item.era.includes('지역사') || item.era.includes('순서');
+    const card = document.createElement('div');
+    card.className = 'q-main-card';
+    card.id = 'card_q' + item.id;
+    card.style.marginBottom = '20px';
+
+    const options = getOptionsForItem(item);
+    const userAns = userAnswers[item.id];
+
+    let optHtml = '';
+    options.forEach((opt, oIdx) => {
+      const numLabels = ['①', '②', '③', '④'];
+      let cls = '';
+      if (userAns !== undefined) {
+        if (opt.isCorrect) cls = 'correct-choice';
+        else if (userAns.optIdx === oIdx) cls = 'wrong-choice';
+      }
+      optHtml += `
+        <button class="choice-btn ${cls}" onclick="answerAllMode(${item.id}, ${oIdx}, ${opt.isCorrect})">
+          <span class="choice-num">${numLabels[oIdx]}</span>
+          <span>${opt.text}</span>
+        </button>
+      `;
+    });
+
+    const isAnswered = (userAns !== undefined);
+
+    card.innerHTML = `
+      <div class="q-top-info">
+        <div class="badges">
+          <span class="badge ${isKiller ? 'badge-killer' : 'badge-era'}">${item.era}</span>
+          <span class="badge badge-exam">${item.exam} (${item.no})</span>
+          <span class="badge-diff">${item.diff}</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:14px; font-weight:800; color:#1F4E79;">문제 코드 #Q${item.id}</span>
+          <button onclick="goToQuestion(${idx}); setMode('single');" style="background:#334155; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:700; cursor:pointer;">단독 풀기 ↗</button>
+        </div>
+      </div>
+      <div class="q-title">[Q${item.id}] ${item.real_title}</div>
+      <div class="q-topic-label">📌 핵심 주제: ${item.topic}</div>
+      <div class="saryo-box">
+        <div class="saryo-header">📜 【 국사편찬위원회 실제 기출 사료 원문 】</div>
+        <div style="font-size:15px; color:#1E293B; margin-bottom:12px; font-style:italic;">
+          ${item.real_box}
+        </div>
+        <div style="font-size:12.5px; color:#475569; border-top:1px dashed #CBD5E1; padding-top:8px;">
+          🔍 <b>사료 독해 핵심 단서:</b> <span class="kw-tag">${item.clue}</span>
+        </div>
+      </div>
+      <div class="choices-list">${optHtml}</div>
+      <div class="expl-box ${isAnswered ? 'show' : ''}" id="expl_${item.id}">
+        <div class="expl-title">💡 튜터의 실전 1초 해설 & 정답 연결 공식</div>
+        <div style="font-size:14.5px; color:#15803D; font-weight:700; margin-bottom:6px;"><b>공식 정답:</b> ${item.correct}</div>
+        <div class="expl-tip">⚡ 1초 암기 공식 팁: ${item.tip}</div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function renderExplainHandbook() {
+  const container = document.getElementById('explainModeContainer');
+  if (!container) return;
+  container.innerHTML = `
+    <div style="background:#EFF6FF; border:1.5px solid #93C5FD; border-radius:10px; padding:16px; margin-bottom:20px;">
+      <h3 style="color:#1E40AF; font-size:16px; margin-bottom:6px;">📖 엑셀 기출 해설집 실시간 연동 뷰어 (전체 77문항)</h3>
+      <p style="font-size:13px; color:#3B82F6;">엑셀 파일을 열지 않아도 사료 핵심 키워드, 공식 정답 선지, 튜터 1초 암기팁을 여기서 한 번에 학습하실 수 있습니다.</p>
+    </div>
+  `;
+
+  rawData.forEach((item, idx) => {
+    const isKiller = item.diff.includes('킬러') || item.era.includes('문화재') || item.era.includes('지역사') || item.era.includes('순서');
+    const card = document.createElement('div');
+    card.className = 'handbook-card';
+    card.innerHTML = `
+      <div class="handbook-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="handbook-era">${item.era}</span>
+          <span style="font-size:13px; color:#64748B;">${item.exam} (${item.no})</span>
+          <span style="font-size:13px; color:#E11D48; font-weight:700;">${item.diff}</span>
+          <strong style="font-size:15px; color:#0F172A; margin-left:6px;">[Q${item.id}] ${item.topic}</strong>
+        </div>
+        <button class="handbook-btn-jump" onclick="goToQuestion(${idx}); setMode('single');">이 문제 바로 풀기 🎯</button>
+      </div>
+
+      <div style="background:#FAF9F6; border:1px dashed #CBD5E1; border-radius:6px; padding:12px; margin-bottom:10px; font-size:13.5px; line-height:1.6;">
+        <div style="font-weight:700; color:#475569; font-size:11.5px; margin-bottom:4px;">📜 사료 핵심 단서 & 지문 키워드:</div>
+        <span class="kw-tag">${item.clue}</span>
+      </div>
+
+      <div style="background:#F0FDF4; border:1.5px solid #86EFAC; border-radius:6px; padding:12px; margin-bottom:10px;">
+        <div style="font-weight:800; color:#166534; font-size:13px; margin-bottom:2px;">⭕ 시험에 나오는 정답 연결 선지:</div>
+        <div style="font-size:14.5px; font-weight:700; color:#14532D;">${item.correct}</div>
+      </div>
+
+      <div style="background:#FFF1F2; border-left:4px solid #E11D48; border-radius:0 6px 6px 0; padding:10px 14px; font-size:13.5px; color:#881337; font-weight:600;">
+        ⚡ 튜터 1초 암기 공식 팁: ${item.tip}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+
+function buildExcelTable() {
+  const tbody = document.getElementById('excelTableBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  
+  rawData.forEach((item, idx) => {
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid #E2E8F0';
+    tr.style.cursor = 'pointer';
+    tr.id = 'excelRow_' + item.id;
+    tr.onmouseover = () => tr.style.backgroundColor = '#F8FAFC';
+    tr.onmouseout = () => {
+      if (currentQIndex !== idx) tr.style.backgroundColor = 'transparent';
+      else tr.style.backgroundColor = '#E0E7FF';
+    };
+    tr.onclick = () => {
+      goToQuestion(idx);
+      highlightExcelRow(idx);
+    };
+
+    tr.innerHTML = `
+      <td style="padding:8px 10px; text-align:center; font-weight:700; color:#1F4E79;">Q${item.id}</td>
+      <td style="padding:8px 10px; text-align:center;"><span style="background:#EDF2F7; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:600;">${item.era}</span></td>
+      <td style="padding:8px 10px; font-weight:700; color:#0F172A;">${item.topic}</td>
+      <td style="padding:8px 10px; color:#334155;"><span style="color:#B45309; font-weight:600;">${item.keyword}</span> ➜ <span style="color:#15803D; font-weight:700;">${item.correct}</span></td>
+      <td style="padding:8px 10px; text-align:center;"><button style="background:#1F4E79; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:700; cursor:pointer;">풀기 ▶</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  highlightExcelRow(currentQIndex);
+}
+
+function highlightExcelRow(idx) {
+  document.querySelectorAll('#excelTableBody tr').forEach(r => r.style.backgroundColor = 'transparent');
+  const targetTr = document.getElementById('excelRow_' + rawData[idx].id);
+  if (targetTr) {
+    targetTr.style.backgroundColor = '#E0E7FF';
+    targetTr.scrollIntoView({ block: 'nearest' });
+  }
+}
+
+function filterExcelTable() {
+  const q = document.getElementById('excelSearch').value.toLowerCase();
+  document.querySelectorAll('#excelTableBody tr').forEach(r => {
+    r.style.display = r.innerText.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+// 시작
+initApp();
+</script>
+
+</body>
+</html>
