@@ -15,22 +15,6 @@
 * 배포 패키지 파일명: **`한국사_토익_통합_CBT_교구재_v2.0.0.zip`**
 * 포함 파일: 한국사 CBT 웹 앱, 토익 CBT 웹 앱(원어민 듣기 탑재), 한국사 엑셀 교구재, 토익 엑셀 교구재
 
----
-
-## 📱 스마트폰(모바일) 무설치 실시간 바로풀기
-
-스마트폰(갤럭시, 아이폰)이나 태블릿에서 다운로드 없이 아래 클라우드 링크로 즉시 접속하여 문제를 풀 수 있습니다:
-
-* 🇰🇷 **한국사능력검정시험(심화) 실전 CBT (77문항)**:
-  👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/](https://srunaic.github.io/Korea_History_Exel_CBT_System/)**
-* 🇬🇧 **토익(TOEIC) 실전 1:1 CBT (원어민 듣기 & 사진 묘사 포함 30문항)**:
-  👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/toeic_cbt.html](https://srunaic.github.io/Korea_History_Exel_CBT_System/toeic_cbt.html)**
-* 📅 **한국사 & 토익 공식 시험 일정·시간표·고사장 안내 센터**:
-  👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/exam_schedule.html](https://srunaic.github.io/Korea_History_Exel_CBT_System/exam_schedule.html)**
-
-> 💡 **스마트폰 꿀팁**: 모바일 브라우저(사파리/크롬/삼성인터넷)에서 **[홈 화면에 추가]**를 누르면 바탕화면에 전용 앱 아이콘이 생성되어 진짜 시험 앱처럼 1초 만에 실행됩니다!
-
----
 
 ## 🌟 핵심 특징 (Key Features)
 
