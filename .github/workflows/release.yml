@@ -1,0 +1,50 @@
+name: "Release CBT System"
+
+on:
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Release Package
+        run: |
+          mkdir -p dist
+          # ZIP 파일이 이미 존재하면 복사, 없으면 생성
+          if [ -f "통합_한국사_시험_CBT_v1.0.0.zip" ]; then
+            cp "통합_한국사_시험_CBT_v1.0.0.zip" dist/
+          else
+            zip -r dist/통합_한국사_시험_CBT_v1.0.0.zip cbt_player.html *.xlsx *.bat README.md
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "통합 한국사 시험 CBT 배포판 (${{ github.ref_name }})"
+          body: |
+            ## 🇰🇷 통합 한국사 시험 CBT & 엑셀 족보 배포판
+
+            - **국사편찬위원회 공식 기출 77개 불변 공식 수록**
+            - **무설치 웹 브라우저 단독 실행 (`cbt_player.html`)**
+            - **전 시대별 엑셀 마스터 족보 (`.xlsx`)**
+
+            ### 📦 다운로드 안내
+            아래 **Assets**에서 `통합_한국사_시험_CBT_v1.0.0.zip`을 다운로드하여 압축을 풀고 실행하세요!
+          files: |
+            dist/*.zip
+            cbt_player.html
+            *.xlsx
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
