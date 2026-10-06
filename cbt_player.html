@@ -691,25 +691,35 @@ function filterGridByEra() {
 }
 
 function getOptionsForItem(item) {
-  const wrongPool = [
-    "과거제를 시행하여 쌍기의 건의를 수용하였다.",
-    "12목에 지방관을 파견하고 향리 제도를 마련하였다.",
-    "대동법을 전국으로 확대하여 공납의 폐단을 시정하였다.",
-    "군국기무처를 중심으로 제1차 갑오개혁을 추진하였다.",
-    "정우회 선언을 계기로 좌우 합작 민족 유일당을 결성하였다.",
-    "독서삼품과를 실시하여 유교 경전 이해도로 관리를 선발하였다.",
-    "시전 상인의 금난전권을 폐지하는 신해통공을 단행하였다.",
-    "환구단에서 황제 즉위식을 거행하고 대한제국을 선포하였다.",
-    "치안유지법을 제정하여 독립운동과 사회주의 운동을 탄압하였다."
-  ].filter(w => !w.includes(item.correct.substring(0, 4)));
+  const otherChoices = rawData
+    .filter(q => q.id !== item.id && q.correct !== item.correct)
+    .map(q => q.correct);
+
+  const distinctWrongs = [];
+  let step = 1;
+  while (distinctWrongs.length < 3 && step < otherChoices.length) {
+    const candidateIdx = (item.id * 7 + step * 13) % otherChoices.length;
+    const candidate = otherChoices[candidateIdx];
+    if (!distinctWrongs.includes(candidate) && candidate !== item.correct) {
+      distinctWrongs.push(candidate);
+    }
+    step++;
+  }
 
   const options = [
     { text: item.correct, isCorrect: true },
-    { text: wrongPool[(item.id * 1) % wrongPool.length], isCorrect: false },
-    { text: wrongPool[(item.id * 2) % wrongPool.length], isCorrect: false },
-    { text: wrongPool[(item.id * 3) % wrongPool.length], isCorrect: false }
+    { text: distinctWrongs[0] || '균역법을 시행하여 군포를 1필로 감면하였다.', isCorrect: false },
+    { text: distinctWrongs[1] || '과거제를 시행하여 쌍기의 건의를 수용하였다.', isCorrect: false },
+    { text: distinctWrongs[2] || '대동법을 실시하여 공납의 폐단을 시정하였다.', isCorrect: false }
   ];
-  return options.sort((a,b) => ((a.text.length + item.id) % 3) - 1);
+
+  // Deterministic shuffle
+  const seed = (item.id * 17) % 4;
+  const temp = options[0];
+  options[0] = options[seed];
+  options[seed] = temp;
+
+  return options;
 }
 
 function renderCurrentQuestion() {
