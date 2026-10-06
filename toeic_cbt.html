@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>토익(TOEIC) 800+ 실전 CBT 시험 시스템 (LC & RC)</title>
+  <style>
+    :root {
+      --lc-primary: #1B365D;
+      --lc-light: #E8EEF5;
+      --rc-primary: #1D5B41;
+      --rc-light: #E6F3ED;
+      --killer-color: #C00000;
+      --bg: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text: #222222;
+      --border: #DDE2E8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", sans-serif; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 60px; }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #1B365D 0%, #0F2038 100%);
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.5px; }
+    .brand .badge { background: #E67E22; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+
+    .nav-tabs { display: flex; gap: 8px; }
+    .nav-tab {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .nav-tab.active, .nav-tab:hover { background: white; color: var(--lc-primary); }
+
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
+    /* Main Problem Card */
+    .quiz-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .meta-left { display: flex; align-items: center; gap: 10px; }
+    .q-number { font-size: 1.5rem; font-weight: 800; color: var(--lc-primary); }
+    .part-tag { background: var(--lc-light); color: var(--lc-primary); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; }
+    .category-tag { font-size: 0.85rem; color: #666; font-weight: 500; }
+
+    /* Audio Player */
+    .audio-player-box {
+      background: #F8FAFC;
+      border: 2px dashed #CBD5E1;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .audio-controls { display: flex; align-items: center; gap: 12px; }
+    .btn-audio {
+      background: var(--lc-primary);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn-audio:hover { background: #0E2442; }
+    .audio-status { font-size: 0.85rem; color: #475569; font-weight: 600; }
+    .speed-select { padding: 6px 10px; border-radius: 6px; border: 1px solid #CBD5E1; font-size: 0.85rem; font-weight: 600; }
+
+    /* Image Display for Part 1 */
+    .part1-image-box {
+      text-align: center;
+      margin-bottom: 20px;
+      background: #FAFAFA;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .part1-image-box svg { max-width: 100%; height: auto; border-radius: 6px; }
+
+    /* Passage Box */
+    .passage-box {
+      background: #F8FAFC;
+      border-left: 4px solid var(--rc-primary);
+      padding: 18px 20px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #1E293B;
+    }
+
+    /* Question text */
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      color: #0F172A;
+    }
+
+    /* Options */
+    .options-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+    .option-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      border: 2px solid #E2E8F0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: white;
+    }
+    .option-item:hover { border-color: #94A3B8; background: #F8FAFC; }
+    .option-item.selected { border-color: var(--lc-primary); background: #EFF6FF; }
+    .option-item.correct { border-color: #10B981 !important; background: #ECFDF5 !important; font-weight: 700; }
+    .option-item.wrong { border-color: #EF4444 !important; background: #FEF2F2 !important; }
+    .opt-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-right: 14px;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .option-item.selected .opt-letter { background: var(--lc-primary); color: white; }
+    .opt-text { font-size: 0.95rem; line-height: 1.4; }
+
+    /* Feedback & Explanation Box */
+    .explanation-box {
+      display: none;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .explanation-box.show { display: block; animation: fadeIn 0.3s ease; }
+    .result-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+    .badge-correct { background: #D1FAE5; color: #065F46; }
+    .badge-wrong { background: #FEE2E2; color: #991B1B; }
+
+    .exp-section { margin-bottom: 12px; font-size: 0.9rem; line-height: 1.6; }
+    .exp-title { font-weight: 700; color: #1E293B; margin-bottom: 4px; }
+    .vocab-tag {
+      display: inline-block;
+      background: #E2E8F0;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin: 3px 4px 3px 0;
+      color: #334155;
+    }
+
+    /* Navigator Buttons */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-nav {
+      background: #334155;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Sidebar / OMR Sheet */
+    .sidebar { display: flex; flex-direction: column; gap: 16px; }
+    .omr-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .omr-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: flex; justify-content: space-between; }
+    .omr-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    .omr-btn {
+      aspect-ratio: 1;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      background: #F8FAFC;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .omr-btn:hover { background: #E2E8F0; }
+    .omr-btn.current { border: 2px solid var(--lc-primary); background: #EFF6FF; color: var(--lc-primary); font-weight: 800; }
+    .omr-btn.answered-correct { background: #10B981; color: white; border-color: #10B981; }
+    .omr-btn.answered-wrong { background: #EF4444; color: white; border-color: #EF4444; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span class="badge">공무원 7급/국가시험 800+</span>
+      <h1>🇰🇷 TOEIC 실전 1:1 CBT 시스템</h1>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="filterSection('ALL')">전체 모아보기</button>
+      <button class="nav-tab" onclick="filterSection('LC')">🎧 Listening (LC)</button>
+      <button class="nav-tab" onclick="filterSection('RC')">📖 Reading (RC)</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Main Quiz Area -->
+    <main class="quiz-card">
+      <div class="quiz-meta">
+        <div class="meta-left">
+          <span class="q-number" id="displayQNum">Q1</span>
+          <span class="part-tag" id="displayPart">Part 1</span>
+          <span class="category-tag" id="displayCategory">Photographs (인물 동작)</span>
+        </div>
+        <div id="sectionBadge"></div>
+      </div>
+
+      <!-- Listening Audio Player -->
+      <div class="audio-player-box" id="audioPlayerBox" style="display: none;">
+        <div class="audio-controls">
+          <button class="btn-audio" id="playAudioBtn" onclick="toggleAudio()">
+            <span id="playIcon">▶</span> <span id="playText">원어민 듣기 재생</span>
+          </button>
+          <div class="audio-status" id="audioStatus">대기 중 (재생 버튼을 누르세요)</div>
+        </div>
+        <div>
+          <select class="speed-select" id="speedSelect" onchange="changeSpeed()">
+            <option value="1.0">배속: 1.0x</option>
+            <option value="1.1">배속: 1.1x</option>
+            <option value="1.2">배속: 1.2x (실전대비)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Part 1 Photo -->
+      <div class="part1-image-box" id="part1ImageBox" style="display: none;"></div>
+
+      <!-- Part 6/7 Passage -->
+      <div class="passage-box" id="passageBox" style="display: none;"></div>
+
+      <!-- Question -->
+      <div class="question-text" id="questionText"></div>
+
+      <!-- Options -->
+      <div class="options-grid" id="optionsGrid"></div>
+
+      <!-- Explanation Box -->
+      <div class="explanation-box" id="explanationBox">
+        <div id="resultBadge" class="result-badge"></div>
+        <div class="exp-section">
+          <div class="exp-title">📝 정답 및 해설 분석</div>
+          <div id="expContent"></div>
+        </div>
+        <div class="exp-section">
+          <div class="exp-title">🔍 핵심 필수 어휘 & 숙어</div>
+          <div id="vocabContent"></div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="nav-buttons">
+        <button class="btn-nav" id="prevBtn" onclick="changeQuestion(-1)">◀ 이전 문제</button>
+        <button class="btn-nav" id="nextBtn" onclick="changeQuestion(1)">다음 문제 ▶</button>
+      </div>
+    </main>
+
+    <!-- Sidebar OMR Sheet -->
+    <aside class="sidebar">
+      <div class="omr-card">
+        <div class="omr-title">
+          <span>OMR 답안지</span>
+          <span id="scoreDisplay" style="color: var(--lc-primary);">진행: 0 / 10</span>
+        </div>
+        <div class="omr-grid" id="omrGrid"></div>
+      </div>
+
+      <div class="omr-card" style="font-size: 0.85rem; line-height: 1.6; color: #475569;">
+        <strong>💡 토익 CBT 학습 팁:</strong>
+        <p style="margin-top: 6px;">• <strong>키보드 1, 2, 3, 4</strong> 번을 누르면 즉시 보기가 선택됩니다.</p>
+        <p>• <strong>[←], [→] 방향키</strong>로 이전/다음 문제 이동이 가능합니다.</p>
+        <p>• LC 문항은 브라우저 내장 음성 엔진으로 원어민 발음이 직접 출력됩니다.</p>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        id: 1,
+        part: "Part 1",
+        section: "LC",
+        category: "Photographs (인물 동작/사무실)",
+        question: "Look at the picture marked Number 1 in your test book and choose the best statement.",
+        passage: null,
+        audioScript: "Number 1. Look at the picture marked Number 1 in your test book. (A) She is writing on a whiteboard. (B) She is working on a laptop computer. (C) She is answering a telephone call. (D) She is filing documents into a cabinet.",
+        imageSvg: `<svg width="400" height="220" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="220" fill="#E2E8F0"/>
+          <rect x="30" y="140" width="340" height="70" fill="#94A3B8" rx="4"/>
+          <!-- Laptop -->
+          <rect x="130" y="110" width="100" height="50" fill="#334155" rx="2"/>
+          <polygon points="120,160 240,160 230,165 130,165" fill="#64748B"/>
+          <!-- Person -->
+          <circle cx="280" cy="80" r="28" fill="#F6AD55"/>
+          <path d="M 230 180 C 230 120, 330 120, 330 180" fill="#1B365D"/>
+          <!-- Notebook -->
+          <rect x="60" y="145" width="40" height="30" fill="#FFFFFF" stroke="#CBD5E1"/>
+          <!-- Coffee cup -->
+          <rect x="250" y="145" width="18" height="24" fill="#E2E8F0" rx="2"/>
+          <text x="200" y="200" font-size="12" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Part 1 Photo: Working at a desk with a laptop</text>
+        </svg>`,
+        options: [
+          "She is writing on a whiteboard.",
+          "She is working on a laptop computer.",
+          "She is answering a telephone call.",
+          "She is filing documents into a cabinet."
+        ],
+        answer: 1, // B
+        explanation: "[정답 이유] 사진 속 여성이 책상에서 노트북 컴퓨터를 보며 작업하고 있는 모습입니다. working on a laptop computer 표현이 사진의 핵심 동작과 완벽히 일치합니다.<br><br>[오답 소거]<br>(A) 화이트보드에 필기하는 동작 없음<br>(C) 전화 통화 중이지 않음<br>(D) 서류철을 캐비닛에 정리하는 모습 없음",
+        vocabulary: "work on(~에 열중하다/작업하다); laptop computer(노트북); whiteboard(화이트보드); file documents(서류를 철하다)"
+      },
+      {
+        id: 2,
+        part: "Part 2",
+        section: "LC",
+        category: "Question-Response (의문사 When)",
+        question: "Mark your answer on your answer sheet: [Audio Only]",
+        passage: null,
+        audioScript: "Number 2. When is the quarterly financial report scheduled to be submitted? (A) Yes, Mr. Harris already approved it. (B) By Friday afternoon at five o'clock. (C) In the main conference hall on the second floor.",
+        imageSvg: null,
+        options: [
+          "(A) Yes, Mr. Harris already approved it.",
+          "(B) By Friday afternoon at five o'clock.",
+          "(C) In the main conference hall on the second floor."
+        ],
+        answer: 1, // B
+        explanation: "[정답 이유] 'When(언제)'으로 시작하는 의문사 의문문이므로 시간/시점을 나타내는 표현이 정답입니다. '금요일 오후 5시까지'라고 구체적 마감 시한을 제시한 (B)가 정답입니다.<br><br>[오답 소거]<br>(A) 의문사 의문문에는 Yes/No로 대답할 수 없으므로 즉시 소거<br>(C) Where 질문에 어울리는 장소 응답이므로 오답",
+        vocabulary: "quarterly(분기의); financial report(재무 보고서); be scheduled to(예정되어 있다); by + 시점(~까지)"
+      },
+      {
+        id: 3,
+        part: "Part 3",
+        section: "LC",
+        category: "Short Conversation (일정 변경 및 요청)",
+        question: "What does the woman ask the man to do?",
+        passage: null,
+        audioScript: "Questions 3. Listen to the conversation.<br>Man: Hi Sarah, has the client presentation schedule for tomorrow morning been confirmed?<br>Woman: Actually, Mr. Richardson called and asked to postpone our meeting to 2:00 P.M. because of a flight delay.<br>Man: I see. Could you send an updated calendar invitation to everyone on the team?<br>Woman: Sure, I will email the revised schedule right away.",
+        imageSvg: null,
+        options: [
+          "Book a flight for tomorrow morning",
+          "Postpone an upcoming presentation",
+          "Email an updated meeting invitation",
+          "Prepare a financial document"
+        ],
+        answer: 2, // C
+        explanation: "[정답 이유] 대화 후반부에서 'Could you send an updated calendar invitation to everyone on the team? - Sure, I will email the revised schedule right away'를 통해 수정된 일정 초대장을 이메일로 발송하는 것을 확인하고 있습니다. 따라서 (C)가 정답입니다.",
+        vocabulary: "postpone(~을 연기하다); flight delay(비행기 지연); updated calendar invitation(수정된 캘린더 초대); revised schedule(수정된 일정)"
+      },
+      {
+        id: 4,
+        part: "Part 5",
+        section: "RC",
+        category: "Grammar (동사 수식 부사 자리)",
+        question: "All team supervisors must review the revised quarterly financial statement ------- before submitting it to the executive board.",
+        passage: null,
+        audioScript: null,
+        imageSvg: null,
+        options: [
+          "thorough",
+          "thoroughly",
+          "thoroughness",
+          "more thorough"
+        ],
+        answer: 1, // B
+        explanation: "[정답 이유] 타동사구(review the revised quarterly financial statement) 뒤에서 동사 review를 수식하는 알맞은 품사는 부사입니다. 따라서 부사 (B) thoroughly(철저하게)가 정답입니다.<br><br>[1초 공식] 주어 + 타동사 + 목적어 + [부사 자리]! 완전한 절 뒤에는 수식어 거품(-ly)이 정답.",
+        vocabulary: "supervisor(관리자); revised(수정된); thoroughly(철저하게, 빈틈없이); executive board(이사회)"
+      },
+      {
+        id: 5,
+        part: "Part 5",
+        section: "RC",
+        category: "Grammar (전치사 vs 접속사)",
+        question: "------- the unprecedented rise in overseas shipping fees, NEXIS Global managed to achieve record-high quarterly revenue.",
+        passage: null,
+        audioScript: null,
+        imageSvg: null,
+        options: [
+          "Despite",
+          "Although",
+          "Furthermore",
+          "Because"
+        ],
+        answer: 0, // A
+        explanation: "[정답 이유] 콤마 앞이 주어/동사가 없는 명사구(the unprecedented rise...)이므로 전치사가 필요합니다. 해상 운임 상승에도 불구하고 역대 최고 매출을 달성했다는 양보 의미이므로 전치사 (A) Despite(~에도 불구하고)가 정답입니다.<br><br>[오답 소거] (B) Although와 (D) Because는 접속사(절 수반), (C) Furthermore는 접속부사이므로 오답입니다.",
+        vocabulary: "unprecedented(전례 없는); shipping fee(운송료); manage to do(가까스로 ~해내다); record-high revenue(역대 최고 매출)"
+      },
+      {
+        id: 6,
+        part: "Part 5",
+        section: "RC",
+        category: "Vocabulary (자동사 + 전치사 연어)",
+        question: "All factory employees are strictly mandated to ------- with the industrial safety regulations established by the government.",
+        passage: null,
+        audioScript: null,
+        imageSvg: null,
+        options: [
+          "comply",
+          "adhere",
+          "observe",
+          "fulfill"
+        ],
+        answer: 0, // A
+        explanation: "[정답 이유] 빈칸 뒤의 전치사 'with'와 어울려 '~을 준수하다'를 나타내는 자동사는 (A) comply입니다. (comply with = adhere to = observe).<br><br>[오답 소거] (B) adhere는 전치사 to와 결합, (C) observe와 (D) fulfill은 타동사이므로 오답입니다.",
+        vocabulary: "mandated(의무화된); comply with(~을 준수하다); adhere to(~을 고수하다); safety regulation(안전 규정)"
+      },
+      {
+        id: 7,
+        part: "Part 6",
+        section: "RC",
+        category: "Context & Transition (문맥 접속부사)",
+        question: "Choose the word that best completes the blank [ 7 ].",
+        passage: "MEMORANDUM<br><br>To: All Department Heads<br>From: Corporate Operations<br>Date: October 5<br>Subject: Office Renovation and Remote Work<br><br>Starting next Monday, our headquarters will undergo extensive interior renovations on the 4th and 5th floors. [ 7 ], all staff members in these divisions are encouraged to work remotely until construction concludes on October 25.",
+        audioScript: null,
+        imageSvg: null,
+        options: [
+          "Therefore",
+          "However",
+          "Otherwise",
+          "Meanwhile"
+        ],
+        answer: 0, // A
+        explanation: "[정답 이유] 4층과 5층의 대규모 리모델링 공사가 시작되므로 그 결과로 해당 부서 직원들에게 원격 근무가 권장된다는 '원인-결과(인과)' 관계입니다. 따라서 인과 접속부사 (A) Therefore(그러므로, 따라서)가 정답입니다.",
+        vocabulary: "headquarters(본사); undergo(겪다, 거치다); extensive renovation(대규모 보수 공사); work remotely(원격 근무하다)"
+      },
+      {
+        id: 8,
+        part: "Part 7",
+        section: "RC",
+        category: "Main Idea (이메일 목적 파악)",
+        question: "What is the main purpose of the notification?",
+        passage: "Notice to All Personnel:<br><br>Please be advised that effective December 1, Apex Solutions will implement an updated policy regarding business travel expense reimbursements. Under the new guidelines, all reimbursement requests must be submitted through the internal employee portal within 14 business days of returning from a trip.<br><br>Additionally, physical paper receipts will no longer be accepted. Employees must upload clear digital scans or photos of all original receipts.",
+        audioScript: null,
+        imageSvg: null,
+        options: [
+          "To announce changes to expense reimbursement procedures",
+          "To inform staff of upcoming business travel schedules",
+          "To provide instructions on downloading mobile software",
+          "To introduce new personnel in the accounting department"
+        ],
+        answer: 0, // A
+        explanation: "[정답 이유] 첫 문장의 'Apex Solutions will implement an updated policy regarding business travel expense reimbursements(출장비 환급에 관한 수정된 정책을 시행할 예정)'을 통해 환급 규정 변경을 공지하는 글임을 알 수 있습니다. 따라서 (A)가 정답입니다.",
+        vocabulary: "reimbursement(환급); effective + 날짜(~부로 발효되는); implement(시행하다); designated timeframe(지정된 기간)"
+      },
+      {
+        id: 9,
+        part: "Part 7",
+        section: "RC",
+        category: "Detail & Paraphrasing (세부정보 매칭)",
+        question: "According to the notice, what is stated about receipts?",
+        passage: "Notice to All Personnel:<br><br>Please be advised that effective December 1, Apex Solutions will implement an updated policy regarding business travel expense reimbursements. Under the new guidelines, all reimbursement requests must be submitted through the internal employee portal within 14 business days of returning from a trip.<br><br>Additionally, physical paper receipts will no longer be accepted. Employees must upload clear digital scans or photos of all original receipts.",
+        audioScript: null,
+        imageSvg: null,
+        options: [
+          "Paper receipts must be mailed to the finance team.",
+          "They must be provided in an electronic format.",
+          "Original copies must be submitted in person.",
+          "Receipts under $20 do not require submission."
+        ],
+        answer: 1, // B
+        explanation: "[정답 이유] 본문 두 번째 단락에서 'physical paper receipts will no longer be accepted(종이 영수증 불가), upload clear digital scans or photos'라고 명시되어 있습니다. upload digital scans/photos가 (B) provided in an electronic format(전자 형식 제공)으로 패러프레이징된 정답입니다.",
+        vocabulary: "physical receipt(종이 영수증); digital scan(디지털 스캔); electronic format(전자 형식); in person(직접, 대면으로)"
+      },
+      {
+        id: 10,
+        part: "★킬러(Red)",
+        section: "RC",
+        category: "Grammar (가정법 If 생략 도치문)",
+        question: "------- you encounter any technical difficulties during the online assessment, please immediately contact our technical support division.",
+        passage: null,
+        audioScript: null,
+        imageSvg: null,
+        options: [
+          "Should",
+          "Were",
+          "Had",
+          "Unless"
+        ],
+        answer: 0, // A
+        explanation: "[정답 이유] 주절이 명령문(please contact...)이고 종속절에 주어 you와 동사원형 encounter가 오는 형태는 조건절 'If you should encounter...'에서 If가 생략되어 조동사 Should가 문두로 도치된 고난도 킬러 구문입니다. 따라서 (A) Should가 정답입니다.",
+        vocabulary: "Should + S + 동사원형(If 생략 조건 도치); encounter difficulties(어려움에 직면하다); technical support(기술 지원)"
+      }
+    ];
+
+    let currentIdx = 0;
+    let userAnswers = {};
+    let filteredQuestions = [...questions];
+    let activeFilter = 'ALL';
+    let currentUtterance = null;
+
+    function init() {
+      // URL query parameter check
+      const params = new URLSearchParams(window.location.search);
+      const qParam = params.get('q');
+      if (qParam) {
+        const foundIdx = questions.findIndex(q => q.id === parseInt(qParam));
+        if (foundIdx !== -1) currentIdx = foundIdx;
+      }
+      renderOMR();
+      renderQuestion();
+      setupKeyboard();
+    }
+
+    function filterSection(sec) {
+      activeFilter = sec;
+      document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+
+      if (sec === 'ALL') {
+        filteredQuestions = [...questions];
+      } else {
+        filteredQuestions = questions.filter(q => q.section === sec);
+      }
+      currentIdx = 0;
+      renderOMR();
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = filteredQuestions[currentIdx];
+      if (!q) return;
+
+      document.getElementById('displayQNum').innerText = `Q${q.id}`;
+      document.getElementById('displayPart').innerText = q.part;
+      document.getElementById('displayCategory').innerText = q.category;
+
+      // Section theme styling
+      const partTag = document.getElementById('displayPart');
+      if (q.section === 'LC') {
+        partTag.style.background = '#E8EEF5';
+        partTag.style.color = '#1B365D';
+      } else {
+        partTag.style.background = '#E6F3ED';
+        partTag.style.color = '#1D5B41';
+      }
+
+      // Audio box
+      const audioBox = document.getElementById('audioPlayerBox');
+      if (q.audioScript) {
+        audioBox.style.display = 'flex';
+        document.getElementById('audioStatus').innerText = '대기 중 (재생 버튼을 누르세요)';
+        document.getElementById('playIcon').innerText = '▶';
+        document.getElementById('playText').innerText = '원어민 듣기 재생';
+      } else {
+        audioBox.style.display = 'none';
+        stopAudio();
+      }
+
+      // Part 1 Image
+      const imgBox = document.getElementById('part1ImageBox');
+      if (q.imageSvg) {
+        imgBox.innerHTML = q.imageSvg;
+        imgBox.style.display = 'block';
+      } else {
+        imgBox.style.display = 'none';
+      }
+
+      // Passage Box
+      const pBox = document.getElementById('passageBox');
+      if (q.passage) {
+        pBox.innerHTML = q.passage;
+        pBox.style.display = 'block';
+      } else {
+        pBox.style.display = 'none';
+      }
+
+      // Question
+      document.getElementById('questionText').innerHTML = q.question;
+
+      // Options
+      const optGrid = document.getElementById('optionsGrid');
+      optGrid.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D'];
+      const currentAns = userAnswers[q.id];
+
+      q.options.forEach((opt, idx) => {
+        const item = document.createElement('div');
+        item.className = 'option-item';
+        if (currentAns !== undefined) {
+          if (idx === q.answer) item.classList.add('correct');
+          if (idx === currentAns && idx !== q.answer) item.classList.add('wrong');
+        }
+        item.onclick = () => selectOption(idx);
+
+        item.innerHTML = `
+          <div class="opt-letter">${letters[idx]}</div>
+          <div class="opt-text">${opt}</div>
+        `;
+        optGrid.appendChild(item);
+      });
+
+      // Explanation
+      const expBox = document.getElementById('explanationBox');
+      if (currentAns !== undefined) {
+        expBox.classList.add('show');
+        const badge = document.getElementById('resultBadge');
+        if (currentAns === q.answer) {
+          badge.className = 'result-badge badge-correct';
+          badge.innerText = '⭕ 정답입니다! (Correct)';
+        } else {
+          badge.className = 'result-badge badge-wrong';
+          badge.innerText = `❌ 오답입니다. 정답은 (${letters[q.answer]})번 입니다.`;
+        }
+        document.getElementById('expContent').innerHTML = q.explanation;
+        
+        // Vocab list
+        const vBox = document.getElementById('vocabContent');
+        vBox.innerHTML = '';
+        if (q.vocabulary) {
+          q.vocabulary.split(';').forEach(v => {
+            const span = document.createElement('span');
+            span.className = 'vocab-tag';
+            span.innerText = v.trim();
+            vBox.appendChild(span);
+          });
+        }
+      } else {
+        expBox.classList.remove('show');
+      }
+
+      // Nav buttons
+      document.getElementById('prevBtn').disabled = (currentIdx === 0);
+      document.getElementById('nextBtn').disabled = (currentIdx === filteredQuestions.length - 1);
+
+      updateOMRActive();
+    }
+
+    function selectOption(idx) {
+      const q = filteredQuestions[currentIdx];
+      userAnswers[q.id] = idx;
+      renderQuestion();
+      renderOMR();
+    }
+
+    function changeQuestion(delta) {
+      stopAudio();
+      currentIdx = Math.max(0, Math.min(filteredQuestions.length - 1, currentIdx + delta));
+      renderQuestion();
+    }
+
+    function jumpToQuestion(idx) {
+      stopAudio();
+      currentIdx = idx;
+      renderQuestion();
+    }
+
+    function renderOMR() {
+      const omr = document.getElementById('omrGrid');
+      omr.innerHTML = '';
+      let correctCount = 0;
+      let totalAnswered = 0;
+
+      filteredQuestions.forEach((q, idx) => {
+        const btn = document.createElement('div');
+        btn.className = 'omr-btn';
+        btn.innerText = `Q${q.id}`;
+        
+        if (userAnswers[q.id] !== undefined) {
+          totalAnswered++;
+          if (userAnswers[q.id] === q.answer) {
+            btn.classList.add('answered-correct');
+            correctCount++;
+          } else {
+            btn.classList.add('answered-wrong');
+          }
+        }
+        btn.onclick = () => jumpToQuestion(idx);
+        omr.appendChild(btn);
+      });
+
+      document.getElementById('scoreDisplay').innerText = `정답: ${correctCount} / 풀이: ${totalAnswered}`;
+      updateOMRActive();
+    }
+
+    function updateOMRActive() {
+      const btns = document.querySelectorAll('.omr-btn');
+      btns.forEach((b, idx) => {
+        b.classList.toggle('current', idx === currentIdx);
+      });
+    }
+
+    // Audio Engine using Web Speech Synthesis
+    let isPlaying = false;
+    function toggleAudio() {
+      if (isPlaying) {
+        stopAudio();
+      } else {
+        playAudio();
+      }
+    }
+
+    function playAudio() {
+      const q = filteredQuestions[currentIdx];
+      if (!q.audioScript || !window.speechSynthesis) return;
+
+      window.speechSynthesis.cancel();
+      // Clean HTML tags from audio script
+      const cleanScript = q.audioScript.replace(/<[^>]*>?/gm, ' ');
+      currentUtterance = new SpeechSynthesisUtterance(cleanScript);
+      currentUtterance.lang = 'en-US';
+      const speed = parseFloat(document.getElementById('speedSelect').value || 1.0);
+      currentUtterance.rate = speed;
+
+      currentUtterance.onstart = () => {
+        isPlaying = true;
+        document.getElementById('audioStatus').innerText = '🔊 원어민 음성 재생 중...';
+        document.getElementById('playIcon').innerText = '⏸';
+        document.getElementById('playText').innerText = '일시 정지';
+      };
+
+      currentUtterance.onend = () => {
+        isPlaying = false;
+        document.getElementById('audioStatus').innerText = '재생 완료';
+        document.getElementById('playIcon').innerText = '▶';
+        document.getElementById('playText').innerText = '다시 듣기';
+      };
+
+      window.speechSynthesis.speak(currentUtterance);
+    }
+
+    function stopAudio() {
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+      isPlaying = false;
+      const status = document.getElementById('audioStatus');
+      if (status) status.innerText = '대기 중 (재생 버튼을 누르세요)';
+      const pIcon = document.getElementById('playIcon');
+      if (pIcon) pIcon.innerText = '▶';
+      const pText = document.getElementById('playText');
+      if (pText) pText.innerText = '원어민 듣기 재생';
+    }
+
+    function changeSpeed() {
+      if (isPlaying) {
+        stopAudio();
+        playAudio();
+      }
+    }
+
+    function setupKeyboard() {
+      window.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4') {
+          selectOption(parseInt(e.key) - 1);
+        } else if (e.key === 'ArrowRight') {
+          changeQuestion(1);
+        } else if (e.key === 'ArrowLeft') {
+          changeQuestion(-1);
+        }
+      });
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
