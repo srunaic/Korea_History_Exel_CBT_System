@@ -23,7 +23,7 @@
   👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/](https://srunaic.github.io/Korea_History_Exel_CBT_System/)**
 * 🇬🇧 **토익(TOEIC) 실전 1:1 CBT (원어민 듣기 & 사진 묘사 포함 30문항)**:  
   👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/toeic_cbt.html](https://srunaic.github.io/Korea_History_Exel_CBT_System/toeic_cbt.html)**
-* 📅 **2026 한국사 & 토익 공식 시험 일정·시간표·고사장 안내 센터**:  
+* 📅 **실시간 한국사 & 토익 공식 시험 일정·시간표·고사장 안내 센터**:  
   👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/exam_schedule.html](https://srunaic.github.io/Korea_History_Exel_CBT_System/exam_schedule.html)**
 
 > 💡 **스마트폰 모바일 꿀팁**: 모바일 브라우저(사파리 / 크롬 / 삼성인터넷)에서 **[홈 화면에 추가]**를 설정하시면 전용 앱 아이콘이 생성되어 진짜 수험 앱처럼 1초 만에 바로 실행됩니다!
