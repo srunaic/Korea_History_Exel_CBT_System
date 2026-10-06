@@ -1,5 +1,6 @@
+# 임시 엑셀 잠금 파일 및 파이썬 캐시 제외
 ~$*.xlsx
 *.tmp
 __pycache__/
-.DS_Store
-Thumbs.db
+*.pyc
+.system_generated/
