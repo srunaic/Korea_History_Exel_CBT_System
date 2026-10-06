@@ -426,7 +426,101 @@
         font-size: 11px;
       }
     }
-  </style>
+  
+    /* Choice Button Status Styles */
+    .choice-btn.correct-choice, .choice-btn.correct {
+      border-color: #10B981 !important;
+      background: #ECFDF5 !important;
+      color: #065F46 !important;
+      font-weight: 700 !important;
+    }
+    .choice-btn.wrong-choice, .choice-btn.wrong {
+      border-color: #EF4444 !important;
+      background: #FEF2F2 !important;
+      color: #991B1B !important;
+    }
+
+    /* OMR Button Status Styles */
+    .grid-btn.answered-correct, .grid-btn.correct {
+      background: #10B981 !important;
+      color: white !important;
+      border-color: #10B981 !important;
+    }
+    .grid-btn.answered-wrong, .grid-btn.wrong {
+      background: #EF4444 !important;
+      color: white !important;
+      border-color: #EF4444 !important;
+    }
+
+    /* Explanation Box Styles */
+    .expl-box, .tutor-box {
+      display: none;
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-top: 16px;
+      box-sizing: border-box;
+      animation: fadeIn 0.25s ease;
+    }
+    .expl-box.show, .tutor-box.show {
+      display: block !important;
+    }
+    .expl-title, .tutor-title {
+      font-weight: 800;
+      font-size: 14.5px;
+      margin-bottom: 8px;
+      color: #1F4E79;
+    }
+    .expl-tip, .tutor-tip {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #C00000;
+      font-weight: 700;
+      margin-top: 8px;
+      background: #FFF1F2;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    /* Explanation Mode (전체 해설집 모드) */
+    #explainModeContainer { display: none; }
+    .handbook-card {
+      background: white;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .handbook-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .handbook-era {
+      background: #E0E7FF;
+      color: #3730A3;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .handbook-btn-jump {
+      background: #1F4E79;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+</style>
 
 <script>
 // ==========================================
@@ -520,6 +614,7 @@ window.addEventListener('keydown', (e) => {
     <div class="view-toggle">
       <button class="toggle-btn active" id="btnSingleMode" onclick="setMode('single')">1문제 집중 모드</button>
       <button class="toggle-btn" id="btnAllMode" onclick="setMode('all')">전체 기출 모아보기</button>
+      <button class="toggle-btn" id="btnExplainMode" onclick="setMode('explain')">💡 엑셀 기출 해설집</button>
     </div>
   </div>
 </header>
@@ -565,6 +660,7 @@ window.addEventListener('keydown', (e) => {
 
     <!-- All Questions List Container -->
     <div id="allModeContainer"></div>
+    <div id="explainModeContainer"></div>
   </div>
 
   <!-- Right OMR / Quick Jump Column -->
@@ -785,6 +881,7 @@ function answerSingle(qId, optIdx, isCorrect) {
   userAnswers[qId] = { optIdx, isCorrect };
   renderCurrentQuestion();
   updateOMRStats();
+  highlightGrid();
 }
 
 function navQuestion(delta) {
@@ -830,28 +927,57 @@ function updateOMRStats() {
 
 function setMode(mode) {
   currentMode = mode;
+  const singleBox = document.getElementById('singleModeContainer');
+  const allBox = document.getElementById('allModeContainer');
+  const expBox = document.getElementById('explainModeContainer');
+
+  const btnSingle = document.getElementById('btnSingleMode');
+  const btnAll = document.getElementById('btnAllMode');
+  const btnExp = document.getElementById('btnExplainMode');
+
   if (mode === 'single') {
-    document.getElementById('singleModeContainer').style.display = 'block';
-    document.getElementById('allModeContainer').style.display = 'none';
-    document.getElementById('btnSingleMode').classList.add('active');
-    document.getElementById('btnAllMode').classList.remove('active');
+    singleBox.style.display = 'block';
+    allBox.style.display = 'none';
+    if (expBox) expBox.style.display = 'none';
+
+    btnSingle.classList.add('active');
+    btnAll.classList.remove('active');
+    if (btnExp) btnExp.classList.remove('active');
+
     renderCurrentQuestion();
-  } else {
-    document.getElementById('singleModeContainer').style.display = 'none';
-    document.getElementById('allModeContainer').style.display = 'block';
-    document.getElementById('btnSingleMode').classList.remove('active');
-    document.getElementById('btnAllMode').classList.add('active');
-    // 현재 문제로 스크롤
+  } else if (mode === 'all') {
+    singleBox.style.display = 'none';
+    allBox.style.display = 'block';
+    if (expBox) expBox.style.display = 'none';
+
+    btnSingle.classList.remove('active');
+    btnAll.classList.add('active');
+    if (btnExp) btnExp.classList.remove('active');
+
+    renderAllQuestions();
     setTimeout(() => {
       const el = document.getElementById('card_q' + rawData[currentQIndex].id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
+    }, 60);
+  } else if (mode === 'explain') {
+    singleBox.style.display = 'none';
+    allBox.style.display = 'none';
+    if (expBox) expBox.style.display = 'block';
+
+    btnSingle.classList.remove('active');
+    btnAll.classList.remove('active');
+    if (btnExp) btnExp.classList.add('active');
+
+    renderExplainHandbook();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
 function renderAllQuestions() {
   const container = document.getElementById('allModeContainer');
+  if (!container) return;
   container.innerHTML = '';
+
   rawData.forEach((item, idx) => {
     const isKiller = item.diff.includes('킬러') || item.era.includes('문화재') || item.era.includes('지역사') || item.era.includes('순서');
     const card = document.createElement('div');
@@ -860,44 +986,99 @@ function renderAllQuestions() {
     card.style.marginBottom = '20px';
 
     const options = getOptionsForItem(item);
+    const userAns = userAnswers[item.id];
+
     let optHtml = '';
     options.forEach((opt, oIdx) => {
       const numLabels = ['①', '②', '③', '④'];
+      let cls = '';
+      if (userAns !== undefined) {
+        if (opt.isCorrect) cls = 'correct-choice';
+        else if (userAns.optIdx === oIdx) cls = 'wrong-choice';
+      }
       optHtml += `
-        <button class="choice-btn" onclick="goToQuestion(${idx}); setMode('single');">
+        <button class="choice-btn ${cls}" onclick="answerSingle(${item.id}, ${oIdx}, ${opt.isCorrect}); renderAllQuestions();">
           <span class="choice-num">${numLabels[oIdx]}</span>
           <span>${opt.text}</span>
         </button>
       `;
     });
 
+    const isAnswered = (userAns !== undefined);
+
     card.innerHTML = `
-    <div class="q-top-info">
-      <div class="badges">
-        <span class="badge ${isKiller ? 'badge-killer' : 'badge-era'}">${item.era}</span>
-        <span class="badge badge-exam">${item.exam} (${item.no})</span>
-        <span class="badge-diff">${item.diff}</span>
+      <div class="q-top-info">
+        <div class="badges">
+          <span class="badge ${isKiller ? 'badge-killer' : 'badge-era'}">${item.era}</span>
+          <span class="badge badge-exam">${item.exam} (${item.no})</span>
+          <span class="badge-diff">${item.diff}</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:14px; font-weight:800; color:#1F4E79;">문제 코드 #Q${item.id}</span>
+          <button onclick="goToQuestion(${idx}); setMode('single');" style="background:#334155; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:700; cursor:pointer;">단독 풀기 ↗</button>
+        </div>
       </div>
-      <span style="font-size:14px; font-weight:800; color:#1F4E79;">문제 코드 #Q${item.id}</span>
-    </div>
-    <div class="q-title">[Q${item.id}] ${item.real_title}</div>
-    <div class="q-topic-label">📌 핵심 주제: ${item.topic}</div>
-    <div class="saryo-box">
-      <div class="saryo-header">📜 【 국사편찬위원회 실제 기출 사료 원문 】</div>
-      <div style="font-size:15px; color:#1E293B; margin-bottom:12px; font-style:italic;">
-        ${item.real_box}
+      <div class="q-title">[Q${item.id}] ${item.real_title}</div>
+      <div class="q-topic-label">📌 핵심 주제: ${item.topic}</div>
+      <div class="saryo-box">
+        <div class="saryo-header">📜 【 국사편찬위원회 실제 기출 사료 원문 】</div>
+        <div style="font-size:15px; color:#1E293B; margin-bottom:12px; font-style:italic;">
+          ${item.real_box}
+        </div>
+        <div style="font-size:12.5px; color:#475569; border-top:1px dashed #CBD5E1; padding-top:8px;">
+          🔍 <b>사료 독해 핵심 단서:</b> <span class="kw-tag">${item.clue}</span>
+        </div>
       </div>
-      <div style="font-size:12.5px; color:#475569; border-top:1px dashed #CBD5E1; padding-top:8px;">
-        🔍 <b>사료 독해 핵심 단서:</b> <span class="kw-tag">${item.clue}</span>
+      <div class="choices-list">${optHtml}</div>
+      <div class="expl-box ${isAnswered ? 'show' : ''}" id="expl_${item.id}">
+        <div class="expl-title">💡 튜터의 실전 1초 해설 & 정답 연결 공식</div>
+        <div style="font-size:14.5px; color:#15803D; font-weight:700; margin-bottom:6px;"><b>공식 정답:</b> ${item.correct}</div>
+        <div class="expl-tip">⚡ 1초 암기 공식 팁: ${item.tip}</div>
       </div>
-    </div>
-    <div class="choices-list">${optHtml}</div>
-    <div class="expl-box ${userAns !== undefined ? 'show' : ''}" id="expl_${item.id}">
-      <div class="expl-title">💡 튜터의 실전 1초 해설 & 정답 연결 공식</div>
-      <div><b>공식 정답:</b> ${item.correct}</div>
-      <div class="expl-tip">⚡ 1초 암기 공식 팁: ${item.tip}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function renderExplainHandbook() {
+  const container = document.getElementById('explainModeContainer');
+  if (!container) return;
+  container.innerHTML = `
+    <div style="background:#EFF6FF; border:1.5px solid #93C5FD; border-radius:10px; padding:16px; margin-bottom:20px;">
+      <h3 style="color:#1E40AF; font-size:16px; margin-bottom:6px;">📖 엑셀 기출 해설집 실시간 연동 뷰어 (전체 77문항)</h3>
+      <p style="font-size:13px; color:#3B82F6;">엑셀 파일을 열지 않아도 사료 핵심 키워드, 공식 정답 선지, 튜터 1초 암기팁을 여기서 한 번에 학습하실 수 있습니다.</p>
     </div>
   `;
+
+  rawData.forEach((item, idx) => {
+    const isKiller = item.diff.includes('킬러') || item.era.includes('문화재') || item.era.includes('지역사') || item.era.includes('순서');
+    const card = document.createElement('div');
+    card.className = 'handbook-card';
+    card.innerHTML = `
+      <div class="handbook-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="handbook-era">${item.era}</span>
+          <span style="font-size:13px; color:#64748B;">${item.exam} (${item.no})</span>
+          <span style="font-size:13px; color:#E11D48; font-weight:700;">${item.diff}</span>
+          <strong style="font-size:15px; color:#0F172A; margin-left:6px;">[Q${item.id}] ${item.topic}</strong>
+        </div>
+        <button class="handbook-btn-jump" onclick="goToQuestion(${idx}); setMode('single');">이 문제 바로 풀기 🎯</button>
+      </div>
+
+      <div style="background:#FAF9F6; border:1px dashed #CBD5E1; border-radius:6px; padding:12px; margin-bottom:10px; font-size:13.5px; line-height:1.6;">
+        <div style="font-weight:700; color:#475569; font-size:11.5px; margin-bottom:4px;">📜 사료 핵심 단서 & 지문 키워드:</div>
+        <span class="kw-tag">${item.clue}</span>
+      </div>
+
+      <div style="background:#F0FDF4; border:1.5px solid #86EFAC; border-radius:6px; padding:12px; margin-bottom:10px;">
+        <div style="font-weight:800; color:#166534; font-size:13px; margin-bottom:2px;">⭕ 시험에 나오는 정답 연결 선지:</div>
+        <div style="font-size:14.5px; font-weight:700; color:#14532D;">${item.correct}</div>
+      </div>
+
+      <div style="background:#FFF1F2; border-left:4px solid #E11D48; border-radius:0 6px 6px 0; padding:10px 14px; font-size:13.5px; color:#881337; font-weight:600;">
+        ⚡ 튜터 1초 암기 공식 팁: ${item.tip}
+      </div>
+    `;
     container.appendChild(card);
   });
 }

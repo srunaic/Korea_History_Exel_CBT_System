@@ -424,7 +424,31 @@
         font-size: 0.72rem;
       }
     }
-  </style>
+  
+    /* TOEIC Handbook Styles */
+    .toeic-handbook-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .th-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 1.5px solid #E2E8F0;
+      padding-bottom: 10px;
+    }
+    .th-badge-lc { background: #E8EEF5; color: #1B365D; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; }
+    .th-badge-rc { background: #E6F3ED; color: #1D5B41; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; }
+    .th-btn-jump { background: #1B365D; color: white; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; font-size: 0.82rem; cursor: pointer; }
+
+</style>
 </head>
 <body>
 
@@ -435,15 +459,17 @@
         <h1>🇰🇷 TOEIC 실전 1:1 CBT</h1>
       </div>
       <div class="nav-tabs">
-        <button class="nav-tab active" onclick="filterSection('ALL')">전체 (30문항)</button>
-        <button class="nav-tab" onclick="filterSection('LC')">🎧 Listening</button>
-        <button class="nav-tab" onclick="filterSection('RC')">📖 Reading</button>
+        <button class="nav-tab active" id="btnTabAll" onclick="filterSection('ALL')">전체 (30문항)</button>
+        <button class="nav-tab" id="btnTabLC" onclick="filterSection('LC')">🎧 Listening</button>
+        <button class="nav-tab" id="btnTabRC" onclick="filterSection('RC')">📖 Reading</button>
+        <button class="nav-tab" id="btnTabHandbook" onclick="showToeicHandbook()">💡 엑셀 기출 해설집</button>
       </div>
     </div>
   </header>
 
   <div class="container">
-    <main class="quiz-card">
+    <div id="toeicHandbookContainer" style="display:none; grid-column: 1 / -1;"></div>
+    <main class="quiz-card" id="quizMainCard">
       <div class="quiz-meta">
         <div class="meta-left">
           <span class="q-number" id="displayQNum">Q1</span>
@@ -543,6 +569,10 @@
     }
 
     function filterSection(sec) {
+      document.getElementById('toeicHandbookContainer').style.display = 'none';
+      document.getElementById('quizMainCard').style.display = 'block';
+      const side = document.querySelector('.sidebar'); if(side) side.style.display = 'flex';
+
       activeFilter = sec;
       document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
       event.target.classList.add('active');
@@ -778,6 +808,98 @@
           changeQuestion(-1);
         }
       });
+    }
+
+    
+    function showToeicHandbook() {
+      stopAudio();
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+      const hBtn = document.getElementById('btnTabHandbook');
+      if (hBtn) hBtn.classList.add('active');
+
+      document.getElementById('quizMainCard').style.display = 'none';
+      const side = document.querySelector('.sidebar');
+      if (side) side.style.display = 'none';
+
+      const hb = document.getElementById('toeicHandbookContainer');
+      hb.style.display = 'block';
+
+      let html = `
+        <div style="background:#EFF6FF; border:1.5px solid #93C5FD; border-radius:10px; padding:16px 20px; margin-bottom:20px;">
+          <h2 style="color:#1E40AF; font-size:1.15rem; margin-bottom:6px;">📖 토익 800+ 엑셀 정답 및 상세 해설집 (전체 30문항 연동)</h2>
+          <p style="font-size:0.9rem; color:#3B82F6;">엑셀을 따로 열지 않아도 음성 스크립트, 우리말 전문 번역, 1초 문법 분석, 오답 함정 피하기 팁을 여기서 즉시 확인하실 수 있습니다.</p>
+        </div>
+      `;
+
+      questions.forEach((q, idx) => {
+        const isLC = (q.section === 'LC');
+        const badgeCls = isLC ? 'th-badge-lc' : 'th-badge-rc';
+        const letters = ['A', 'B', 'C', 'D'];
+        const ansLetter = letters[q.answer] || q.answer;
+
+        html += `
+          <div class="toeic-handbook-card">
+            <div class="th-header">
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <span class="${badgeCls}">${q.part}</span>
+                <strong style="font-size:1.1rem; color:#0F172A;">[Q${q.id}] ${q.category}</strong>
+                <span style="font-size:0.85rem; color:#64748B;">정답: <strong>(${ansLetter})</strong></span>
+              </div>
+              <button class="th-btn-jump" onclick="jumpToSolve(${idx})">이 문제 바로 풀기 🎯</button>
+            </div>
+
+            <div style="font-size:0.98rem; font-weight:700; color:#1E293B; margin-bottom:12px;">
+              ${q.question}
+            </div>
+
+            ${q.passage && q.passage !== 'N/A' ? `
+              <div style="background:#F8FAFC; border-left:4px solid #1D5B41; padding:12px 14px; border-radius:0 6px 6px 0; margin-bottom:12px; font-size:0.9rem; line-height:1.6; white-space:pre-line;">
+                ${q.passage}
+              </div>
+            ` : ''}
+
+            ${q.audioScript ? `
+              <div style="background:#F0F7FF; border:1px dashed #93C5FD; border-radius:6px; padding:12px; margin-bottom:12px; font-size:0.88rem; line-height:1.6;">
+                <strong style="color:#1E40AF;">🎧 음성 스크립트 (Listening Script):</strong><br>
+                ${q.audioScript.replace(/<[^>]*>?/gm, ' ')}
+              </div>
+            ` : ''}
+
+            <div style="background:#F0FDF4; border:1.5px solid #86EFAC; border-radius:6px; padding:12px; margin-bottom:12px;">
+              <strong style="color:#166534; font-size:0.9rem;">📝 정답 도출 근거 및 상세 분석:</strong>
+              <div style="font-size:0.9rem; color:#14532D; margin-top:4px; line-height:1.6;">
+                ${q.explanation}
+              </div>
+            </div>
+
+            ${q.vocabulary ? `
+              <div style="background:#FAF5FF; border-left:4px solid #9333EA; padding:10px 14px; border-radius:0 6px 6px 0; font-size:0.88rem; color:#581C87;">
+                <strong>🔍 핵심 필수 어휘 & 표현:</strong> ${q.vocabulary}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      });
+
+      hb.innerHTML = html;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function jumpToSolve(idx) {
+      document.getElementById('toeicHandbookContainer').style.display = 'none';
+      document.getElementById('quizMainCard').style.display = 'block';
+      const side = document.querySelector('.sidebar');
+      if (side) side.style.display = 'flex';
+
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+      const allBtn = document.getElementById('btnTabAll');
+      if (allBtn) allBtn.classList.add('active');
+
+      filteredQuestions = [...questions];
+      currentIdx = idx;
+      renderOMR();
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     window.onload = init;
