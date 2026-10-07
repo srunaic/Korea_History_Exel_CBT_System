@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
   <title>토익(TOEIC) 800+ 정기시험 실전 1:1 CBT (200문항 풀세트 마스터)</title>
   <style>
     :root {
@@ -23,19 +23,23 @@
       font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
-    html, body {
+    html {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    body {
       width: 100%;
-      max-width: 100%;
-      overflow-x: hidden;
+      min-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       position: relative;
       background: var(--bg);
       color: var(--text);
       padding-bottom: 50px;
       -webkit-text-size-adjust: 100%;
-      min-width: 0;
     }
     p, span, div, h1, h2, h3, button, label {
-      word-break: keep-all;
+      word-break: break-word;
       overflow-wrap: anywhere;
     }
 
@@ -413,6 +417,10 @@
     /* MOBILE (≤768px) - iOS / Android 완벽 대응                     */
     /* ============================================================ */
     @media (max-width: 768px) {
+      html, body {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
       header {
         padding: 10px 12px;
       }

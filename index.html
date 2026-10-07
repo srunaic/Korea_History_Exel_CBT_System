@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
   <title>한능검 심화 실전 CBT 문제은행</title>
   <style>
     :root {
@@ -24,10 +24,15 @@
       font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
-    html, body {
+    html {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    body {
       width: 100%;
-      max-width: 100%;
-      overflow-x: hidden;
+      min-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       position: relative;
       background-color: var(--bg);
       color: var(--text);
@@ -35,8 +40,8 @@
       -webkit-text-size-adjust: 100%;
     }
     p, span, div, h1, h2, h3, button, label {
-      word-break: keep-all;
-      overflow-wrap: break-word;
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
 
     /* Top Nav */
@@ -220,7 +225,9 @@
       cursor: pointer;
       transition: all 0.15s;
       width: 100%;
+      max-width: 100%;
       box-sizing: border-box;
+      min-width: 0;
     }
     .choice-btn:hover { border-color: #94A3B8; background: #F8FAFC; }
     .choice-btn.selected { border-color: var(--primary); background: #EFF6FF; }
@@ -234,7 +241,12 @@
       margin-top: 1px;
     }
     .choice-btn.selected .choice-num { color: var(--primary); }
-    .choice-text { flex: 1; min-width: 0; }
+    .choice-text, .choice-btn > span:not(.choice-num) {
+      flex: 1;
+      min-width: 0;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
 
     /* Tutor Feedback Box */
     .tutor-box {
@@ -273,13 +285,16 @@
     }
 
     /* Prev / Next buttons */
-    .nav-bar {
+    .nav-bar, .q-nav-buttons {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
       margin-top: 18px;
       padding-top: 16px;
       border-top: 1px solid var(--border);
+      width: 100%;
+      box-sizing: border-box;
     }
     .nav-btn {
       background: #334155;
@@ -291,6 +306,7 @@
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
+      min-height: 42px;
     }
     .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
@@ -360,70 +376,199 @@
     /* MOBILE OPTIMIZATIONS (iOS / Android 완벽 대응) */
     /* ========================================================= */
     @media (max-width: 768px) {
-      body { padding-bottom: 20px; }
-      header { padding: 10px 12px; }
-      .header-inner { flex-direction: column; align-items: stretch; gap: 8px; }
-      .logo-title h1 { font-size: 15px; }
-      .logo-title p { font-size: 11px; }
+      html, body {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      body {
+        padding-bottom: 24px;
+      }
+      header {
+        padding: 10px 12px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        width: 100%;
+      }
+      .logo-title h1 {
+        font-size: 15px;
+        word-break: break-word;
+      }
+      .logo-title p {
+        font-size: 11px;
+      }
 
-      .view-toggle { width: 100%; display: flex; gap: 4px; }
-      .toggle-btn { flex: 1; text-align: center; padding: 8px 6px; font-size: 12px; }
+      .view-toggle {
+        width: 100%;
+        display: flex;
+        gap: 4px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
+      }
+      .toggle-btn {
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 7px 6px;
+        font-size: 11.5px;
+        white-space: nowrap;
+      }
 
       .cbt-container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         padding: 0 10px;
         margin: 10px auto;
         gap: 14px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .left-panel, .right-panel {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
       }
       .q-main-card {
-        padding: 16px 14px;
+        padding: 16px 12px;
         border-radius: 10px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .q-top-info {
+        gap: 6px;
+      }
+      .badges {
+        gap: 6px;
+      }
+      .badge {
+        font-size: 11.5px;
+        padding: 3px 8px;
       }
       .q-title {
-        font-size: 16px;
-        line-height: 1.45;
+        font-size: 15.5px;
+        line-height: 1.5;
         margin-bottom: 12px;
+        word-break: break-word;
+        overflow-wrap: anywhere;
       }
       .q-topic-label {
         font-size: 13.5px;
         margin-bottom: 12px;
+        word-break: break-word;
+        overflow-wrap: anywhere;
       }
       .saryo-box {
-        padding: 12px 14px;
+        padding: 12px 12px;
         font-size: 14px;
         line-height: 1.7;
         margin-bottom: 16px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .kw-tag {
+        font-size: 11.5px;
+        padding: 2px 6px;
+        word-break: break-word;
       }
       .choices-list {
         gap: 8px;
         margin-bottom: 18px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
       .choice-btn {
-        padding: 12px 14px;
+        padding: 12px 12px;
         font-size: 14px;
         border-radius: 8px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        min-height: 44px;
+        gap: 10px;
       }
       .choice-num {
         font-size: 14px;
         min-width: 18px;
       }
-      .tutor-box {
-        padding: 14px;
+      .choice-text, .choice-btn > span:not(.choice-num) {
+        font-size: 14px;
+        line-height: 1.5;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .tutor-box, .expl-box {
+        padding: 14px 12px;
         font-size: 13px;
         margin-top: 14px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: auto;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .expl-tip, .tutor-tip {
+        font-size: 13.5px;
+        line-height: 1.6;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .q-nav-buttons, .nav-bar {
+        gap: 8px;
+        margin-top: 14px;
+        padding-top: 12px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .nav-btn {
+        flex: 1;
+        padding: 11px 10px;
+        font-size: 13px;
+        text-align: center;
+        min-height: 44px;
+      }
+      #navIndicator {
+        font-size: 13px;
+        white-space: nowrap;
+        padding: 0 4px;
       }
       .omr-card {
         position: static;
         margin-top: 10px;
-        padding: 16px 14px;
+        padding: 16px 12px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
       .num-grid {
         grid-template-columns: repeat(7, 1fr);
         max-height: 240px;
         gap: 4px;
+        width: 100%;
+        box-sizing: border-box;
       }
       .grid-btn {
         font-size: 11px;
+        min-height: 34px;
       }
     }
   
@@ -847,7 +992,7 @@ function renderCurrentQuestion() {
     optHtml += `
       <button class="choice-btn ${cls}" onclick="answerSingle(${item.id}, ${oIdx}, ${opt.isCorrect})">
         <span class="choice-num">${numLabels[oIdx]}</span>
-        <span>${opt.text}</span>
+        <span class="choice-text">${opt.text}</span>
       </button>
     `;
   });
@@ -1032,7 +1177,7 @@ function renderAllQuestions() {
       optHtml += `
         <button class="choice-btn ${cls}" onclick="answerAllMode(${item.id}, ${oIdx}, ${opt.isCorrect})">
           <span class="choice-num">${numLabels[oIdx]}</span>
-          <span>${opt.text}</span>
+          <span class="choice-text">${opt.text}</span>
         </button>
       `;
     });
