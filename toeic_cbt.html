@@ -796,6 +796,11 @@
           <span>OMR 답안지</span>
           <span id="scoreDisplay" style="color: var(--lc-primary);">진행: 0 / 200</span>
         </div>
+        <div style="margin-bottom: 12px;">
+          <button onclick="resetExamProgress()" style="width:100%; padding:9px 12px; background:#FEE2E2; color:#DC2626; border:1.5px solid #FCA5A5; border-radius:8px; font-weight:700; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:0.2s;" onmouseover="this.style.background='#FECACA'" onmouseout="this.style.background='#FEE2E2'">
+            🔄 풀이 초기화 및 처음부터 풀기
+          </button>
+        </div>
         <div class="omr-grid" id="omrGrid"></div>
       </div>
 
@@ -821,12 +826,50 @@
     let audioSequenceActive = false;
     let audioTimeoutId = null;
 
+    function saveToeicProgress() {
+      try {
+        localStorage.setItem('toeic_cbt_answers', JSON.stringify(userAnswers));
+        const q = filteredQuestions[currentIdx];
+        if (q) localStorage.setItem('toeic_cbt_current_idx', q.id.toString());
+      } catch (e) {
+        console.error('LocalStorage save error:', e);
+      }
+    }
+
+    function resetExamProgress() {
+      if (confirm("토익 실전 풀이 진행도를 모두 초기화하고 1번부터 다시 시작하시겠습니까?\n(입력한 OMR 답안 및 채점 기록이 삭제됩니다)")) {
+        stopAudio();
+        userAnswers = {};
+        try {
+          localStorage.removeItem('toeic_cbt_answers');
+          localStorage.removeItem('toeic_cbt_current_idx');
+        } catch(e) {}
+        currentIdx = 0;
+        renderQuestion();
+        renderOMR();
+        alert("풀이 기록이 초기화되었습니다. 1번 문제부터 다시 시작합니다.");
+      }
+    }
+
     function init() {
+      try {
+        const savedAns = localStorage.getItem('toeic_cbt_answers');
+        if (savedAns) userAnswers = JSON.parse(savedAns) || {};
+      } catch(e) { console.error(e); }
+
       const params = new URLSearchParams(window.location.search);
       const qParam = params.get('q');
       if (qParam) {
         const foundIdx = questions.findIndex(q => q.id === parseInt(qParam));
         if (foundIdx !== -1) currentIdx = foundIdx;
+      } else {
+        try {
+          const savedQId = localStorage.getItem('toeic_cbt_current_idx');
+          if (savedQId) {
+            const foundIdx = questions.findIndex(q => q.id === parseInt(savedQId));
+            if (foundIdx !== -1) currentIdx = foundIdx;
+          }
+        } catch(e) {}
       }
       renderOMR();
       renderQuestion();
@@ -970,6 +1013,7 @@
     function selectOption(idx) {
       const q = filteredQuestions[currentIdx];
       userAnswers[q.id] = idx;
+      saveToeicProgress();
       renderQuestion();
       renderOMR();
     }
@@ -977,6 +1021,7 @@
     function changeQuestion(delta) {
       stopAudio();
       currentIdx = Math.max(0, Math.min(filteredQuestions.length - 1, currentIdx + delta));
+      saveToeicProgress();
       renderQuestion();
     }
 
@@ -1008,6 +1053,7 @@
     function jumpToQuestion(idx) {
       stopAudio();
       currentIdx = idx;
+      saveToeicProgress();
       renderQuestion();
     }
 
