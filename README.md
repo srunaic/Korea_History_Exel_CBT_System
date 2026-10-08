@@ -1,89 +1,25 @@
-# 🎓 한국사능력검정시험(심화) & 토익(TOEIC) 통합 실전 교구재 시스템
+# 🏛️ 대한민국 국가 시험 실전 CBT & 시험 일정 센터
 
-> **국가 시험 공식 기출 빅데이터 기반 | 100개 한국사 출제 공식 (심화·킬러 완벽 대비) | 토익 200문항 정기시험 실전 풀세트 | 실전 1:1 CBT 문제은행 프로그램**
+## 🚀 바로가기 링크 (Quick Start)
 
-본 프로젝트는 **한국사능력검정시험(한능검) 심화 1·2급 및 토익(TOEIC) 800+ 목표 달성**을 준비하는 모든 학습자들을 위해 기획·개발된 **무설치 올인원 디지털 실전 교구재**입니다.
+* 📅 **3대 국가 시험 실시간 D-Day 전광판 & 시험 일정 안내 센터**:  
+  https://srunaic.github.io/Korea_History_Exel_CBT_System/exam_schedule.html
 
----
+* 🇰🇷 **한국사능력검정시험(심화) 실전 CBT (100문항)**:  
+  https://srunaic.github.io/Korea_History_Exel_CBT_System/
 
-## 📦 최신 통합 릴리즈 다운로드 (Releases)
+* 🇬🇧 **토익(TOEIC) 정기시험 실전 CBT (200문항 풀세트)**:  
+  https://srunaic.github.io/Korea_History_Exel_CBT_System/toeic_cbt.html
 
-별도의 프로그램 설치나 복잡한 과정 없이, 아래 릴리즈 배포 패키지(ZIP)를 다운로드하여 압축을 풀면 **더블클릭 한 번으로 PC와 모바일에서 즉시 실전 시험 환경**이 열립니다:
-
-👉 **[한국사 & 토익 통합 CBT 최신 v2.0.0 다운로드 (Releases)](https://github.com/srunaic/Korea_History_Exel_CBT_System/releases)**
-
-* 배포 패키지 파일명: **`한국사_토익_통합_CBT_교구재_v2.0.0.zip`**
-* 포함 파일: 한국사 100문항 CBT 웹 앱, 토익 200문항 CBT 웹 앱(원어민 듣기 탑재 풀세트), 한국사 100문항 엑셀 교구재, 토익 200문항 엑셀 교구재
-* **새로운 주요 기능**: 
-  * 💾 **자동 세션 저장(Session Persistence)**: 브라우저나 앱을 종료했다가 다시 접속해도 기존에 풀던 문제 진행도와 OMR 답안이 그대로 보존됩니다.
-  * 🔄 **처음부터 다시 풀기(Reset)**: 언제든 버튼 한 번으로 OMR 마킹을 초기화하고 1번 문제부터 새롭게 모의고사를 시작할 수 있습니다.
-
-## 📱 스마트폰(모바일) 무설치 실시간 접속 링크
-
-스마트폰(아이폰, 갤럭시) 및 태블릿, PC 어디서나 별도의 다운로드나 설치 없이 아래 웹 링크를 클릭하여 즉시 실전 시험을 풀이할 수 있습니다:
-
-* 🇰🇷 **한국사능력검정시험(심화) 실전 CBT (100문항 풀세트)**:  
-  👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/](https://srunaic.github.io/Korea_History_Exel_CBT_System/)**
-* 🇬🇧 **토익(TOEIC) 정기시험 실전 1:1 CBT (LC 100문항 + RC 100문항 = 200문항 풀세트)**:  
-  👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/toeic_cbt.html](https://srunaic.github.io/Korea_History_Exel_CBT_System/toeic_cbt.html)**
 * 💻 **정보처리기사 실시간 시험일정 & 수험 플래너 (Q-Net 연동)**:  
-  👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/Engineer_Information_exam_schedule.html](https://srunaic.github.io/Korea_History_Exel_CBT_System/Engineer_Information_exam_schedule.html)**
-* 📅 **3대 국가 시험(한국사·정처기·토익) 실시간 D-Day 전광판 & 시험 안내 센터**:  
-  👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/exam_schedule.html](https://srunaic.github.io/Korea_History_Exel_CBT_System/exam_schedule.html)**
+  https://srunaic.github.io/Korea_History_Exel_CBT_System/Engineer_Information_exam_schedule.html
 
-> 💡 **스마트폰 모바일 꿀팁**: 모바일 브라우저(사파리 / 크롬 / 삼성인터넷)에서 **[홈 화면에 추가]**를 설정하시면 전용 앱 아이콘이 생성되어 진짜 수험 앱처럼 1초 만에 바로 실행됩니다!
-
----
-
-## 🌟 핵심 특징 (Key Features)
-
-### 1. 🇰🇷 한국사능력검정시험(심화) 교구재 (100문항)
-* **역대 기출 줄글 사료 원문 100% 탑재**: 삼국사기, 고려사, 조선왕조실록 등 실제 시험지에 인쇄되는 사료 원문과 결정적 키워드 하이라이트
-* **100개로 완성하는 불변의 출제 족보**: 60회~73회 심화 기출 빅데이터에서 빈출 및 변별력 킬러 문항 100선 (기본 62문항 + 킬러 38문항)
-* **모바일 반응형 최적화 & 세션 복원**: 좌우 스크롤 및 터치 밀림 없는 유연한 뷰포트 처리, 자동 저장 및 '처음부터 다시 풀기' 지원
-
-### 2. 🇬🇧 토익(TOEIC) 800+ 정기시험 실전 200문항 교구재
-* **Listening (LC) 100문항 원어민 오디오 & 사진 완벽 지원**:
-  * Part 1 (사진 묘사 6문항): 실전 사진 및 묘사 문장
-  * Part 2 (질의응답 25문항): 의문사/부정/제안/선택/우회적 회피형 킬러 응답
-  * Part 3 (짧은 대화 39문항): 13개 세트 x 3문항 실전 대화 스크립트 및 남/여 교차 음성
-  * Part 4 (설명문 30문항): 10개 세트 x 3문항 공지, 음성메시지, 연설, 광고 등
-* **Reading (RC) 100문항 최빈출 문법 족보 & 지문 독해**:
-  * Part 5 (단문 공란 30문항): 1초 품사/동사수일치/시제/분사/접속사/도치/필수어휘
-  * Part 6 (장문 공란 16문항): 4개 세트 x 4문항 문맥 접속부사, 문장삽입, 시제추론
-  * Part 7 (독해 54문항): 단일 지문(29문항) + 이중/삼중 지문(25문항) 완벽 반영
-* **LC / RC / 정답해설집 완벽 분리 엑셀 워크북 제공**:
-  * 딥 블루(LC) 및 에메랄드 그린(RC)의 산뜻한 색상 테마와 200문항 전 문항 1:1 CBT 바로풀기 하이퍼링크 수록
+* 💻 **정보처리기사 실전 CBT 시험장 (필기 200문항 + 실기 60문항)**:  
+  https://srunaic.github.io/Engineer_Information_Processing_Test/
 
 ---
 
-## 📂 파일 구성 안내
+## 📦 다운로드 (Releases)
 
-| 파일명 | 구분 | 설명 |
-| :--- | :---: | :--- |
-| **`index.html`** / **`cbt_player.html`** | 한국사 | 한국사 심화 100문항 무설치 실전 CBT (세션 자동저장 & 재도전 기능 탑재) |
-| **`toeic_cbt.html`** | 토익 | 토익 200문항(LC 100 + RC 100) 실전 CBT 모의고사 (원어민 오디오 & 세션 자동저장) |
-| **`exam_schedule.html`** | 통합일정 | 3대 국가 시험(한국사·정처기·토익) 실시간 초단위 D-Day 타이머 전광판 & 시험 안내 |
-| **`Engineer_Information_exam_schedule.html`** | 정처기 | 정보처리기사 Q-Net 공식 연동 실시간 D-Day & 나만의 수험 플래너 |
-| **`한국사_능력_검정_심화_모바일_PC_통합.xlsx`** | 한국사 | 전 시대별(선사~현대 + 킬러 100문항) 기출 공식 및 1:1 CBT 링크 탑재 엑셀 |
-| **`토익 시험.xlsx`** | 토익 | 200문항 LC/RC 분리 실전문항, 상세 정답해설집, 킬러 공식 엑셀 워크북 |
-| **`한국사_토익_통합_CBT_교구재_v2.0.0.zip`** | 배포 | 전체 프로그램 통합 다운로드 압축 패키지 |
-
----
-
-## 🚀 사용 방법 (Quick Start)
-
-### 1. PC에서 실행하기
-1. 웹 프로그램 실행: **`cbt_player.html`** 또는 **`toeic_cbt.html`**을 더블클릭하여 브라우저에서 바로 풀기
-2. 키보드 단축키:
-   * `[←] / [→]` : 이전 문제 / 다음 문제 이동
-   * `숫자 1, 2, 3, 4` : 보기 선택 및 즉각 O/X 채점
-3. 엑셀 연동: 엑셀 파일 열람 중 각 행의 **`[📱 Qxx번 풀기]`** 링크를 클릭하면 브라우저가 열리며 해당 번호로 즉시 이동
-
-### 2. 스마트폰(모바일)에서 실행하기
-* 위의 실시간 링크를 스마트폰으로 접속하여 [홈 화면에 추가] 후 터치로 풀이
-
----
-
-## 📄 라이선스 (License)
-본 저작물은 누구나 자유롭게 학습, 수정, 배포할 수 있는 오픈소스 공익 교구재입니다. 모든 수험생 여러분의 목표 달성을 진심으로 응원합니다!
+* **통합 교구재 패키지 다운로드**:  
+  https://github.com/srunaic/Korea_History_Exel_CBT_System/releases
