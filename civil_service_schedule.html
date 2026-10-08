@@ -130,7 +130,25 @@ header{background:linear-gradient(135deg,#0F2A44 0%,#1F4E79 70%,#2563EB 100%);co
   .tl-item{flex-wrap:wrap;gap:10px;padding:14px;}
   .link-grid{grid-template-columns:1fr;}
 }
+body, html { -webkit-user-select: none !important; -moz-user-select: none !important; -ms-user-select: none !important; user-select: none !important; }
+input, textarea { -webkit-user-select: text !important; -moz-user-select: text !important; user-select: text !important; }
+@media print { html, body { display: none !important; } }
 </style>
+<script>
+// [Security & Anti-Theft Protection]
+document.addEventListener('contextmenu', e => e.preventDefault(), {capture: true});
+document.addEventListener('keydown', e => {
+  if (e.keyCode === 123 || ((e.ctrlKey || e.metaKey) && (e.keyCode === 85 || e.keyCode === 83 || (e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67))))){
+    e.preventDefault(); e.stopPropagation(); return false;
+  }
+}, {capture: true});
+document.addEventListener('copy', e => {
+  if (window.getSelection && window.getSelection().toString().length > 0) {
+    e.preventDefault();
+    if (e.clipboardData) e.clipboardData.setData('text/plain', '※ 본 콘텐츠의 무단 복제 및 2차 배포는 저작권법에 의해 엄격히 금지됩니다. (Copyright © 2026 Mokha)');
+  }
+}, {capture: true});
+</script>
 </head>
 <body>
 <header>
