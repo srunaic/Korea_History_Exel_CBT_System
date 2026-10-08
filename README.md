@@ -26,7 +26,9 @@
   👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/](https://srunaic.github.io/Korea_History_Exel_CBT_System/)**
 * 🇬🇧 **토익(TOEIC) 정기시험 실전 1:1 CBT (LC 100문항 + RC 100문항 = 200문항 풀세트)**:  
   👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/toeic_cbt.html](https://srunaic.github.io/Korea_History_Exel_CBT_System/toeic_cbt.html)**
-* 📅 **실시간 한국사 & 토익 공식 시험 일정·시간표·고사장 안내 센터**:  
+* 💻 **정보처리기사 실시간 시험일정 & 수험 플래너 (Q-Net 연동)**:  
+  👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/Engineer_Information_exam_schedule.html](https://srunaic.github.io/Korea_History_Exel_CBT_System/Engineer_Information_exam_schedule.html)**
+* 📅 **3대 국가 시험(한국사·정처기·토익) 실시간 D-Day 전광판 & 시험 안내 센터**:  
   👉 **[https://srunaic.github.io/Korea_History_Exel_CBT_System/exam_schedule.html](https://srunaic.github.io/Korea_History_Exel_CBT_System/exam_schedule.html)**
 
 > 💡 **스마트폰 모바일 꿀팁**: 모바일 브라우저(사파리 / 크롬 / 삼성인터넷)에서 **[홈 화면에 추가]**를 설정하시면 전용 앱 아이콘이 생성되어 진짜 수험 앱처럼 1초 만에 바로 실행됩니다!
@@ -61,6 +63,8 @@
 | :--- | :---: | :--- |
 | **`index.html`** / **`cbt_player.html`** | 한국사 | 한국사 심화 100문항 무설치 실전 CBT (세션 자동저장 & 재도전 기능 탑재) |
 | **`toeic_cbt.html`** | 토익 | 토익 200문항(LC 100 + RC 100) 실전 CBT 모의고사 (원어민 오디오 & 세션 자동저장) |
+| **`exam_schedule.html`** | 통합일정 | 3대 국가 시험(한국사·정처기·토익) 실시간 초단위 D-Day 타이머 전광판 & 시험 안내 |
+| **`Engineer_Information_exam_schedule.html`** | 정처기 | 정보처리기사 Q-Net 공식 연동 실시간 D-Day & 나만의 수험 플래너 |
 | **`한국사_능력_검정_심화_모바일_PC_통합.xlsx`** | 한국사 | 전 시대별(선사~현대 + 킬러 100문항) 기출 공식 및 1:1 CBT 링크 탑재 엑셀 |
 | **`토익 시험.xlsx`** | 토익 | 200문항 LC/RC 분리 실전문항, 상세 정답해설집, 킬러 공식 엑셀 워크북 |
 | **`한국사_토익_통합_CBT_교구재_v2.0.0.zip`** | 배포 | 전체 프로그램 통합 다운로드 압축 패키지 |

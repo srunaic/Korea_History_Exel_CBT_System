@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>정보처리기사 실시간 시험일정 & 수험 플래너 | Q-Net 연동</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1B365D;
+      --primary-light: #2D4E7E;
+      --primary-dark: #0F2038;
+      --secondary: #0D9488;
+      --accent-orange: #EA580C;
+      --accent-red: #DC2626;
+      --accent-blue: #2563EB;
+      --accent-purple: #7C3AED;
+      --bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Header */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 65%, #254B7A 100%);
+      color: white;
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 14px rgba(15, 32, 56, 0.25);
+    }
+    .header-inner {
+      max-width: 1260px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      width: 100%;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: white;
+    }
+    .brand-icon {
+      font-size: 26px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.15);
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .brand-text h1 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .brand-text p {
+      font-size: 12px;
+      opacity: 0.85;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.12);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.2s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-1px);
+    }
+    .nav-btn.primary {
+      background: white;
+      color: var(--primary);
+      border-color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .nav-btn.primary:hover {
+      background: #F1F5F9;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1260px;
+      margin: 20px auto 40px;
+      padding: 0 16px;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* Hero Live D-Day Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      color: white;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      right: -40px;
+      bottom: -40px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-title-area h2 {
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .live-clock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #94A3B8;
+      border: 1px solid rgba(255,255,255,0.15);
+      white-space: nowrap;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10B981;
+      animation: pulse 1.5s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* Target Selector inside Hero */
+    .target-select-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .target-label {
+      font-size: 13px;
+      color: #CBD5E1;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .target-dropdown {
+      background: #334155;
+      color: white;
+      border: 1px solid #475569;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .target-dropdown:focus {
+      border-color: #38BDF8;
+    }
+
+    /* Countdown Grid */
+    .dday-main-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      background: rgba(255,255,255,0.04);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      z-index: 2;
+    }
+    .target-info {
+      flex: 1;
+      min-width: 240px;
+    }
+    .target-badge-status {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--accent-orange);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+    .target-name {
+      font-size: 22px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+    .target-period {
+      font-size: 13px;
+      color: #94A3B8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .countdown-timer-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .timer-tile {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      min-width: 76px;
+      height: 76px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+    }
+    .timer-val {
+      font-size: 28px;
+      font-weight: 900;
+      color: #38BDF8;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .timer-lbl {
+      font-size: 11px;
+      color: #94A3B8;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+    .dday-big-tag {
+      background: linear-gradient(135deg, #0D9488 0%, #059669 100%);
+      color: white;
+      border-radius: 10px;
+      padding: 10px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 90px;
+      height: 76px;
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.4);
+      flex-shrink: 0;
+    }
+    .dday-big-val {
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -1px;
+      white-space: nowrap;
+    }
+    .dday-big-sub {
+      font-size: 11px;
+      font-weight: 700;
+      opacity: 0.9;
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    /* Q-Net Official Integration Quick Hub */
+    .official-hub {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .section-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .section-sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .qnet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .qnet-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #F8FAFC;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.2s;
+      position: relative;
+    }
+    .qnet-btn:hover {
+      background: #EFF6FF;
+      border-color: #93C5FD;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37,99,235,0.08);
+    }
+    .qnet-icon {
+      font-size: 24px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .qnet-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .qnet-info strong {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #1E293B;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .qnet-info span {
+      display: block;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .qnet-ext {
+      font-size: 11px;
+      color: #94A3B8;
+      flex-shrink: 0;
+    }
+
+    /* Main Content Layout: 2 Columns on PC */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    /* Schedule Table Card */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Year Tabs */
+    .year-tabs {
+      display: flex;
+      gap: 8px;
+      background: #F1F5F9;
+      padding: 4px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+    .year-tab-btn {
+      padding: 7px 18px;
+      border: none;
+      background: transparent;
+      color: #64748B;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .year-tab-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      font-weight: 800;
+    }
+
+    /* Responsive Table Wrap */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+    }
+    .schedule-table {
+      width: 100%;
+      min-width: 680px;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+    .schedule-table thead {
+      background: #F1F5F9;
+      color: #334155;
+    }
+    .schedule-table th {
+      padding: 12px 14px;
+      font-weight: 800;
+      border-bottom: 1.5px solid var(--border);
+      white-space: nowrap;
+      text-align: center;
+    }
+    .schedule-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #EDF2F7;
+      vertical-align: middle;
+      text-align: center;
+    }
+    .schedule-table tr:hover {
+      background: #F8FAFC;
+    }
+    .schedule-table tr.highlight-target {
+      background: #EFF6FF !important;
+    }
+    .exam-num-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #1B365D;
+      color: white;
+      font-weight: 800;
+      font-size: 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .date-pill {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #1E293B;
+      white-space: nowrap;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .status-badge.upcoming { background: #FEF3C7; color: #92400E; }
+    .status-badge.active { background: #DCFCE7; color: #166534; }
+    .status-badge.exam-period { background: #DBEAFE; color: #1E40AF; }
+    .status-badge.done { background: #F1F5F9; color: #64748B; }
+
+    .btn-set-target {
+      padding: 5px 10px;
+      background: white;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      color: var(--primary);
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .btn-set-target:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .btn-set-target.active {
+      background: #0D9488;
+      color: white;
+      border-color: #0D9488;
+      cursor: default;
+    }
+
+    /* Mini Calendar */
+    .calendar-card {
+      margin-top: 20px;
+    }
+    .cal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .cal-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+    .cal-nav {
+      display: flex;
+      gap: 4px;
+    }
+    .cal-nav-btn {
+      padding: 4px 10px;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .cal-nav-btn:hover { background: #E2E8F0; }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+    .cal-day-head {
+      font-size: 11px;
+      font-weight: 800;
+      color: #64748B;
+      padding: 6px 0;
+      white-space: nowrap;
+    }
+    .cal-day-head.sun { color: #DC2626; }
+    .cal-day-head.sat { color: #2563EB; }
+    .cal-cell {
+      min-height: 48px;
+      border-radius: 6px;
+      border: 1px solid #F1F5F9;
+      background: #FAFAFA;
+      padding: 3px 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+    }
+    .cal-cell:hover { background: #F1F5F9; }
+    .cal-cell.today {
+      border-color: #0D9488;
+      background: #F0FDFA;
+    }
+    .cal-cell.today .cal-num {
+      color: #0D9488;
+      font-weight: 900;
+    }
+    .cal-cell.has-event {
+      background: #EFF6FF;
+      border-color: #BFDBFE;
+    }
+    .cal-num {
+      font-size: 11px;
+      color: #334155;
+      line-height: 1.2;
+    }
+    .cal-tag {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 3px;
+      border-radius: 3px;
+      margin-top: 2px;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cal-tag.reg { background: #FEF3C7; color: #B45309; }
+    .cal-tag.exam { background: #DCFCE7; color: #15803D; }
+    .cal-tag.pass { background: #F3E8FF; color: #7E22CE; }
+
+    /* Right Column: Planner & Study Checklist */
+    .planner-card {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .goal-box {
+      background: #F0FDF4;
+      border: 1.5px solid #BBF7D0;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .goal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #166534;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      white-space: nowrap;
+    }
+    .goal-input-wrap {
+      display: flex;
+      gap: 8px;
+    }
+    .goal-input {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #86EFAC;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      background: white;
+    }
+    .btn-goal-save {
+      padding: 8px 12px;
+      background: #166534;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* Checklist */
+    .checklist-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .check-item:hover {
+      background: #F1F5F9;
+    }
+    .check-item.done {
+      background: #F8FAFC;
+      opacity: 0.7;
+    }
+    .check-item.done .check-title {
+      text-decoration: line-through;
+      color: #94A3B8;
+    }
+    .check-box {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      cursor: pointer;
+      accent-color: #0D9488;
+      flex-shrink: 0;
+    }
+    .check-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .check-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1E293B;
+      word-break: keep-all;
+    }
+    .check-desc {
+      font-size: 11.5px;
+      color: #64748B;
+      margin-top: 2px;
+    }
+    .btn-del-task {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 2px 4px;
+      line-height: 1;
+      border-radius: 4px;
+    }
+    .btn-del-task:hover { color: #DC2626; }
+
+    .add-task-wrap {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .add-task-input {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      font-size: 12.5px;
+      outline: none;
+    }
+    .btn-add-task {
+      padding: 8px 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* Exam Tips Accordion */
+    .tips-card {
+      background: #FFFBEB;
+      border: 1.5px solid #FDE68A;
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .tips-header {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #B45309;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+      white-space: nowrap;
+    }
+    .tips-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tips-item {
+      font-size: 12.5px;
+      color: #78350F;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      line-height: 1.45;
+    }
+    .tips-badge {
+      background: #F59E0B;
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Footer */
+    footer {
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+    .footer-inner {
+      max-width: 1260px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* RESPONSIVE BREAKPOINTS (오와 열 및 모바일 최적화) */
+    @media (max-width: 960px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 12px 14px;
+      }
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        width: 100%;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+      .hero-banner {
+        padding: 18px 16px;
+      }
+      .hero-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .target-select-wrap {
+        width: 100%;
+      }
+      .target-dropdown {
+        width: 100%;
+      }
+      .dday-main-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 14px;
+      }
+      .countdown-timer-group {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .timer-tile {
+        min-width: 58px;
+        height: 64px;
+        flex: 1;
+        padding: 2px 4px;
+      }
+      .timer-val {
+        font-size: 22px;
+      }
+      .timer-lbl {
+        font-size: 10px;
+      }
+      .dday-big-tag {
+        min-width: 70px;
+        height: 64px;
+        padding: 6px 10px;
+      }
+      .dday-big-val {
+        font-size: 24px;
+      }
+      .qnet-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .card {
+        padding: 16px 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .qnet-grid {
+        grid-template-columns: 1fr;
+      }
+      .brand-text h1 {
+        font-size: 16px;
+      }
+      .target-name {
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header Navigation -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">📅</div>
+      <div class="brand-text">
+        <h1>정보처리기사 시험일정 & 플래너</h1>
+        <p>Q-Net 공식 연동 | 실시간 D-Day & 맞춤 수험 로드맵</p>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-btn primary">📘 필기 CBT (200문항)</a>
+      <a href="index.html#practical" class="nav-btn">✍️ 실기 CBT (60문항)</a>
+      <a href="https://www.q-net.or.kr" target="_blank" rel="noopener noreferrer" class="nav-btn">🌐 큐넷(Q-Net) 공식홈</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Hero: Real-time D-Day Countdown -->
+  <section class="hero-banner">
+    <div class="hero-top">
+      <div class="hero-title-area">
+        <h2>⚡ 실시간 시험 D-Day 타이머</h2>
+        <div class="live-clock-badge">
+          <span class="live-dot"></span>
+          <span id="liveClockText">2026-10-08 15:00:00 KST</span>
+        </div>
+      </div>
+      <div class="target-select-wrap">
+        <span class="target-label">🎯 나의 목표 회차 선택:</span>
+        <select id="targetExamSelector" class="target-dropdown" onchange="onTargetExamChange()">
+          <!-- Options populated dynamically -->
+        </select>
+      </div>
+    </div>
+
+    <!-- Countdown Card Box -->
+    <div class="dday-main-box">
+      <div class="target-info">
+        <span id="targetStatusBadge" class="target-badge-status">원서접수 대기</span>
+        <h3 id="targetExamName" class="target-name">2026년 제1회 정보처리기사 필기</h3>
+        <div class="target-period" id="targetDateDescription">
+          <span>📅 원서접수: 2026.01.12 ~ 01.15</span>
+          <span>|</span>
+          <span>✍️ 시험일: 2026.01.30 ~ 03.03</span>
+        </div>
+      </div>
+
+      <div class="countdown-timer-group">
+        <div class="dday-big-tag">
+          <span class="dday-big-val" id="ddayBigVal">D-85</span>
+          <span class="dday-big-sub" id="ddayBigSub">접수 시작까지</span>
+        </div>
+        <div class="timer-tile">
+          <span class="timer-val" id="timerDays">85</span>
+          <span class="timer-lbl">Days</span>
+        </div>
+        <div class="timer-tile">
+          <span class="timer-val" id="timerHours">14</span>
+          <span class="timer-lbl">Hours</span>
+        </div>
+        <div class="timer-tile">
+          <span class="timer-val" id="timerMins">22</span>
+          <span class="timer-lbl">Mins</span>
+        </div>
+        <div class="timer-tile">
+          <span class="timer-val" id="timerSecs">05</span>
+          <span class="timer-lbl">Secs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Q-Net Official Hub Integration -->
+  <section class="official-hub">
+    <div class="section-head">
+      <div>
+        <h3 class="section-title">🌐 한국산업인력공단 Q-Net 공식 연동 센터</h3>
+        <p class="section-sub">실제 자격증 주관 포털과 다이렉트로 연결되어 원서접수 및 합격 조회가 즉시 가능합니다.</p>
+      </div>
+      <span style="font-size: 11.5px; color: #0D9488; font-weight: 700; background: #CCFBF1; padding: 4px 8px; border-radius: 6px; white-space: nowrap;">✓ 100% 공식 사이트 직결</span>
+    </div>
+
+    <div class="qnet-grid">
+      <a href="https://www.q-net.or.kr/rcv001.do?id=rcv00101&gSite=Q&gId=" target="_blank" rel="noopener noreferrer" class="qnet-btn">
+        <div class="qnet-icon">⚡</div>
+        <div class="qnet-info">
+          <strong>원서접수 신청</strong>
+          <span>오전 10:00 접수 오픈</span>
+        </div>
+        <span class="qnet-ext">↗</span>
+      </a>
+
+      <a href="https://www.q-net.or.kr/crf005.do?id=crf00501&gSite=Q&gId=" target="_blank" rel="noopener noreferrer" class="qnet-btn">
+        <div class="qnet-icon">📋</div>
+        <div class="qnet-info">
+          <strong>연간 시험일정 공고</strong>
+          <span>국가기술자격 시행계획</span>
+        </div>
+        <span class="qnet-ext">↗</span>
+      </a>
+
+      <a href="https://www.q-net.or.kr/man001.do?id=man00101&gSite=Q&gId=" target="_blank" rel="noopener noreferrer" class="qnet-btn">
+        <div class="qnet-icon">🎓</div>
+        <div class="qnet-info">
+          <strong>응시자격 자가진단</strong>
+          <span>학력/경력 인정 사전확인</span>
+        </div>
+        <span class="qnet-ext">↗</span>
+      </a>
+
+      <a href="https://www.q-net.or.kr/anc001.do?id=anc00101&gSite=Q&gId=" target="_blank" rel="noopener noreferrer" class="qnet-btn">
+        <div class="qnet-icon">🏆</div>
+        <div class="qnet-info">
+          <strong>합격자 발표 / 성적</strong>
+          <span>오전 09:00 조회 가능</span>
+        </div>
+        <span class="qnet-ext">↗</span>
+      </a>
+
+      <a href="https://www.q-net.or.kr/anc002.do?id=anc00201&gSite=Q&gId=" target="_blank" rel="noopener noreferrer" class="qnet-btn">
+        <div class="qnet-icon">📝</div>
+        <div class="qnet-info">
+          <strong>가답안 / 의견제시</strong>
+          <span>시험 당일 가답안 공지</span>
+        </div>
+        <span class="qnet-ext">↗</span>
+      </a>
+
+      <a href="https://www.q-net.or.kr/rcv003.do?id=rcv00301&gSite=Q&gId=" target="_blank" rel="noopener noreferrer" class="qnet-btn">
+        <div class="qnet-icon">🖨️</div>
+        <div class="qnet-info">
+          <strong>수험표 출력 서비스</strong>
+          <span>CBT 좌석 및 입실시간 확인</span>
+        </div>
+        <span class="qnet-ext">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Content Grid: Left Table & Calendar, Right Planner -->
+  <div class="content-grid">
+    
+    <!-- Left Column: Master Schedule Table & Calendar -->
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      
+      <!-- Schedule Table Card -->
+      <div class="card">
+        <div class="section-head">
+          <div>
+            <h3 class="section-title">📊 정보처리기사 정기 시험 종합 일정표</h3>
+            <p class="section-sub">필기 원서접수부터 최종 합격자 발표까지 모든 일정을 한눈에 확인하세요.</p>
+          </div>
+        </div>
+
+        <div class="year-tabs">
+          <button class="year-tab-btn active" id="tabYear2026" onclick="switchYearTab('2026')">2026년 시행 일정 (최신)</button>
+          <button class="year-tab-btn" id="tabYear2025" onclick="switchYearTab('2025')">2025년 기출 회차 (참고)</button>
+        </div>
+
+        <div class="table-container">
+          <table class="schedule-table" id="scheduleTable">
+            <thead>
+              <tr>
+                <th>회차</th>
+                <th>구분</th>
+                <th>원서접수 기간</th>
+                <th>시험 시행기간</th>
+                <th>합격자 발표</th>
+                <th>진행 상태</th>
+                <th>내 목표</th>
+              </tr>
+            </thead>
+            <tbody id="scheduleTableBody">
+              <!-- Dynamic rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Interactive Calendar Card -->
+      <div class="card calendar-card">
+        <div class="cal-header">
+          <div class="cal-title" id="calCurrentMonthTitle">📅 2026년 1월 시험 일정 캘린더</div>
+          <div class="cal-nav">
+            <button class="cal-nav-btn" onclick="changeCalendarMonth(-1)">◀ 이전달</button>
+            <button class="cal-nav-btn" onclick="setCalendarToToday()">오늘</button>
+            <button class="cal-nav-btn" onclick="changeCalendarMonth(1)">다음달 ▶</button>
+          </div>
+        </div>
+
+        <div class="cal-grid" id="calGrid">
+          <div class="cal-day-head sun">일</div>
+          <div class="cal-day-head">월</div>
+          <div class="cal-day-head">화</div>
+          <div class="cal-day-head">수</div>
+          <div class="cal-day-head">목</div>
+          <div class="cal-day-head">금</div>
+          <div class="cal-day-head sat">토</div>
+          <!-- Days populated dynamically -->
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:14px; font-size:11.5px; flex-wrap:wrap;">
+          <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#FEF3C7; border:1px solid #F59E0B; border-radius:2px;"></span> 원서접수</span>
+          <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#DCFCE7; border:1px solid #10B981; border-radius:2px;"></span> 시험 시행</span>
+          <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#F3E8FF; border:1px solid #A855F7; border-radius:2px;"></span> 합격자 발표</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Planner, Checklist, and Tips -->
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      
+      <!-- Planner & Checklist Card -->
+      <div class="card planner-card">
+        <div class="section-head" style="margin-bottom:8px;">
+          <h3 class="section-title">🎯 나만의 수험 플래너</h3>
+          <span style="font-size:11.5px; color:#0D9488; font-weight:700;">💾 자동 저장됨</span>
+        </div>
+
+        <!-- Custom Goal Setting -->
+        <div class="goal-box">
+          <div class="goal-title">🏆 나의 목표 다짐 & 목표 점수</div>
+          <div class="goal-input-wrap">
+            <input type="text" id="userGoalInput" class="goal-input" placeholder="예: 필기 85점 / 실기 75점 한 번에 동차합격!">
+            <button class="btn-goal-save" onclick="saveUserGoal()">저장</button>
+          </div>
+        </div>
+
+        <!-- CBT Fast Jump Action -->
+        <div style="background:#EFF6FF; border:1.5px solid #BFDBFE; border-radius:10px; padding:14px;">
+          <div style="font-size:13.5px; font-weight:800; color:#1E40AF; margin-bottom:4px;">💻 CBT 모의고사 바로 풀기</div>
+          <p style="font-size:12px; color:#475569; margin-bottom:10px;">실제 시험과 100% 동일한 컴퓨터 시험 환경에서 문제를 풀어보세요.</p>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a href="index.html" style="flex:1; min-width:110px; text-align:center; padding:8px 10px; background:#1E40AF; color:white; border-radius:6px; font-size:12px; font-weight:800; text-decoration:none;">필기 200제 풀기 ➜</a>
+            <a href="index.html#practical" style="flex:1; min-width:110px; text-align:center; padding:8px 10px; background:#047857; color:white; border-radius:6px; font-size:12px; font-weight:800; text-decoration:none;">실기 60제 풀기 ➜</a>
+          </div>
+        </div>
+
+        <!-- Study Todo Checklist -->
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:13.5px; font-weight:800; color:#334155;">📝 필수 수험 체크리스트</span>
+            <span id="checklistProgressText" style="font-size:11.5px; color:#0D9488; font-weight:800;">0/5 완료</span>
+          </div>
+          
+          <div class="checklist-wrap" id="checklistContainer">
+            <!-- Checklist items populated via JS -->
+          </div>
+
+          <div class="add-task-wrap">
+            <input type="text" id="newTaskInput" class="add-task-input" placeholder="새 체크리스트 항목 추가..." onkeydown="if(event.key==='Enter') addNewTask()">
+            <button class="btn-add-task" onclick="addNewTask()">+ 추가</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Essential Exam Tips Card -->
+      <div class="tips-card">
+        <div class="tips-header">💡 큐넷 접수 & CBT 시험장 100% 합격 꿀팁</div>
+        <ul class="tips-list">
+          <li class="tips-item">
+            <span class="tips-badge">원서접수</span>
+            <span><strong>오전 10:00 정각 서버 접속!</strong> 원서접수 3일 전 큐넷 <em>'사전입력 서비스'</em>를 이용해 자격, 장소 외 정보를 미리 입력해두면 30초 컷으로 고사장을 선점할 수 있습니다.</span>
+          </li>
+          <li class="tips-item">
+            <span class="tips-badge">신분증</span>
+            <span><strong>실물 신분증 필수 지참!</strong> 주민등록증, 운전면허증, 여권 또는 정부24 모바일 신분증만 인정됩니다. (사진 촬영본 불가)</span>
+          </li>
+          <li class="tips-item">
+            <span class="tips-badge">CBT 팁</span>
+            <span>필기 CBT 시험은 시험 시작 후 <strong>시험 시간 50% 경과 시점</strong>부터 답안 제출 후 조기 퇴실이 가능하며, 제출 즉시 가점수와 합격 여부가 화면에 표시됩니다.</span>
+          </li>
+          <li class="tips-item">
+            <span class="tips-badge">실기 주의</span>
+            <span>실기 필답형 시험은 <strong>흑색(검은색) 필기구만 사용 가능</strong>하며, 연필이나 파란색 볼펜 작성 시 0점 처리되므로 주의하세요.</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <p><strong>정보처리기사 실시간 시험일정 & 수험 플래너</strong> | 대한민국 국가기술자격 한국산업인력공단(Q-Net) 연동 시스템</p>
+    <p>본 일정은 한국산업인력공단의 국가기술자격 연간 시행계획을 기반으로 제공되며, 정확한 공고사항은 Q-Net 공식 홈페이지를 반드시 확인하시기 바랍니다.</p>
+  </div>
+</footer>
+
+<script>
+// EXAM SCHEDULE DATABASE (2025 ~ 2026)
+const EXAM_DATA = {
+  "2026": [
+    {
+      id: "2026-1-written",
+      examName: "2026년 제1회 필기",
+      type: "written",
+      year: 2026,
+      round: "제1회",
+      category: "필기 (CBT)",
+      regStart: "2026-01-12T10:00:00",
+      regEnd: "2026-01-15T18:00:00",
+      regStr: "01.12 ~ 01.15",
+      examStart: "2026-01-30T09:00:00",
+      examEnd: "2026-03-03T18:00:00",
+      examStr: "01.30 ~ 03.03",
+      passDate: "2026-03-11T09:00:00",
+      passStr: "03.11 (수)"
+    },
+    {
+      id: "2026-1-practical",
+      examName: "2026년 제1회 실기",
+      type: "practical",
+      year: 2026,
+      round: "제1회",
+      category: "실기 (필답형)",
+      regStart: "2026-03-23T10:00:00",
+      regEnd: "2026-03-26T18:00:00",
+      regStr: "03.23 ~ 03.26",
+      examStart: "2026-04-18T09:00:00",
+      examEnd: "2026-05-06T18:00:00",
+      examStr: "04.18 ~ 05.06",
+      passDate: "2026-06-12T09:00:00",
+      passStr: "06.12 (금)"
+    },
+    {
+      id: "2026-2-written",
+      examName: "2026년 제2회 필기",
+      type: "written",
+      year: 2026,
+      round: "제2회",
+      category: "필기 (CBT)",
+      regStart: "2026-04-20T10:00:00",
+      regEnd: "2026-04-23T18:00:00",
+      regStr: "04.20 ~ 04.23",
+      examStart: "2026-05-09T09:00:00",
+      examEnd: "2026-05-29T18:00:00",
+      examStr: "05.09 ~ 05.29",
+      passDate: "2026-06-10T09:00:00",
+      passStr: "06.10 (수)"
+    },
+    {
+      id: "2026-2-practical",
+      examName: "2026년 제2회 실기",
+      type: "practical",
+      year: 2026,
+      round: "제2회",
+      category: "실기 (필답형)",
+      regStart: "2026-06-22T10:00:00",
+      regEnd: "2026-06-25T18:00:00",
+      regStr: "06.22 ~ 06.25",
+      examStart: "2026-07-18T09:00:00",
+      examEnd: "2026-08-05T18:00:00",
+      examStr: "07.18 ~ 08.05",
+      passDate: "2026-09-11T09:00:00",
+      passStr: "09.11 (금)"
+    },
+    {
+      id: "2026-3-written",
+      examName: "2026년 제3회 필기",
+      type: "written",
+      year: 2026,
+      round: "제3회",
+      category: "필기 (CBT)",
+      regStart: "2026-07-20T10:00:00",
+      regEnd: "2026-07-23T18:00:00",
+      regStr: "07.20 ~ 07.23",
+      examStart: "2026-08-07T09:00:00",
+      examEnd: "2026-09-01T18:00:00",
+      examStr: "08.07 ~ 09.01",
+      passDate: "2026-09-09T09:00:00",
+      passStr: "09.09 (수)"
+    },
+    {
+      id: "2026-3-practical",
+      examName: "2026년 제3회 실기",
+      type: "practical",
+      year: 2026,
+      round: "제3회",
+      category: "실기 (필답형)",
+      regStart: "2026-09-21T10:00:00",
+      regEnd: "2026-09-28T18:00:00",
+      regStr: "09.21 ~ 09.28",
+      examStart: "2026-10-24T09:00:00",
+      examEnd: "2026-11-13T18:00:00",
+      examStr: "10.24 ~ 11.13",
+      passDate: "2026-12-18T09:00:00",
+      passStr: "12.18 (금)"
+    }
+  ],
+  "2025": [
+    {
+      id: "2025-1-written",
+      examName: "2025년 제1회 필기",
+      type: "written",
+      year: 2025,
+      round: "제1회",
+      category: "필기 (CBT)",
+      regStart: "2025-01-14T10:00:00",
+      regEnd: "2025-01-17T18:00:00",
+      regStr: "01.14 ~ 01.17",
+      examStart: "2025-02-07T09:00:00",
+      examEnd: "2025-03-07T18:00:00",
+      examStr: "02.07 ~ 03.07",
+      passDate: "2025-03-14T09:00:00",
+      passStr: "03.14 (금)"
+    },
+    {
+      id: "2025-1-practical",
+      examName: "2025년 제1회 실기",
+      type: "practical",
+      year: 2025,
+      round: "제1회",
+      category: "실기 (필답형)",
+      regStart: "2025-03-25T10:00:00",
+      regEnd: "2025-03-28T18:00:00",
+      regStr: "03.25 ~ 03.28",
+      examStart: "2025-04-19T09:00:00",
+      examEnd: "2025-05-08T18:00:00",
+      examStr: "04.19 ~ 05.08",
+      passDate: "2025-06-13T09:00:00",
+      passStr: "06.13 (금)"
+    },
+    {
+      id: "2025-2-written",
+      examName: "2025년 제2회 필기",
+      type: "written",
+      year: 2025,
+      round: "제2회",
+      category: "필기 (CBT)",
+      regStart: "2025-04-22T10:00:00",
+      regEnd: "2025-04-25T18:00:00",
+      regStr: "04.22 ~ 04.25",
+      examStart: "2025-05-10T09:00:00",
+      examEnd: "2025-05-30T18:00:00",
+      examStr: "05.10 ~ 05.30",
+      passDate: "2025-06-11T09:00:00",
+      passStr: "06.11 (수)"
+    },
+    {
+      id: "2025-2-practical",
+      examName: "2025년 제2회 실기",
+      type: "practical",
+      year: 2025,
+      round: "제2회",
+      category: "실기 (필답형)",
+      regStart: "2025-06-24T10:00:00",
+      regEnd: "2025-06-27T18:00:00",
+      regStr: "06.24 ~ 06.27",
+      examStart: "2025-07-19T09:00:00",
+      examEnd: "2025-08-06T18:00:00",
+      examStr: "07.19 ~ 08.06",
+      passDate: "2025-09-12T09:00:00",
+      passStr: "09.12 (금)"
+    },
+    {
+      id: "2025-3-written",
+      examName: "2025년 제3회 필기",
+      type: "written",
+      year: 2025,
+      round: "제3회",
+      category: "필기 (CBT)",
+      regStart: "2025-07-22T10:00:00",
+      regEnd: "2025-07-25T18:00:00",
+      regStr: "07.22 ~ 07.25",
+      examStart: "2025-08-08T09:00:00",
+      examEnd: "2025-09-02T18:00:00",
+      examStr: "08.08 ~ 09.02",
+      passDate: "2025-09-10T09:00:00",
+      passStr: "09.10 (수)"
+    },
+    {
+      id: "2025-3-practical",
+      examName: "2025년 제3회 실기",
+      type: "practical",
+      year: 2025,
+      round: "제3회",
+      category: "실기 (필답형)",
+      regStart: "2025-09-22T10:00:00",
+      regEnd: "2025-09-25T18:00:00",
+      regStr: "09.22 ~ 09.25",
+      examStart: "2025-10-25T09:00:00",
+      examEnd: "2025-11-14T18:00:00",
+      examStr: "10.25 ~ 11.14",
+      passDate: "2025-12-12T09:00:00",
+      passStr: "12.12 (금)"
+    }
+  ]
+};
+
+// Default Tasks
+const DEFAULT_TASKS = [
+  { id: 1, text: "Q-Net 회원가입 및 응시자격 서류/자가진단 완료", desc: "미리 졸업/경력 증명서 등록해두기", done: false },
+  { id: 2, text: "CBT 필기 200문항 1회독 완독 & 오답 정리", desc: "소프트웨어 구축/데이터베이스 집중", done: false },
+  { id: 3, text: "원서접수 3일 전 사전입력 서비스 등록", desc: "접수 당일 10시 광클로 희망 고사장 확보", done: false },
+  { id: 4, text: "모의고사 모드 3회 응시 (목표 75점 이상 달성)", desc: "과목별 과락 40점 방지 전략 점검", done: false },
+  { id: 5, text: "실기 대비 알고리즘 C/자바/Python 코드 60제 암기", desc: "단답형 및 SQL 작성 집중 공략", done: false }
+];
+
+let currentYear = '2026';
+let targetExamId = localStorage.getItem('user_target_exam_id') || '2026-1-written';
+let userTasks = JSON.parse(localStorage.getItem('user_exam_tasks') || 'null') || DEFAULT_TASKS;
+let userGoal = localStorage.getItem('user_exam_goal') || '';
+
+// Calendar State
+let calDate = new Date(2026, 0, 1); // Jan 2026 default
+
+// Helper to determine status
+function getExamStatus(item, now = new Date()) {
+  const regS = new Date(item.regStart);
+  const regE = new Date(item.regEnd);
+  const exS = new Date(item.examStart);
+  const exE = new Date(item.examEnd);
+  const pass = new Date(item.passDate);
+
+  if (now < regS) {
+    const diffDays = Math.ceil((regS - now) / (1000 * 60 * 60 * 24));
+    return { code: 'upcoming_reg', label: `접수 D-${diffDays}`, badgeClass: 'upcoming', targetDate: regS, targetLabel: '원서접수 시작까지' };
+  } else if (now >= regS && now <= regE) {
+    return { code: 'active_reg', label: '🔥 원서접수 진행중', badgeClass: 'active', targetDate: regE, targetLabel: '원서접수 마감까지' };
+  } else if (now > regE && now < exS) {
+    const diffDays = Math.ceil((exS - now) / (1000 * 60 * 60 * 24));
+    return { code: 'upcoming_exam', label: `시험 D-${diffDays}`, badgeClass: 'upcoming', targetDate: exS, targetLabel: '시험 시행일까지' };
+  } else if (now >= exS && now <= exE) {
+    return { code: 'active_exam', label: '✍️ 시험 시행중', badgeClass: 'exam-period', targetDate: exE, targetLabel: '시험기간 종료까지' };
+  } else if (now > exE && now < pass) {
+    const diffDays = Math.ceil((pass - now) / (1000 * 60 * 60 * 24));
+    return { code: 'waiting_pass', label: `발표 D-${diffDays}`, badgeClass: 'upcoming', targetDate: pass, targetLabel: '합격자 발표까지' };
+  } else {
+    return { code: 'done', label: '시행 완료', badgeClass: 'done', targetDate: null, targetLabel: '시행 완료' };
+  }
+}
+
+// Find item by ID
+function findExamById(id) {
+  for (const yr in EXAM_DATA) {
+    const found = EXAM_DATA[yr].find(e => e.id === id);
+    if (found) return found;
+  }
+  return EXAM_DATA['2026'][0];
+}
+
+// Populate Target Dropdown
+function populateDropdown() {
+  const sel = document.getElementById('targetExamSelector');
+  sel.innerHTML = '';
+
+  ['2026', '2025'].forEach(yr => {
+    const grp = document.createElement('optgroup');
+    grp.label = `${yr}년 정기 기사 일정`;
+    EXAM_DATA[yr].forEach(item => {
+      const opt = document.createElement('option');
+      opt.value = item.id;
+      opt.textContent = `${item.examName} (${item.category})`;
+      if (item.id === targetExamId) opt.selected = true;
+      grp.appendChild(opt);
+    });
+    sel.appendChild(grp);
+  });
+}
+
+function onTargetExamChange() {
+  const sel = document.getElementById('targetExamSelector');
+  targetExamId = sel.value;
+  localStorage.setItem('user_target_exam_id', targetExamId);
+  renderHeroDDay();
+  renderScheduleTable();
+}
+
+function setTargetExam(id) {
+  targetExamId = id;
+  localStorage.setItem('user_target_exam_id', targetExamId);
+  document.getElementById('targetExamSelector').value = id;
+  renderHeroDDay();
+  renderScheduleTable();
+}
+
+// Render Hero D-Day
+function renderHeroDDay() {
+  const item = findExamById(targetExamId);
+  const now = new Date();
+  const status = getExamStatus(item, now);
+
+  document.getElementById('targetExamName').textContent = `${item.year}년 ${item.round} 정보처리기사 ${item.category}`;
+  document.getElementById('targetStatusBadge').textContent = status.label;
+  document.getElementById('targetDateDescription').innerHTML = `
+    <span>📅 접수: ${item.regStr}</span>
+    <span>|</span>
+    <span>✍️ 시험: ${item.examStr}</span>
+    <span>|</span>
+    <span>🏆 발표: ${item.passStr}</span>
+  `;
+
+  // Countdown Calculation
+  if (status.targetDate) {
+    const diffMs = status.targetDate - now;
+    if (diffMs > 0) {
+      const totalSecs = Math.floor(diffMs / 1000);
+      const days = Math.floor(totalSecs / 86400);
+      const hours = Math.floor((totalSecs % 86400) / 3600);
+      const mins = Math.floor((totalSecs % 3600) / 60);
+      const secs = totalSecs % 60;
+
+      document.getElementById('ddayBigVal').textContent = `D-${days}`;
+      document.getElementById('ddayBigSub').textContent = status.targetLabel;
+      document.getElementById('timerDays').textContent = String(days).padStart(2, '0');
+      document.getElementById('timerHours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('timerMins').textContent = String(mins).padStart(2, '0');
+      document.getElementById('timerSecs').textContent = String(secs).padStart(2, '0');
+    } else {
+      document.getElementById('ddayBigVal').textContent = 'D-DAY';
+      document.getElementById('ddayBigSub').textContent = status.targetLabel;
+      document.getElementById('timerDays').textContent = '00';
+      document.getElementById('timerHours').textContent = '00';
+      document.getElementById('timerMins').textContent = '00';
+      document.getElementById('timerSecs').textContent = '00';
+    }
+  } else {
+    document.getElementById('ddayBigVal').textContent = '종료';
+    document.getElementById('ddayBigSub').textContent = '일정 종료';
+    document.getElementById('timerDays').textContent = '--';
+    document.getElementById('timerHours').textContent = '--';
+    document.getElementById('timerMins').textContent = '--';
+    document.getElementById('timerSecs').textContent = '--';
+  }
+}
+
+// Live Clock Ticker
+function updateClock() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  const hh = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  const ss = String(now.getSeconds()).padStart(2, '0');
+  
+  const el = document.getElementById('liveClockText');
+  if (el) {
+    el.textContent = `${y}-${m}-${d} ${hh}:${mm}:${ss} (실시간)`;
+  }
+  renderHeroDDay();
+}
+
+// Year Tabs & Schedule Table
+function switchYearTab(yr) {
+  currentYear = yr;
+  document.getElementById('tabYear2026').classList.toggle('active', yr === '2026');
+  document.getElementById('tabYear2025').classList.toggle('active', yr === '2025');
+  renderScheduleTable();
+}
+
+function renderScheduleTable() {
+  const tbody = document.getElementById('scheduleTableBody');
+  tbody.innerHTML = '';
+  const list = EXAM_DATA[currentYear] || [];
+  const now = new Date();
+
+  list.forEach(item => {
+    const tr = document.createElement('tr');
+    const isTarget = item.id === targetExamId;
+    if (isTarget) tr.classList.add('highlight-target');
+
+    const status = getExamStatus(item, now);
+
+    tr.innerHTML = `
+      <td><span class="exam-num-badge">${item.round}</span></td>
+      <td style="font-weight:700; color:${item.type==='written'?'#1B365D':'#0D9488'};">${item.category}</td>
+      <td><span class="date-pill">${item.regStr}</span></td>
+      <td><span class="date-pill">${item.examStr}</span></td>
+      <td><span class="date-pill">${item.passStr}</span></td>
+      <td><span class="status-badge ${status.badgeClass}">${status.label}</span></td>
+      <td>
+        <button class="btn-set-target ${isTarget?'active':''}" onclick="setTargetExam('${item.id}')">
+          ${isTarget ? '✓ 선택됨' : '목표 지정'}
+        </button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Mini Calendar
+function changeCalendarMonth(delta) {
+  calDate.setMonth(calDate.getMonth() + delta);
+  renderCalendar();
+}
+function setCalendarToToday() {
+  calDate = new Date();
+  renderCalendar();
+}
+
+function renderCalendar() {
+  const y = calDate.getFullYear();
+  const m = calDate.getMonth(); // 0-based
+  document.getElementById('calCurrentMonthTitle').textContent = `📅 ${y}년 ${m + 1}월 시험 일정 캘린더`;
+
+  const firstDay = new Date(y, m, 1).getDay(); // 0 is Sun
+  const lastDate = new Date(y, m + 1, 0).getDate();
+  const today = new Date();
+
+  const grid = document.getElementById('calGrid');
+  // keep headers (first 7 elements)
+  while (grid.children.length > 7) {
+    grid.removeChild(grid.lastChild);
+  }
+
+  // Blank cells for firstDay
+  for (let i = 0; i < firstDay; i++) {
+    const blank = document.createElement('div');
+    blank.className = 'cal-cell';
+    blank.style.background = 'transparent';
+    blank.style.borderColor = 'transparent';
+    blank.style.cursor = 'default';
+    grid.appendChild(blank);
+  }
+
+  // Date cells
+  for (let d = 1; d <= lastDate; d++) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell';
+    const thisDate = new Date(y, m, d);
+
+    if (thisDate.getFullYear() === today.getFullYear() &&
+        thisDate.getMonth() === today.getMonth() &&
+        thisDate.getDate() === today.getDate()) {
+      cell.classList.add('today');
+    }
+
+    const numSpan = document.createElement('span');
+    numSpan.className = 'cal-num';
+    numSpan.textContent = d;
+    cell.appendChild(numSpan);
+
+    // Check events for this date
+    const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const allExams = [...(EXAM_DATA['2026'] || []), ...(EXAM_DATA['2025'] || [])];
+
+    allExams.forEach(item => {
+      const rs = item.regStart.slice(0, 10);
+      const re = item.regEnd.slice(0, 10);
+      const es = item.examStart.slice(0, 10);
+      const ee = item.examEnd.slice(0, 10);
+      const ps = item.passDate.slice(0, 10);
+
+      if (dateStr === rs) {
+        addCalTag(cell, `${item.round} 접수시작`, 'reg');
+      } else if (dateStr === re) {
+        addCalTag(cell, `${item.round} 접수마감`, 'reg');
+      } else if (dateStr === es) {
+        addCalTag(cell, `${item.round} ${item.type==='written'?'필기':'실기'}시작`, 'exam');
+      } else if (dateStr === ps) {
+        addCalTag(cell, `${item.round} 합격발표`, 'pass');
+      }
+    });
+
+    grid.appendChild(cell);
+  }
+}
+
+function addCalTag(cell, text, type) {
+  cell.classList.add('has-event');
+  const tag = document.createElement('div');
+  tag.className = `cal-tag ${type}`;
+  tag.textContent = text;
+  tag.title = text;
+  cell.appendChild(tag);
+}
+
+// User Goal
+function initGoal() {
+  const input = document.getElementById('userGoalInput');
+  input.value = userGoal;
+}
+function saveUserGoal() {
+  const input = document.getElementById('userGoalInput');
+  userGoal = input.value.trim();
+  localStorage.setItem('user_exam_goal', userGoal);
+  alert('🏆 목표 다짐이 성공적으로 저장되었습니다!');
+}
+
+// Tasks Checklist
+function renderTasks() {
+  const container = document.getElementById('checklistContainer');
+  container.innerHTML = '';
+  let doneCount = 0;
+
+  userTasks.forEach(task => {
+    if (task.done) doneCount++;
+    const item = document.createElement('div');
+    item.className = `check-item ${task.done ? 'done' : ''}`;
+    item.innerHTML = `
+      <input type="checkbox" class="check-box" ${task.done ? 'checked' : ''} onchange="toggleTask(${task.id})">
+      <div class="check-content">
+        <div class="check-title">${task.text}</div>
+        ${task.desc ? `<div class="check-desc">${task.desc}</div>` : ''}
+      </div>
+      <button class="btn-del-task" onclick="deleteTask(${task.id})" title="삭제">✕</button>
+    `;
+    container.appendChild(item);
+  });
+
+  const prog = document.getElementById('checklistProgressText');
+  prog.textContent = `${doneCount}/${userTasks.length} 완료`;
+  localStorage.setItem('user_exam_tasks', JSON.stringify(userTasks));
+}
+
+function toggleTask(id) {
+  const task = userTasks.find(t => t.id === id);
+  if (task) {
+    task.done = !task.done;
+    renderTasks();
+  }
+}
+
+function deleteTask(id) {
+  userTasks = userTasks.filter(t => t.id !== id);
+  renderTasks();
+}
+
+function addNewTask() {
+  const input = document.getElementById('newTaskInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const newId = Date.now();
+  userTasks.push({ id: newId, text: text, desc: '사용자 맞춤 추가 일정', done: false });
+  input.value = '';
+  renderTasks();
+}
+
+// Initial Boot
+document.addEventListener('DOMContentLoaded', () => {
+  populateDropdown();
+  renderHeroDDay();
+  renderScheduleTable();
+  renderCalendar();
+  initGoal();
+  renderTasks();
+  setInterval(updateClock, 1000);
+});
+</script>
+</body>
+</html>
