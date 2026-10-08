@@ -8,20 +8,8 @@
 
 **모바일/PC 완벽 연동 공식 웹 서비스**
 
-* 📅 **3대 국가 시험 실시간 D-Day 전광판 & 시험 일정 안내 센터**:  
+* 📅 ** 국가 시험 실시간 D-Day 전광판 & 시험 일정 안내 센터**:  
   https://srunaic.github.io/Korea_History_Exel_CBT_System/exam_schedule.html
-
-* 🏛️ **7급 공무원 전산직 실시간 D-Day 플래너**:  
-  https://srunaic.github.io/Korea_History_Exel_CBT_System/civil_service_schedule.html
-
-* 💻 **7급 공무원 전산직 실전 CBT 문제은행**:  
-  https://srunaic.github.io/Korea_History_Exel_CBT_System/civil_service_cbt.html
-
-* 🇰🇷 **한국사능력검정시험 심화 실전 CBT**:  
-  https://srunaic.github.io/Korea_History_Exel_CBT_System/index.html
-
-* 🇬🇧 **TOEIC 실전 CBT 모의고사**:  
-  https://srunaic.github.io/Korea_History_Exel_CBT_System/toeic_cbt.html
 
 ---
 
