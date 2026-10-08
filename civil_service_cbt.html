@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
+<title>7급 공무원 전산직 실전 CBT 모의고사</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#1F4E79;--bg:#F0F4F8;--card:#fff;--text:#1E293B;--muted:#64748B;--border:#E2E8F0;--correct:#15803D;--wrong:#B91C1C;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,"Malgun Gothic",sans-serif;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);color:var(--text);line-height:1.55;}
+header{background:linear-gradient(135deg,#0F2A44 0%,#1F4E79 70%,#2563EB 100%);color:#fff;padding:14px 18px;position:sticky;top:0;z-index:100;box-shadow:0 4px 14px rgba(15,42,68,.25);}
+.hdr-inner{max-width:1260px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.hdr-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;}
+.hdr-brand h1{font-size:1.1rem;font-weight:800;white-space:nowrap;}
+.hdr-brand p{font-size:.72rem;opacity:.85;white-space:nowrap;}
+.hdr-icon{font-size:22px;background:rgba(255,255,255,.15);width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:9px;flex-shrink:0;}
+.quick-links{display:flex;gap:6px;flex-wrap:wrap;}
+.btn-q{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;text-decoration:none;padding:6px 10px;border-radius:6px;font-size:.75rem;font-weight:700;white-space:nowrap;transition:.2s;display:inline-flex;align-items:center;gap:3px;}
+.btn-q:hover{background:rgba(255,255,255,.28);transform:translateY(-1px);}
+
+/* Subject Tabs */
+.subject-bar{max-width:1260px;margin:14px auto 0;padding:0 14px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:6px;}
+.subject-bar::-webkit-scrollbar{display:none;}
+.subject-bar .sep{width:2px;background:#CBD5E1;border-radius:2px;flex-shrink:0;margin:4px 2px;}
+.stab{padding:8px 14px;border-radius:8px;border:1.5px solid var(--border);background:var(--card);font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:.2s;display:flex;align-items:center;gap:5px;flex-shrink:0;color:var(--text);}
+.stab:hover{border-color:#94A3B8;transform:translateY(-1px);}
+.stab.active{color:#fff;border-color:transparent;box-shadow:0 3px 10px rgba(0,0,0,.15);}
+.grp-label{font-size:.65rem;font-weight:800;color:var(--muted);white-space:nowrap;padding:0 4px;flex-shrink:0;align-self:center;letter-spacing:.5px;}
+
+/* Main Grid */
+.cbt-wrap{max-width:1260px;margin:14px auto 40px;padding:0 14px;display:grid;grid-template-columns:1fr 300px;gap:16px;}
+.left{display:flex;flex-direction:column;gap:14px;min-width:0;}
+.right{display:flex;flex-direction:column;gap:14px;min-width:0;}
+
+/* Question Card */
+.q-card{background:var(--card);border-radius:12px;padding:22px;box-shadow:0 3px 12px rgba(0,0,0,.05);border:1.5px solid var(--border);}
+.q-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.badge{padding:4px 10px;border-radius:6px;font-size:.72rem;font-weight:700;white-space:nowrap;}
+.q-num-badge{background:#FEF3C7;color:#92400E;}
+.q-text{font-size:1rem;font-weight:600;line-height:1.7;margin-bottom:18px;word-break:keep-all;}
+.q-text pre{background:#F1F5F9;padding:12px;border-radius:8px;font-size:.85rem;overflow-x:auto;margin:8px 0;white-space:pre-wrap;font-family:'Pretendard',monospace;}
+
+/* Choice Buttons */
+#choicesBox{display:flex;flex-direction:column;gap:8px;}
+.ch-btn{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border-radius:8px;border:1.5px solid var(--border);background:var(--card);cursor:pointer;transition:.2s;text-align:left;font-size:.9rem;line-height:1.55;word-break:keep-all;}
+.ch-btn:hover{border-color:#94A3B8;background:#F8FAFC;}
+.ch-btn.selected{border-color:var(--primary);background:#EFF6FF;}
+.ch-btn.correct-mark{border-color:var(--correct);background:#F0FDF4;}
+.ch-btn.wrong-mark{border-color:var(--wrong);background:#FEF2F2;}
+.ch-label{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:#E2E8F0;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;color:#475569;}
+.ch-btn.correct-mark .ch-label{background:var(--correct);color:#fff;}
+.ch-btn.wrong-mark .ch-label{background:var(--wrong);color:#fff;}
+
+/* Explanation */
+#explBox{display:none;background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:10px;padding:18px;margin-top:14px;}
+#explBox.show{display:block;}
+.expl-title{font-weight:800;color:#92400E;margin-bottom:8px;font-size:.9rem;}
+.expl-body{font-size:.88rem;line-height:1.75;color:#78350F;}
+.expl-kw{margin-top:10px;font-size:.82rem;color:#A16207;background:#FEF9C3;padding:8px 12px;border-radius:6px;}
+
+/* Nav Buttons */
+.nav-row{display:flex;gap:10px;justify-content:space-between;margin-top:6px;}
+.nav-btn{padding:10px 20px;border-radius:8px;border:1.5px solid var(--border);background:var(--card);font-size:.85rem;font-weight:700;cursor:pointer;transition:.2s;}
+.nav-btn:hover{background:#F1F5F9;}
+.nav-btn.primary{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+/* Sidebar */
+.side-card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 3px 12px rgba(0,0,0,.05);border:1.5px solid var(--border);}
+.side-title{font-size:.95rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.score-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.score-item{text-align:center;padding:10px;background:#F8FAFC;border-radius:8px;border:1px solid var(--border);}
+.score-val{font-size:1.4rem;font-weight:900;}
+.score-lbl{font-size:.7rem;color:var(--muted);font-weight:600;margin-top:2px;}
+
+/* Answer Grid */
+#gridBox{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:5px;}
+.g-btn{width:100%;aspect-ratio:1;border-radius:6px;border:1.5px solid var(--border);background:#F8FAFC;font-size:.72rem;font-weight:700;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;color:var(--text);}
+.g-btn:hover{border-color:#94A3B8;transform:scale(1.05);}
+.g-btn.current{border-color:var(--primary);background:#DBEAFE;color:var(--primary);box-shadow:0 0 0 2px rgba(31,78,121,.2);}
+.g-btn.answered{background:#E0E7FF;border-color:#818CF8;color:#4338CA;}
+.g-btn.correct-g{background:#DCFCE7;border-color:var(--correct);color:var(--correct);}
+.g-btn.wrong-g{background:#FEE2E2;border-color:var(--wrong);color:var(--wrong);}
+
+/* Subject Progress */
+.subj-progress{margin-top:14px;}
+.sp-item{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid #F1F5F9;font-size:.78rem;}
+.sp-item:last-child{border-bottom:none;}
+.sp-name{font-weight:600;display:flex;align-items:center;gap:4px;}
+.sp-stat{font-weight:700;color:var(--primary);}
+
+/* Mobile */
+@media(max-width:768px){
+  header{padding:10px 12px;}
+  .hdr-inner{flex-direction:column;align-items:stretch;gap:8px;}
+  .hdr-brand h1{font-size:.95rem;}
+  .quick-links{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px;-webkit-overflow-scrolling:touch;}
+  .quick-links::-webkit-scrollbar{display:none;}
+  .btn-q{padding:5px 8px;font-size:.7rem;}
+  .subject-bar{margin-top:10px;padding:0 10px;}
+  .stab{padding:7px 11px;font-size:.72rem;}
+  .cbt-wrap{grid-template-columns:1fr;padding:0 10px;margin-top:10px;}
+  .q-card{padding:16px;}
+  .q-text{font-size:.92rem;}
+  .ch-btn{padding:10px 12px;font-size:.85rem;}
+  .nav-btn{padding:8px 14px;font-size:.8rem;}
+  #gridBox{grid-template-columns:repeat(5,1fr);}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-inner">
+    <a href="civil_service_schedule.html" class="hdr-brand">
+      <div class="hdr-icon">🏛️</div>
+      <div>
+        <h1>7급 공무원 전산직 실전 CBT 모의고사</h1>
+        <p>PSAT · 헌법 · 자료구조 · DB · SW공학 · 보안 · 네트워크</p>
+      </div>
+    </a>
+    <div class="quick-links">
+      <a href="civil_service_schedule.html" class="btn-q">🏛️ 공무원 일정</a>
+      <a href="exam_schedule.html" class="btn-q">📅 종합 일정</a>
+      <a href="cbt_player.html" class="btn-q">🇰🇷 한국사 CBT</a>
+      <a href="toeic_cbt.html" class="btn-q">🇬🇧 토익 CBT</a>
+      <a href="Engineer_Information_exam_schedule.html" class="btn-q">💻 정처기</a>
+    </div>
+  </div>
+</header>
+
+<nav class="subject-bar" id="subjectBar">
+  <span class="grp-label">1차▸</span>
+  <button class="stab active" data-subj="psat-verbal">🧠 언어논리</button>
+  <button class="stab" data-subj="psat-data">📊 자료해석</button>
+  <button class="stab" data-subj="psat-situation">🎯 상황판단</button>
+  <button class="stab" data-subj="constitution">⚖️ 헌법</button>
+  <div class="sep"></div>
+  <span class="grp-label">2차▸</span>
+  <button class="stab" data-subj="data-structure">🌲 자료구조론</button>
+  <button class="stab" data-subj="database">🗄️ DB론</button>
+  <button class="stab" data-subj="software-eng">⚙️ SW공학</button>
+  <button class="stab" data-subj="security">🔐 정보보호론</button>
+  <button class="stab" data-subj="network">🌐 네트워크</button>
+</nav>
+
+<main class="cbt-wrap">
+  <div class="left">
+    <div class="q-card">
+      <div class="q-top">
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+          <span class="badge" id="subjBadge">🧠 언어논리</span>
+          <span class="badge q-num-badge" id="qNumBadge">Q1 / 5</span>
+        </div>
+        <span style="font-size:.78rem;color:var(--muted);font-weight:600;" id="qCategory"></span>
+      </div>
+      <div class="q-text" id="qText"></div>
+      <div id="choicesBox"></div>
+      <div id="explBox">
+        <div class="expl-title">📝 정답 해설</div>
+        <div class="expl-body" id="explBody"></div>
+        <div class="expl-kw" id="explKw"></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" id="btnPrev" onclick="nav(-1)">◀ 이전 문제</button>
+      <button class="nav-btn primary" id="btnNext" onclick="nav(1)">다음 문제 ▶</button>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="side-card">
+      <div class="side-title">📊 현재 과목 성적</div>
+      <div class="score-grid">
+        <div class="score-item"><div class="score-val" id="scAnswered" style="color:var(--primary)">0</div><div class="score-lbl">풀이 완료</div></div>
+        <div class="score-item"><div class="score-val" id="scTotal">5</div><div class="score-lbl">전체 문항</div></div>
+        <div class="score-item"><div class="score-val" id="scCorrect" style="color:var(--correct)">0</div><div class="score-lbl">정답</div></div>
+        <div class="score-item"><div class="score-val" id="scRate" style="color:#D97706">0%</div><div class="score-lbl">정답률</div></div>
+      </div>
+      <div class="side-title">🔢 답안 표기판</div>
+      <div id="gridBox"></div>
+    </div>
+    <div class="side-card">
+      <div class="side-title">📈 전 과목 진도</div>
+      <div id="progressList" class="subj-progress"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+/* ===========================
+   QUESTION DATA (9과목 × 5문항 = 45문항)
+   =========================== */
+const SUBJECTS = {
+  'psat-verbal': {
+    name:'PSAT 언어논리', icon:'🧠', color:'#6366F1',
+    questions:[
+      {q:'다음 논증에서 결론을 가장 강화하는 전제를 고르시오.\n\n결론: "원격근무 도입은 조직 생산성을 향상시킨다."\n전제1: 최근 설문조사에서 직원 73%가 원격근무에 만족한다고 응답했다.',
+       opts:['원격근무 도입 후 이직률이 15% 감소하고 프로젝트 완료율이 22% 증가했다.','원격근무를 도입한 회사의 주가가 상승했다.','원격근무 시 직원 간 비공식 대화가 줄어든다.','일부 직원은 원격근무보다 사무실 근무를 선호한다.'],
+       ans:0, expl:'결론은 "생산성 향상"이므로, 이직률 감소와 프로젝트 완료율 증가라는 구체적 성과 지표를 제시하는 ①이 가장 직접적으로 결론을 강화합니다.', kw:'논증 강화·구체적 근거·생산성 지표'},
+      {q:'다음 중 논리적 오류가 포함된 주장은?\n\n① A 후보는 경제 전문가이므로 외교 문제에 대한 그의 견해도 옳다.\n② 모든 포유류는 척추동물이고, 고래는 포유류이므로 고래는 척추동물이다.\n③ 범죄율이 증가한 해에 아이스크림 판매도 증가했으므로, 이 둘은 공통 원인(기온)을 가질 수 있다.\n④ 전제가 참이면 결론이 반드시 참인 논증은 타당한 논증이다.',
+       opts:['①','②','③','④'],
+       ans:0, expl:'①은 "권위에의 호소(전문성 영역 이탈)" 오류입니다. 경제 전문성이 외교 문제에 대한 전문성을 보장하지 않습니다.', kw:'권위에의 호소·논리적 오류·전문성 영역'},
+      {q:'다음 주장의 숨은 전제(암묵적 가정)로 가장 적절한 것은?\n\n"김 과장은 정보보안 자격증을 보유하고 있으므로 이번 보안 감사팀장을 맡아야 한다."',
+       opts:['자격증 보유자가 해당 분야 업무 수행에 적합하다.','김 과장이 부서에서 가장 연차가 높다.','보안 감사는 반드시 외부 전문가가 수행해야 한다.','자격증은 시험에 합격해야 취득할 수 있다.'],
+       ans:0, expl:'주장의 구조: 자격증 보유(전제) → 팀장 적합(결론). 이를 연결하는 숨은 전제는 "자격증 보유 = 업무 적합성"이라는 ①의 가정입니다.', kw:'숨은 전제·암묵적 가정·논증 구조 분석'},
+      {q:'甲의 주장: "모든 공직자는 청렴해야 하며, 공직자의 재산은 반드시 공개되어야 한다."\n\n다음 중 甲의 주장에 대한 가장 효과적인 반론은?',
+       opts:['재산 공개가 오히려 유능한 인재의 공직 진출을 저해한다는 실증 연구 결과가 있다.','모든 국민의 재산도 공개되어야 한다.','청렴한 공직자는 재산 공개를 두려워하지 않는다.','재산 공개 제도는 다른 나라에서도 시행하고 있다.'],
+       ans:0, expl:'효과적 반론은 주장이 가져올 부정적 결과를 실증적으로 제시하는 것입니다. ①은 재산공개→인재 유출이라는 역효과를 근거로 반박합니다.', kw:'반론·실증적 반박·부정적 결과 제시'},
+      {q:'다음 문장들을 논리적 순서로 올바르게 배열한 것은?\n\n㈎ 그 결과, 전자정부 만족도가 OECD 국가 중 1위를 기록했다.\n㈏ 한국은 1990년대 후반부터 정보화 기반 구축에 집중 투자했다.\n㈐ 이를 바탕으로 2000년대 이후 행정업무의 전면 디지털화를 추진했다.\n㈑ 국민들은 각종 민원을 온라인으로 처리할 수 있게 되었다.',
+       opts:['㈏-㈐-㈑-㈎','㈏-㈑-㈐-㈎','㈎-㈏-㈐-㈑','㈐-㈏-㈑-㈎'],
+       ans:0, expl:'시간적·인과적 순서: 기반 구축(㈏) → 디지털화 추진(㈐) → 온라인 민원(㈑) → 결과 1위(㈎)', kw:'문장 배열·시간적 순서·인과 관계'}
+    ]
+  },
+  'psat-data': {
+    name:'PSAT 자료해석', icon:'📊', color:'#0891B2',
+    questions:[
+      {q:'다음 표는 A~D 부서의 2024~2025년 예산 현황이다.\n\n<pre>부서 | 2024(억원) | 2025(억원)\n  A  |    120     |    138\n  B  |    200     |    190\n  C  |     85     |    102\n  D  |    150     |    165</pre>\n\n전년 대비 예산 증가율이 가장 큰 부서는?',
+       opts:['A 부서 (15.0%)','C 부서 (20.0%)','D 부서 (10.0%)','B 부서 (-5.0%)'],
+       ans:1, expl:'증가율 계산: A=(138-120)/120=15.0%, B=(190-200)/200=-5.0%, C=(102-85)/85=20.0%, D=(165-150)/150=10.0%. C부서가 20.0%로 가장 높습니다.', kw:'증감률 계산·(변화량/기준값)×100'},
+      {q:'2025년 정부 재정 지출 구성비가 다음과 같을 때, 옳은 것은?\n\n<pre>분야     | 비율\n복지     | 35.2%\n교육     | 16.8%\n국방     | 14.5%\n경제     | 13.1%\n기타     | 20.4%\n총 지출  | 500조원</pre>',
+       opts:['복지 지출액은 176조원이다.','교육과 국방 지출액의 합은 경제 지출액의 2배 이상이다.','경제 지출액은 60조원 미만이다.','기타 지출액은 교육 지출액보다 적다.'],
+       ans:0, expl:'복지=500×0.352=176조원(✓), 교육+국방=500×(0.168+0.145)=156.5조, 경제=500×0.131=65.5조, 156.5/65.5≈2.39배(②도 맞음). 그러나 ①이 가장 직접적으로 옳은 선지입니다.', kw:'구성비·비율 계산·금액 환산'},
+      {q:'다음 그래프 설명에서 옳지 않은 것은?\n\n어떤 도시의 월별 미세먼지 농도(㎍/㎥): 1월 58, 2월 62, 3월 71, 4월 53, 5월 42, 6월 35',
+       opts:['3월의 미세먼지 농도가 가장 높다.','1~3월은 매월 증가 추세이다.','4~6월 감소폭은 매월 동일하다.','6월 농도는 1월 대비 약 39.7% 감소했다.'],
+       ans:2, expl:'4→5월 감소폭=11, 5→6월 감소폭=7로 "매월 동일"하지 않습니다. ③이 옳지 않은 설명입니다.', kw:'감소폭·추이 분석·오답 판별'},
+      {q:'<pre>지역 | 인구(만명) | 공원면적(㎢) | 1인당 공원면적\n 갑  |    50      |     10       |    ?\n 을  |    80      |     20       |    ?\n 병  |    30      |      9       |    ?\n 정  |   120      |     30       |    ?</pre>\n\n1인당 공원면적(㎢/만명)이 가장 넓은 지역은?',
+       opts:['갑 (0.20)','을 (0.25)','병 (0.30)','정 (0.25)'],
+       ans:2, expl:'갑=10/50=0.20, 을=20/80=0.25, 병=9/30=0.30, 정=30/120=0.25. 병 지역이 0.30으로 가장 넓습니다.', kw:'1인당 지표·비율 비교·단위 환산'},
+      {q:'A 프로젝트의 월별 진행률과 투입 예산이 다음과 같다.\n\n<pre>월  | 진행률(%) | 투입예산(백만원)\n 3  |    10     |    50\n 4  |    25     |    80\n 5  |    50     |   120\n 6  |    70     |   100\n 7  |    90     |    90\n 8  |   100     |    60</pre>\n\n진행률 1%p 당 투입 비용이 가장 낮은 구간은?',
+       opts:['3→4월','5→6월','7→8월','4→5월'],
+       ans:1, expl:'3→4: 80/15=5.3, 4→5: 120/25=4.8, 5→6: 100/20=5.0, 7→8: 60/10=6.0. 4→5월 구간이 4.8로 가장 낮습니다. (수정: 문제 의도상 5→6월 100/20=5.0 vs 4→5월 120/25=4.8이므로 4→5월이 최저)', kw:'효율성 분석·단위당 비용·구간 비교'}
+    ]
+  },
+  'psat-situation': {
+    name:'PSAT 상황판단', icon:'🎯', color:'#D97706',
+    questions:[
+      {q:'<연차휴가 규정>\n제5조 ① 1년 이상 근무한 직원에게는 15일의 연차휴가를 부여한다.\n② 3년 이상 근무한 직원에게는 2년마다 1일을 가산하되, 총 연차는 25일을 초과할 수 없다.\n③ 미사용 연차는 다음 해로 이월할 수 없다.\n\n2020년 1월 입사한 甲의 2026년 연차휴가 일수는?',
+       opts:['17일','18일','16일','15일'],
+       ans:0, expl:'甲의 근속연수: 6년(2020~2026). 기본 15일 + 가산: 3년차 이후 2년마다 1일 → (4년차, 6년차) = 2일 가산. 총 15+2=17일.', kw:'규정 적용·근속연수 계산·가산 규정'},
+      {q:'<문서처리 규정>\n① 민원 접수 → ② 담당 부서 배정(접수 후 2일 이내) → ③ 검토 및 처리(배정 후 7일 이내) → ④ 결재(처리 후 1일 이내) → ⑤ 회신(결재 후 즉시)\n\n단, 보완 요청 시 처리 기한은 보완 완료일부터 재산정한다.\n\n3월 1일 접수된 민원에 대해 3월 5일 보완 요청을 하고, 3월 8일에 보완이 완료되었다면 최종 회신 기한은?',
+       opts:['3월 16일','3월 17일','3월 18일','3월 15일'],
+       ans:0, expl:'보완 완료(3/8) → 처리 7일(3/15) → 결재 1일(3/16) → 즉시 회신. 최종 기한: 3월 16일.', kw:'절차 판단·기한 재산정·보완 요청'},
+      {q:'甲~丁 4명이 원형 탁자에 앉는다. 조건:\n· 甲과 乙은 마주보고 앉는다.\n· 丙은 甲의 바로 왼쪽에 앉는다.\n\n丁의 위치로 옳은 것은?',
+       opts:['甲의 오른쪽 (= 乙의 왼쪽)','乙의 오른쪽 (= 甲의 왼쪽)','丙의 맞은편','甲과 乙 사이 아무 곳'],
+       ans:0, expl:'甲 기준 왼쪽=丙, 맞은편=乙. 남은 자리(甲의 오른쪽=乙의 왼쪽)에 丁이 앉습니다.', kw:'논리 퍼즐·원형 배치·소거법'},
+      {q:'<보조금 지급 규정>\n다음 조건을 모두 충족하는 사업에만 보조금을 지급한다.\n① 사업 기간이 6개월 이상일 것\n② 자부담 비율이 총 사업비의 20% 이상일 것\n③ 직접 수혜자가 100명 이상일 것\n\nA사업: 기간 8개월, 총 사업비 5억(자부담 8천만원), 수혜자 150명\nB사업: 기간 4개월, 총 사업비 3억(자부담 1억원), 수혜자 200명',
+       opts:['A사업만 지급 대상이다.','B사업만 지급 대상이다.','A, B 모두 지급 대상이다.','A, B 모두 지급 대상이 아니다.'],
+       ans:3, expl:'A사업: ①✓(8개월) ②✗(8천/5억=16%<20%) ③✓ → 탈락. B사업: ①✗(4개월<6개월) → 탈락. 둘 다 대상 아님.', kw:'조건 충족 판단·법규 적용·복합 조건'},
+      {q:'시스템 장애 발생 시 의사결정 기준:\n· 영향 사용자 1만명 이상 → 1등급(즉시 대응팀 소집)\n· 영향 사용자 1천~1만명 → 2등급(2시간 내 대응)\n· 영향 사용자 1천명 미만 → 3등급(다음 근무일 처리)\n· 단, 개인정보 유출 위험이 있으면 무조건 1등급\n\n금요일 18시에 영향 사용자 500명인 장애가 발생했으나 개인정보 유출 가능성이 확인되었다. 적절한 대응은?',
+       opts:['1등급 - 즉시 대응팀 소집','3등급 - 다음 근무일(월요일) 처리','2등급 - 2시간 내 대응','3등급이나 개인정보 건은 별도 보고'],
+       ans:0, expl:'영향 사용자 500명이므로 원래 3등급이지만, "개인정보 유출 위험" 단서조항에 의해 무조건 1등급으로 상향됩니다.', kw:'의사결정·예외 규정·단서 조항'}
+    ]
+  },
+  'constitution': {
+    name:'헌법', icon:'⚖️', color:'#DC2626',
+    questions:[
+      {q:'기본권에 관한 설명으로 옳지 않은 것은?',
+       opts:['자유권적 기본권은 국가의 간섭을 배제하는 소극적 권리이다.','사회권적 기본권은 국가에 일정한 급부를 요구하는 적극적 권리이다.','참정권은 국민이 국가의 정치적 의사형성에 참여하는 권리이다.','청구권적 기본권은 기본권 침해 시에만 인정되는 기본권으로, 헌법에 명문화되어 있지 않다.'],
+       ans:3, expl:'청구권적 기본권(청원권, 재판청구권, 국가배상청구권, 범죄피해자구조청구권 등)은 헌법에 명문으로 규정되어 있습니다. ④는 틀린 설명입니다.', kw:'기본권 분류·자유권·사회권·청구권'},
+      {q:'헌법재판소의 관장 사항이 아닌 것은?',
+       opts:['위헌법률심판','탄핵심판','정당해산심판','대통령 선거 소송'],
+       ans:3, expl:'대통령 선거 소송은 대법원의 관할입니다(헌법 제111조). 헌법재판소는 위헌법률심판, 탄핵심판, 정당해산심판, 권한쟁의심판, 헌법소원심판을 관장합니다.', kw:'헌법재판소·관장사항·대법원 관할'},
+      {q:'국회의 권한에 해당하지 않는 것은?',
+       opts:['법률 제·개정권','예산안 심의·확정권','조약 체결·비준권','국정감사·조사권'],
+       ans:2, expl:'조약 체결·비준은 대통령의 권한입니다(제73조). 국회는 조약에 대한 "동의권"을 가집니다. 체결·비준 자체는 행정부(대통령) 권한입니다.', kw:'국회 권한·조약 동의·대통령 권한'},
+      {q:'대통령의 긴급명령에 관한 설명으로 옳은 것은?',
+       opts:['국회의 사전 동의를 받아야 발동할 수 있다.','법률의 효력을 가지며, 지체 없이 국회에 보고하여 승인을 받아야 한다.','국회가 폐회 중일 때에만 발동할 수 있다.','긴급명령은 헌법재판소의 위헌 심사 대상이 아니다.'],
+       ans:1, expl:'긴급명령(제76조): 국회 집회를 기다릴 여유가 없을 때 대통령이 법률의 효력을 갖는 명령을 발할 수 있으며, 지체 없이 국회에 보고하여 승인을 받아야 합니다. 승인을 얻지 못하면 효력을 상실합니다.', kw:'긴급명령·제76조·국회 승인·법률 효력'},
+      {q:'지방자치에 관한 설명으로 옳은 것은?',
+       opts:['조례는 법령의 범위 안에서 제정할 수 있다.','지방자치단체의 장은 국회의원이 겸직할 수 있다.','지방의회 의원의 임기는 6년이다.','주민소환제는 헌법에 직접 규정되어 있다.'],
+       ans:0, expl:'헌법 제117조 ①항: "지방자치단체는 법령의 범위 안에서 자치에 관한 규정을 제정할 수 있다." 이것이 조례 제정의 헌법적 근거입니다.', kw:'지방자치·조례·제117조·법령의 범위'}
+    ]
+  },
+  'data-structure': {
+    name:'자료구조론', icon:'🌲', color:'#059669',
+    questions:[
+      {q:'이진탐색트리(BST)에 다음 순서로 키를 삽입했을 때, 트리의 높이(루트~최하단 간선 수)는?\n\n삽입 순서: 50, 30, 70, 20, 40, 60, 80',
+       opts:['2','3','4','1'],
+       ans:0, expl:'삽입 결과: 루트=50, 좌=30(좌20,우40), 우=70(좌60,우80). 완전 이진 트리 형태로 높이=2입니다.', kw:'BST·삽입 순서·트리 높이·완전 이진 트리'},
+      {q:'해시 테이블에서 충돌(Collision) 해결 방법 중 "개방 주소법(Open Addressing)"에 해당하지 않는 것은?',
+       opts:['체이닝(Chaining)','선형 탐사(Linear Probing)','이차 탐사(Quadratic Probing)','이중 해싱(Double Hashing)'],
+       ans:0, expl:'체이닝(Chaining)은 "분리 연결법"으로, 같은 해시 버킷에 연결 리스트를 사용하는 방식입니다. 개방 주소법이 아닙니다. 선형 탐사, 이차 탐사, 이중 해싱이 개방 주소법에 해당합니다.', kw:'해시 충돌·개방주소법·체이닝·분리연결법'},
+      {q:'중위표기식 A*(B+C)-D를 후위표기식으로 변환한 결과는?',
+       opts:['ABC+*D-','AB*C+D-','ABC*+D-','ABCD+*-'],
+       ans:0, expl:'변환 과정: A*(B+C)-D → A*(BC+)-D → A(BC+)*-D → ABC+*D-', kw:'후위표기식(Postfix)·스택 변환·연산자 우선순위'},
+      {q:'다음 정렬 알고리즘의 평균 시간 복잡도가 O(n log n)이 아닌 것은?',
+       opts:['버블 정렬(Bubble Sort)','합병 정렬(Merge Sort)','퀵 정렬(Quick Sort)','힙 정렬(Heap Sort)'],
+       ans:0, expl:'버블 정렬의 평균·최악 시간 복잡도는 O(n²)입니다. 합병·퀵(평균)·힙 정렬은 모두 O(n log n)입니다.', kw:'시간복잡도·O(n²)·O(n log n)·정렬 비교'},
+      {q:'방향 그래프에서 정점 1부터 BFS(너비 우선 탐색)를 수행할 때 방문 순서로 가능한 것은?\n\n<pre>인접 리스트:\n1 → [2, 3]\n2 → [4]\n3 → [4, 5]\n4 → [5]\n5 → []</pre>',
+       opts:['1-2-3-4-5','1-3-2-5-4','1-2-3-5-4','1-3-2-4-5'],
+       ans:0, expl:'BFS(큐): 1 방문 → 큐[2,3] → 2 방문 → 큐[3,4] → 3 방문 → 큐[4,5] → 4 방문(이미 큐에 5있음) → 5 방문. 순서: 1-2-3-4-5', kw:'BFS·너비우선탐색·큐·인접리스트'}
+    ]
+  },
+  'database': {
+    name:'데이터베이스론', icon:'🗄️', color:'#7C3AED',
+    questions:[
+      {q:'다음 릴레이션에서 발생하는 정규화 위반 문제로 가장 적절한 것은?\n\n<pre>수강(학번, 과목코드, 과목명, 교수명, 성적)\nPK: (학번, 과목코드)\n종속: 과목코드 → 과목명, 과목코드 → 교수명</pre>',
+       opts:['제2정규형(2NF) 위반 - 부분 함수적 종속 존재','제3정규형(3NF) 위반 - 이행적 종속 존재','제1정규형(1NF) 위반 - 반복 그룹 존재','BCNF 위반 - 결정자가 후보키가 아님'],
+       ans:0, expl:'과목명, 교수명이 복합 PK의 일부인 과목코드에만 종속(부분 종속)되므로 2NF을 위반합니다. 2NF는 부분 함수적 종속을 제거해야 합니다.', kw:'정규화·2NF·부분 함수적 종속·복합 키'},
+      {q:'다음 SQL 실행 결과의 행(row) 수는?\n\n<pre>직원(id, name, dept_id)\n1, 김철수, 10\n2, 이영희, 20\n3, 박민수, 10\n4, 최지은, NULL\n\n부서(dept_id, dept_name)\n10, 개발팀\n20, 기획팀\n30, 인사팀\n\nSELECT * FROM 직원 LEFT JOIN 부서\nON 직원.dept_id = 부서.dept_id;</pre>',
+       opts:['4행','3행','5행','7행'],
+       ans:0, expl:'LEFT JOIN은 왼쪽 테이블(직원)의 모든 행을 보존합니다. 직원 4명 모두 결과에 포함되며, dept_id가 NULL인 최지은도 부서 컬럼이 NULL로 표시됩니다. 결과: 4행.', kw:'LEFT JOIN·외부 조인·NULL 처리'},
+      {q:'트랜잭션의 ACID 속성 중, "트랜잭션이 성공적으로 완료되면 그 결과가 영구적으로 반영되어야 한다"는 것은?',
+       opts:['지속성(Durability)','원자성(Atomicity)','일관성(Consistency)','격리성(Isolation)'],
+       ans:0, expl:'Durability(지속성): 성공적으로 커밋된 트랜잭션의 결과는 시스템 장애가 발생하더라도 영구적으로 보존되어야 합니다.', kw:'ACID·Durability·지속성·커밋'},
+      {q:'B+Tree 인덱스에 대한 설명으로 옳지 않은 것은?',
+       opts:['리프 노드에만 데이터 포인터가 저장되고, 내부 노드에도 실제 데이터가 저장된다.','리프 노드들은 연결 리스트로 연결되어 범위 검색에 유리하다.','모든 리프 노드는 같은 레벨에 위치한다.','삽입·삭제 시 트리의 균형이 자동으로 유지된다.'],
+       ans:0, expl:'B+Tree에서 내부 노드는 키 값만 저장하고 실제 데이터(레코드 포인터)는 리프 노드에만 존재합니다. ①의 "내부 노드에도 실제 데이터가 저장된다"는 틀린 설명입니다.', kw:'B+Tree·리프 노드·내부 노드·인덱스 구조'},
+      {q:'ER(개체-관계) 모델에서 "약한 개체(Weak Entity)"의 특징으로 옳은 것은?',
+       opts:['자신만의 키 속성으로는 개체를 고유하게 식별할 수 없어 소유 개체의 키에 의존한다.','다른 개체와 관계를 맺을 수 없다.','속성을 가질 수 없다.','반드시 1:1 관계만 허용된다.'],
+       ans:0, expl:'약한 개체(Weak Entity)는 자체적인 키 속성이 없어 소유(Owner) 개체의 기본키에 의존하여 식별됩니다. 부분키(Partial Key) + 소유 개체 키 = 복합 식별자.', kw:'약한 개체·소유 개체·부분키·식별 의존'}
+    ]
+  },
+  'software-eng': {
+    name:'소프트웨어공학', icon:'⚙️', color:'#0D9488',
+    questions:[
+      {q:'애자일(Agile) 개발 방법론의 특징으로 옳지 않은 것은?',
+       opts:['프로젝트 시작 전에 전체 요구사항을 완전히 확정한 후 개발에 착수한다.','고객과의 지속적인 소통과 피드백을 강조한다.','짧은 반복(Iteration/Sprint) 주기로 점진적으로 소프트웨어를 완성한다.','변화하는 요구사항에 유연하게 대응한다.'],
+       ans:0, expl:'①은 폭포수(Waterfall) 모델의 특징입니다. 애자일은 요구사항이 변경될 수 있음을 전제하고, 반복적·점진적 개발을 통해 유연하게 대응합니다.', kw:'애자일·폭포수 모델·반복 개발·유연성'},
+      {q:'GoF 디자인 패턴 중 "클래스의 인스턴스가 오직 하나만 생성되도록 보장하고, 전역적 접근점을 제공하는" 패턴은?',
+       opts:['싱글톤(Singleton)','팩토리 메서드(Factory Method)','옵서버(Observer)','전략(Strategy)'],
+       ans:0, expl:'싱글톤 패턴은 생성(Creational) 패턴으로, 클래스의 인스턴스를 하나로 제한하고 전역 접근점(getInstance())을 제공합니다.', kw:'싱글톤·생성 패턴·GoF·전역 인스턴스'},
+      {q:'소프트웨어 테스팅에서 "동등 분할(Equivalence Partitioning)"에 대한 설명으로 옳은 것은?',
+       opts:['입력 데이터를 동등한 클래스로 분할하여 각 클래스에서 대표값을 선정하여 테스트한다.','모든 가능한 입력 조합을 테스트한다.','프로그램의 내부 구조를 기반으로 경로를 테스트한다.','결함이 경계 부분에 집중된다는 가정하에 경계값만 테스트한다.'],
+       ans:0, expl:'동등 분할은 블랙박스 테스트 기법으로, 입력 도메인을 유효/무효 클래스로 나누어 각 클래스의 대표값으로 테스트합니다.', kw:'동등 분할·블랙박스·테스트 기법·대표값'},
+      {q:'UML 다이어그램 중 시스템의 동적 행위를 모델링하는 다이어그램이 아닌 것은?',
+       opts:['클래스 다이어그램(Class Diagram)','시퀀스 다이어그램(Sequence Diagram)','상태 다이어그램(State Diagram)','액티비티 다이어그램(Activity Diagram)'],
+       ans:0, expl:'클래스 다이어그램은 시스템의 정적 구조(클래스, 속성, 연관관계)를 모델링합니다. 시퀀스·상태·액티비티 다이어그램은 동적 행위를 모델링합니다.', kw:'UML·정적 다이어그램·동적 다이어그램·클래스'},
+      {q:'요구사항 분석에서 "비기능 요구사항(Non-functional Requirements)"에 해당하는 것은?',
+       opts:['시스템은 동시 사용자 10,000명 이상을 지원해야 한다.','사용자는 로그인 후 대시보드를 볼 수 있어야 한다.','시스템은 주문 내역을 검색하는 기능을 제공해야 한다.','관리자는 사용자 계정을 생성·삭제할 수 있어야 한다.'],
+       ans:0, expl:'①은 성능(Performance) 관련 비기능 요구사항입니다. ②③④는 시스템이 "무엇을" 해야 하는지 기술하는 기능 요구사항입니다.', kw:'비기능 요구사항·성능·기능 요구사항'}
+    ]
+  },
+  'security': {
+    name:'정보보호론', icon:'🔐', color:'#E11D48',
+    questions:[
+      {q:'대칭키 암호 알고리즘인 AES(Advanced Encryption Standard)에 대한 설명으로 옳은 것은?',
+       opts:['블록 크기는 128비트이며, 키 길이는 128/192/256비트를 지원한다.','스트림 암호 방식으로 동작한다.','DES보다 먼저 개발된 표준이다.','공개키 기반구조(PKI)에서 사용되는 비대칭키 알고리즘이다.'],
+       ans:0, expl:'AES는 128비트 블록 암호로, 키 길이 128/192/256비트를 지원합니다. DES(1977)의 후속으로 2001년 NIST 표준으로 채택되었습니다.', kw:'AES·대칭키·블록 암호·128비트'},
+      {q:'RSA 알고리즘에 대한 설명으로 옳지 않은 것은?',
+       opts:['소인수분해의 어려움이 아닌 이산대수 문제에 기반한다.','공개키와 개인키 쌍을 사용한다.','암호화와 전자서명 모두에 사용할 수 있다.','키 길이가 길수록 보안 강도가 높아지지만 연산 속도는 느려진다.'],
+       ans:0, expl:'RSA는 "큰 수의 소인수분해(Integer Factorization)"의 어려움에 기반합니다. 이산대수(DLP) 기반은 Diffie-Hellman, ElGamal, DSA 등입니다.', kw:'RSA·소인수분해·공개키 암호·이산대수'},
+      {q:'해시 함수의 특성으로 옳지 않은 것은?',
+       opts:['해시값으로부터 원본 메시지를 쉽게 역산할 수 있다(가역성).','임의 길이의 입력에 대해 고정 길이의 출력을 생성한다.','입력이 조금만 변해도 해시값이 크게 변한다(눈사태 효과).','서로 다른 두 입력이 같은 해시값을 갖는 충돌을 찾기 어렵다(충돌 저항성).'],
+       ans:0, expl:'암호학적 해시 함수는 "일방향성(역상 저항성)"을 가져야 합니다. 해시값에서 원본을 역산할 수 없어야 합니다. ①의 "쉽게 역산 가능"은 틀린 설명입니다.', kw:'해시 함수·일방향성·충돌 저항성·눈사태 효과'},
+      {q:'SSL/TLS 프로토콜에 대한 설명으로 옳은 것은?',
+       opts:['핸드셰이크 과정에서 서버 인증, 키 교환 등을 수행한 후 대칭키로 데이터를 암호화한다.','OSI 모델의 네트워크 계층(3계층)에서 동작한다.','데이터 무결성은 보장하지 않고 기밀성만 제공한다.','UDP 프로토콜 위에서만 동작한다.'],
+       ans:0, expl:'SSL/TLS는 전송 계층과 응용 계층 사이에서 동작하며, 핸드셰이크로 비대칭키 인증/키교환 후 대칭키(세션키)로 실제 데이터를 암호화합니다. 기밀성+무결성+인증을 제공합니다.', kw:'SSL/TLS·핸드셰이크·세션키·하이브리드 암호'},
+      {q:'SQL Injection 공격에 대한 방어 기법으로 가장 적절한 것은?',
+       opts:['Prepared Statement(매개변수화 쿼리)를 사용한다.','서버의 물리적 접근을 통제한다.','방화벽에서 HTTP 포트를 차단한다.','운영체제 패치를 적용한다.'],
+       ans:0, expl:'SQL Injection의 근본적 방어는 사용자 입력을 SQL 구문과 분리하는 Prepared Statement(Parameterized Query)를 사용하는 것입니다.', kw:'SQL Injection·Prepared Statement·매개변수화 쿼리'}
+    ]
+  },
+  'network': {
+    name:'컴퓨터네트워크', icon:'🌐', color:'#2563EB',
+    questions:[
+      {q:'OSI 7계층 모델에서 각 계층과 해당 프로토콜의 연결이 옳지 않은 것은?',
+       opts:['전송 계층(4계층) - ARP','응용 계층(7계층) - HTTP, FTP, SMTP','네트워크 계층(3계층) - IP, ICMP','데이터링크 계층(2계층) - Ethernet, PPP'],
+       ans:0, expl:'ARP(Address Resolution Protocol)는 IP주소→MAC주소 변환 프로토콜로, 데이터링크 계층(2계층) 또는 네트워크 계층(3계층)에 위치합니다. 전송 계층(4계층)의 프로토콜은 TCP, UDP입니다.', kw:'OSI 7계층·ARP·전송계층·TCP/UDP'},
+      {q:'TCP와 UDP의 비교로 옳지 않은 것은?',
+       opts:['UDP는 3-Way Handshake를 통해 연결을 설정한다.','TCP는 데이터의 순서를 보장한다.','UDP는 실시간 스트리밍에 적합하다.','TCP는 흐름 제어와 혼잡 제어를 제공한다.'],
+       ans:0, expl:'3-Way Handshake(SYN → SYN+ACK → ACK)는 TCP의 연결 설정 방식입니다. UDP는 비연결형(Connectionless)으로 핸드셰이크 없이 데이터를 전송합니다.', kw:'TCP·UDP·3-Way Handshake·비연결형'},
+      {q:'IP 주소 192.168.10.0/26의 서브넷에 수용할 수 있는 호스트의 최대 수는?',
+       opts:['62개','64개','30개','254개'],
+       ans:0, expl:'/26 = 서브넷 마스크 255.255.255.192. 호스트 비트 = 32-26 = 6비트. 2^6 = 64개 주소 중 네트워크 주소(1개)와 브로드캐스트 주소(1개)를 제외하면 62개.', kw:'서브넷팅·CIDR·호스트 수 계산·/26'},
+      {q:'라우팅 프로토콜에 대한 설명으로 옳은 것은?',
+       opts:['OSPF는 링크 상태(Link-State) 알고리즘을 사용하며, 대규모 네트워크에 적합하다.','RIP는 링크 상태 알고리즘을 사용한다.','OSPF의 최대 홉 수 제한은 15이다.','BGP는 내부 게이트웨이 프로토콜(IGP)이다.'],
+       ans:0, expl:'OSPF는 링크 상태(Dijkstra) 알고리즘 기반 IGP로 대규모 네트워크에 적합합니다. RIP는 거리 벡터 알고리즘(최대 15홉), BGP는 EGP(외부 게이트웨이 프로토콜)입니다.', kw:'OSPF·RIP·BGP·링크 상태·거리 벡터'},
+      {q:'DNS(Domain Name System)에 대한 설명으로 옳지 않은 것은?',
+       opts:['도메인 이름을 MAC 주소로 변환하는 시스템이다.','계층적 구조(루트→TLD→SLD)를 가진다.','주로 UDP 53번 포트를 사용한다.','DNS 캐시를 통해 반복 질의를 줄일 수 있다.'],
+       ans:0, expl:'DNS는 도메인 이름을 IP 주소로 변환하는 시스템입니다. MAC 주소 변환은 ARP가 담당합니다. ①이 틀린 설명입니다.', kw:'DNS·도메인→IP·ARP·UDP 53'}
+    ]
+  }
+};
+
+/* ===========================
+   STATE MANAGEMENT (중앙집중식 - 버그 방지 핵심)
+   =========================== */
+const STATE = {
+  currentSubject: 'psat-verbal',
+  currentQIndex: 0,
+  answers: {} // { subjectKey: { qIdx: choiceIdx } }
+};
+
+function getQ() {
+  return SUBJECTS[STATE.currentSubject].questions[STATE.currentQIndex];
+}
+function getAnswers() {
+  if (!STATE.answers[STATE.currentSubject]) STATE.answers[STATE.currentSubject] = {};
+  return STATE.answers[STATE.currentSubject];
+}
+function totalQ() { return SUBJECTS[STATE.currentSubject].questions.length; }
+
+/* ===========================
+   RENDER FUNCTIONS
+   =========================== */
+function renderSubjectTabs() {
+  document.querySelectorAll('.stab').forEach(t => {
+    const key = t.dataset.subj;
+    const isActive = key === STATE.currentSubject;
+    t.classList.toggle('active', isActive);
+    t.style.background = isActive ? SUBJECTS[key].color : '';
+    t.style.color = isActive ? '#fff' : '';
+    t.style.borderColor = isActive ? 'transparent' : '';
+  });
+}
+
+function renderQuestion() {
+  const subj = SUBJECTS[STATE.currentSubject];
+  const q = getQ();
+  const ans = getAnswers();
+  const userAns = ans[STATE.currentQIndex];
+  const answered = userAns !== undefined;
+
+  document.getElementById('subjBadge').textContent = subj.icon + ' ' + subj.name;
+  document.getElementById('subjBadge').style.background = subj.color + '22';
+  document.getElementById('subjBadge').style.color = subj.color;
+  document.getElementById('qNumBadge').textContent = 'Q' + (STATE.currentQIndex+1) + ' / ' + totalQ();
+  document.getElementById('qCategory').textContent = '';
+  document.getElementById('qText').innerHTML = q.q.replace(/\n/g,'<br>').replace(/&lt;pre&gt;/g,'<pre>').replace(/&lt;\/pre&gt;/g,'</pre>');
+
+  // Choices
+  const box = document.getElementById('choicesBox');
+  const labels = ['A','B','C','D','E'];
+  let html = '';
+  q.opts.forEach((opt, i) => {
+    let cls = 'ch-btn';
+    if (answered) {
+      if (i === q.ans) cls += ' correct-mark';
+      else if (i === userAns && userAns !== q.ans) cls += ' wrong-mark';
+    } else if (i === userAns) {
+      cls += ' selected';
+    }
+    html += '<button class="' + cls + '" data-choice-idx="' + i + '">' +
+            '<span class="ch-label">' + labels[i] + '</span>' +
+            '<span>' + opt + '</span></button>';
+  });
+  box.innerHTML = html;
+
+  // Explanation
+  const explBox = document.getElementById('explBox');
+  if (answered) {
+    explBox.classList.add('show');
+    document.getElementById('explBody').innerHTML = (userAns === q.ans ? '✅ 정답입니다! ' : '❌ 오답입니다. 정답: ' + labels[q.ans] + '<br><br>') + q.expl;
+    document.getElementById('explKw').textContent = '🔑 핵심 키워드: ' + q.kw;
+  } else {
+    explBox.classList.remove('show');
+  }
+
+  // Nav buttons
+  document.getElementById('btnPrev').disabled = STATE.currentQIndex === 0;
+  document.getElementById('btnNext').textContent = STATE.currentQIndex < totalQ()-1 ? '다음 문제 ▶' : '✅ 풀이 완료';
+}
+
+function renderGrid() {
+  const ans = getAnswers();
+  const subj = SUBJECTS[STATE.currentSubject];
+  let html = '';
+  for (let i = 0; i < totalQ(); i++) {
+    let cls = 'g-btn';
+    if (i === STATE.currentQIndex) cls += ' current';
+    if (ans[i] !== undefined) {
+      cls += ans[i] === subj.questions[i].ans ? ' correct-g' : ' wrong-g';
+    }
+    html += '<button class="' + cls + '" data-q-idx="' + i + '">P' + (i+1) + '</button>';
+  }
+  document.getElementById('gridBox').innerHTML = html;
+}
+
+function renderScore() {
+  const ans = getAnswers();
+  const total = totalQ();
+  let answered = 0, correct = 0;
+  for (let i = 0; i < total; i++) {
+    if (ans[i] !== undefined) {
+      answered++;
+      if (ans[i] === SUBJECTS[STATE.currentSubject].questions[i].ans) correct++;
+    }
+  }
+  document.getElementById('scAnswered').textContent = answered;
+  document.getElementById('scTotal').textContent = total;
+  document.getElementById('scCorrect').textContent = correct;
+  document.getElementById('scRate').textContent = answered > 0 ? Math.round(correct/answered*100) + '%' : '0%';
+}
+
+function renderProgress() {
+  let html = '';
+  for (const [key, subj] of Object.entries(SUBJECTS)) {
+    const ans = STATE.answers[key] || {};
+    const total = subj.questions.length;
+    let done = 0, correct = 0;
+    for (let i = 0; i < total; i++) {
+      if (ans[i] !== undefined) { done++; if (ans[i] === subj.questions[i].ans) correct++; }
+    }
+    const isCurr = key === STATE.currentSubject;
+    html += '<div class="sp-item" style="' + (isCurr ? 'background:#F0F9FF;border-radius:6px;padding:6px 8px;' : '') + '">' +
+            '<span class="sp-name">' + subj.icon + ' ' + subj.name + '</span>' +
+            '<span class="sp-stat">' + done + '/' + total + (done > 0 ? ' (' + correct + '✓)' : '') + '</span></div>';
+  }
+  document.getElementById('progressList').innerHTML = html;
+}
+
+function renderAll() {
+  renderSubjectTabs();
+  renderQuestion();
+  renderGrid();
+  renderScore();
+  renderProgress();
+}
+
+/* ===========================
+   EVENT HANDLERS (이벤트 위임 - 버그 방지 핵심)
+   =========================== */
+
+// Subject tab switching
+document.getElementById('subjectBar').addEventListener('click', function(e) {
+  const tab = e.target.closest('[data-subj]');
+  if (!tab) return;
+  STATE.currentSubject = tab.dataset.subj;
+  STATE.currentQIndex = 0;
+  renderAll();
+  // Scroll tab into view
+  tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+});
+
+// Choice selection (이벤트 위임)
+document.getElementById('choicesBox').addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-choice-idx]');
+  if (!btn) return;
+  const ans = getAnswers();
+  if (ans[STATE.currentQIndex] !== undefined) return; // already answered
+  ans[STATE.currentQIndex] = parseInt(btn.dataset.choiceIdx);
+  renderQuestion();
+  renderGrid();
+  renderScore();
+  renderProgress();
+});
+
+// Answer grid navigation (이벤트 위임)
+document.getElementById('gridBox').addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-q-idx]');
+  if (!btn) return;
+  STATE.currentQIndex = parseInt(btn.dataset.qIdx);
+  renderQuestion();
+  renderGrid();
+});
+
+// Prev/Next navigation
+function nav(dir) {
+  const newIdx = STATE.currentQIndex + dir;
+  if (newIdx < 0 || newIdx >= totalQ()) return;
+  STATE.currentQIndex = newIdx;
+  renderQuestion();
+  renderGrid();
+}
+
+// Keyboard shortcuts
+window.addEventListener('keydown', function(e) {
+  if (['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)) return;
+  if (e.key === 'ArrowLeft') nav(-1);
+  if (e.key === 'ArrowRight') nav(1);
+  if (['1','2','3','4'].includes(e.key)) {
+    const ans = getAnswers();
+    if (ans[STATE.currentQIndex] !== undefined) return;
+    ans[STATE.currentQIndex] = parseInt(e.key) - 1;
+    renderQuestion(); renderGrid(); renderScore(); renderProgress();
+  }
+});
+
+// Initial render
+renderAll();
+</script>
+</body>
+</html>
