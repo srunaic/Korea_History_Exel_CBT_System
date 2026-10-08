@@ -125,6 +125,27 @@ document.addEventListener('copy', e => {
     if (e.clipboardData) e.clipboardData.setData('text/plain', '※ 본 콘텐츠의 무단 복제 및 2차 배포는 저작권법에 의해 엄격히 금지됩니다. (Copyright © 2026 Mokha)');
   }
 }, {capture: true});
+
+// [Anti-Macro & Anti-Bot Defense]
+(function(){
+  var lastT = 0, clicks = 0, blockT = 0;
+  window.addEventListener('click', function(e){
+    var now = performance.now();
+    if (now < blockT) { e.stopImmediatePropagation(); e.preventDefault(); return false; }
+    if (e.isTrusted === false || window.navigator.webdriver) {
+      alert('⚠️ 비정상적인 매크로/자동화 동작이 감지되어 차단되었습니다.');
+      blockT = now + 5000; e.stopImmediatePropagation(); e.preventDefault(); return false;
+    }
+    if (now - lastT < 65) {
+      clicks++;
+      if (clicks > 3) {
+        alert('⚠️ 초고속 반복 클릭(매크로 의심)으로 인해 3초간 입력이 제한됩니다.');
+        blockT = now + 3000; e.stopImmediatePropagation(); e.preventDefault(); return false;
+      }
+    } else { clicks = 0; }
+    lastT = now;
+  }, {capture: true});
+})();
 </script>
 </head>
 <body>

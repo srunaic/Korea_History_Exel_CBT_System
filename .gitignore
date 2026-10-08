@@ -4,3 +4,5 @@
 __pycache__/
 *.pyc
 .system_generated/
+_src_backup/
+*.py
