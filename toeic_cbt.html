@@ -653,6 +653,236 @@
       }
     }
 
+    
+    /* ========== TOEIC VOCAB & GRAMMAR CENTER STYLES ========== */
+    .vg-wrap {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 26px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      margin-bottom: 24px;
+    }
+    .vg-hero {
+      background: linear-gradient(135deg, #064E3B 0%, #059669 50%, #10B981 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(6,78,59,0.2);
+    }
+    .vg-hero h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .vg-hero p {
+      font-size: 0.92rem;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
+    .vg-subnav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+      border-bottom: 2px solid #E2E8F0;
+      padding-bottom: 12px;
+    }
+    .vg-sub-btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1.5px solid #CBD5E1;
+      background: #F8FAFC;
+      color: #1E293B;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .vg-sub-btn:hover {
+      background: #E2E8F0;
+    }
+    .vg-sub-btn.active {
+      background: #059669;
+      color: white;
+      border-color: #059669;
+      box-shadow: 0 2px 8px rgba(5,150,105,0.3);
+    }
+    .vg-filter-box {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    .vg-search-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 10px 14px;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .vg-search-input:focus {
+      border-color: #059669;
+    }
+    .vg-category-btn {
+      padding: 7px 13px;
+      border-radius: 20px;
+      border: 1px solid #CBD5E1;
+      background: white;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #475569;
+      transition: all 0.2s;
+    }
+    .vg-category-btn:hover { background: #F1F5F9; }
+    .vg-category-btn.active {
+      background: #064E3B;
+      color: white;
+      border-color: #064E3B;
+    }
+
+    /* Vocab Cards Grid */
+    .vocab-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .vocab-card {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 16px 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transition: all 0.2s;
+      border-left: 4px solid #059669;
+    }
+    .vocab-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      border-color: #059669;
+    }
+    .v-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .v-word {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0F172A;
+    }
+    .v-pos {
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #E6F3ED;
+      color: #166534;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .v-mean {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 8px;
+    }
+    .v-example {
+      font-size: 0.86rem;
+      color: #334155;
+      background: #F8FAFC;
+      padding: 8px 10px;
+      border-radius: 6px;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .v-tip {
+      font-size: 0.8rem;
+      color: #C2410C;
+      font-weight: 600;
+    }
+
+    /* Grammar Section Cards */
+    .grammar-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .grammar-card {
+      background: white;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .g-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1E3A8A;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #E0E7FF;
+      padding-bottom: 8px;
+    }
+    .g-formula {
+      background: #EFF6FF;
+      border: 1.5px dashed #93C5FD;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #1D4ED8;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+    .g-rule-item {
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #334155;
+    }
+    .g-rule-item strong {
+      color: #0F172A;
+    }
+    .g-example-box {
+      background: #F8FAFC;
+      border-left: 4px solid #3B82F6;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 6px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+    .g-trap-box {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      font-size: 0.86rem;
+      color: #991B1B;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 768px) {
+      .vg-wrap { padding: 16px; }
+      .vg-hero { padding: 18px 16px; }
+      .vg-hero h2 { font-size: 1.15rem; }
+      .vocab-cards-grid { grid-template-columns: 1fr; }
+      .vg-sub-btn { flex: 1; text-align: center; font-size: 0.82rem; padding: 8px 10px; }
+      .grammar-card { padding: 16px; }
+    }
+
     /* ========== TOEIC HANDBOOK STYLES ========== */
     .toeic-handbook-card {
       background: white;
@@ -750,6 +980,7 @@ document.addEventListener('copy', e => {
         <button class="nav-tab" id="btnTabLC" onclick="filterSection('LC')">🎧 LC (1~100)</button>
         <button class="nav-tab" id="btnTabRC" onclick="filterSection('RC')">📖 RC (101~200)</button>
         <button class="nav-tab" id="btnTabHandbook" onclick="showToeicHandbook()">💡 엑셀 기출 해설집</button>
+        <button class="nav-tab" id="btnTabVocabGrammar" onclick="showToeicVocabGrammar()" style="background:#059669; color:white; font-weight:800; border-color:#10B981;">📚 토익 빈출 단어 & 핵심 문법 정리</button>
         <a href="civil_service_cbt.html" class="nav-tab" style="text-decoration:none; display:inline-flex; align-items:center; background:#7C3AED; color:white;">🏛️ 7급 전산직 CBT</a>
         <a href="civil_service_schedule.html" class="nav-tab" style="text-decoration:none; display:inline-flex; align-items:center; background:#DC2626; color:white;">🏛️ 7급 일정 플래너</a>
         <a href="exam_schedule.html" class="nav-tab" style="text-decoration:none; display:inline-flex; align-items:center;">📅 종합 일정</a>
@@ -772,6 +1003,7 @@ document.addEventListener('copy', e => {
 
   <div class="container">
     <div id="toeicHandbookContainer" style="display:none; grid-column: 1 / -1;"></div>
+    <div id="toeicVocabGrammarContainer" style="display:none; grid-column: 1 / -1;"></div>
     <main class="quiz-card" id="quizMainCard">
       <div class="quiz-meta">
         <div class="meta-left">
@@ -923,6 +1155,7 @@ document.addEventListener('copy', e => {
 
     function filterSection(sec) {
       document.getElementById('toeicHandbookContainer').style.display = 'none';
+      const vgc1 = document.getElementById('toeicVocabGrammarContainer'); if(vgc1) vgc1.style.display = 'none';
       document.getElementById('quizMainCard').style.display = '';
       const side = document.querySelector('.sidebar'); if(side) side.style.display = '';
 
@@ -1073,6 +1306,7 @@ document.addEventListener('copy', e => {
     
     function jumpToPart(partName) {
       document.getElementById('toeicHandbookContainer').style.display = 'none';
+      const vgc2 = document.getElementById('toeicVocabGrammarContainer'); if(vgc2) vgc2.style.display = 'none';
       document.getElementById('quizMainCard').style.display = '';
       const side = document.querySelector('.sidebar');
       if (side) side.style.display = '';
@@ -1357,6 +1591,7 @@ document.addEventListener('copy', e => {
       document.getElementById('quizMainCard').style.display = 'none';
       const side = document.querySelector('.sidebar');
       if (side) side.style.display = 'none';
+      const vgc4 = document.getElementById('toeicVocabGrammarContainer'); if(vgc4) vgc4.style.display = 'none';
 
       const hb = document.getElementById('toeicHandbookContainer');
       hb.style.display = 'block';
@@ -1424,6 +1659,7 @@ document.addEventListener('copy', e => {
 
     function jumpToSolve(idx) {
       document.getElementById('toeicHandbookContainer').style.display = 'none';
+      const vgc3 = document.getElementById('toeicVocabGrammarContainer'); if(vgc3) vgc3.style.display = 'none';
       document.getElementById('quizMainCard').style.display = '';
       const side = document.querySelector('.sidebar');
       if (side) side.style.display = '';
@@ -1437,6 +1673,297 @@ document.addEventListener('copy', e => {
       renderOMR();
       renderQuestion();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    
+    // ========================================================
+    // [TOEIC VOCABULARY & GRAMMAR STUDY CENTER ENGINE]
+    // ========================================================
+
+    const TOEIC_VOCAB_DB = [
+      // 1. 비즈니스 업무 & 계약 (Business & Contract)
+      { word: "accommodate", pos: "v. 동사", mean: "(요구·인원을) 수용하다, 편의를 도모하다", category: "업무/행정", ex: "The new auditorium can accommodate up to 500 guests.", tip: "★ 빈출 패턴: accommodate requests (요구를 수용하다)" },
+      { word: "complimentary", pos: "adj. 형용사", mean: "무료의, 칭찬하는", category: "서비스/호텔", ex: "The hotel offers complimentary high-speed Wi-Fi and breakfast.", tip: "★ 빈출 혼동: complement (보완하다) vs compliment (칭찬하다)" },
+      { word: "itinerary", pos: "n. 명사", mean: "여행 일정표", category: "출장/여행", ex: "Please check your updated flight itinerary before heading to the airport.", tip: "★ 빈출 연어: revised itinerary (수정된 일정표)" },
+      { word: "reimburse", pos: "v. 동사", mean: "(비용을) 상환하다, 변제하다", category: "회계/재정", ex: "The accounting team will reimburse all authorized travel expenses.", tip: "★ 빈출 패턴: reimburse A for B (A에게 B에 대한 비용을 지급하다)" },
+      { word: "designated", pos: "adj. 형용사", mean: "지정된", category: "사무/시설", ex: "Please park your vehicle only in designated parking spaces.", tip: "★ 빈출 어휘: designated smoking area (지정 흡연구역)" },
+      { word: "confidential", pos: "adj. 형용사", mean: "기밀의, 비밀의", category: "업무/보안", ex: "All patient records must be kept strictly confidential.", tip: "★ 파생어: confidentiality (기밀성) - Part 5 빈출!" },
+      { word: "tentative", pos: "adj. 형용사", mean: "잠정적인, 임시의", category: "일정/기획", ex: "We reached a tentative agreement pending board approval.", tip: "★ 빈출 표현: tentative schedule (잠정 일정)" },
+      { word: "comprehensive", pos: "adj. 형용사", mean: "종합적인, 포괄적인", category: "기획/보고", ex: "The consultant provided a comprehensive evaluation of our system.", tip: "★ 빈출 연어: comprehensive training manual (종합 연수 교재)" },
+      { word: "preliminary", pos: "adj. 형용사", mean: "예비의, 사전의", category: "조사/연구", ex: "Preliminary findings indicate a 20% increase in productivity.", tip: "★ 빈출 연어: preliminary report (중간/예비 보고서)" },
+      { word: "contingency", pos: "n. 명사", mean: "비상사태, 만일의 사태", category: "경영/위기", ex: "Management developed a contingency plan in case of supply delays.", tip: "★ 빈출 표현: contingency plan (비상 대책/플랜 B)" },
+      { word: "eligible", pos: "adj. 형용사", mean: "자격이 있는, 적격의", category: "인사/복지", ex: "Full-time employees are eligible for annual performance bonuses.", tip: "★ 빈출 문법: be eligible for + 명사 / be eligible to + 동사원형" },
+      { word: "mandatory", pos: "adj. 형용사", mean: "의무적인, 필수의", category: "인사/규정", ex: "Attendance at the workplace safety workshop is mandatory.", tip: "★ 동의어: compulsory, obligatory, required" },
+      { word: "consecutive", pos: "adj. 형용사", mean: "연속적인, 연이은", category: "통계/실적", ex: "The firm reported revenue growth for five consecutive quarters.", tip: "★ 빈출 연어: for three consecutive years (3년 연속으로)" },
+      { word: "substantial", pos: "adj. 형용사", mean: "상당한, 실질적인", category: "재정/매출", ex: "The marketing campaign resulted in a substantial increase in leads.", tip: "★ 빈출 연어: substantial increase/decrease (상당한 증가/감소)" },
+      { word: "feasible", pos: "adj. 형용사", mean: "실현 가능한, 타당한", category: "사업/개발", ex: "The engineering team evaluated whether the timeline was feasible.", tip: "★ 빈출 표현: economically feasible (경제적으로 실현 가능한)" },
+      { word: "meticulous", pos: "adj. 형용사", mean: "꼼꼼한, 세심한", category: "업무/품질", ex: "Her meticulous attention to detail prevented serious accounting errors.", tip: "★ 빈출 연어: meticulous inspection (철저한 검사)" },
+      { word: "lucrative", pos: "adj. 형용사", mean: "수익성이 좋은, 유리한", category: "영업/투자", ex: "The partnership proved to be an extraordinarily lucrative venture.", tip: "★ 동의어: profitable (이익이 나는)" },
+      { word: "unprecedented", pos: "adj. 형용사", mean: "전례 없는, 유례없는", category: "시장/동향", ex: "The new smartphone launch generated unprecedented consumer demand.", tip: "★ 빈출 패턴: unprecedented growth (전례 없는 성장)" },
+      { word: "stipulate", pos: "v. 동사", mean: "(계약서에서) 명시하다, 규정하다", category: "법률/계약", ex: "The agreement stipulates that all deliverables must be sent by June 1.", tip: "★ 빈출 연어: as stipulated in the contract (계약서에 규정된 대로)" },
+      { word: "expedite", pos: "v. 동사", mean: "신속히 처리하다, 촉진하다", category: "물류/배송", ex: "Please pay an extra fee if you wish to expedite international delivery.", tip: "★ 빈출 연어: expedite processing / delivery (신속 처리/배송)" },
+
+      // 2. 고난도 Part 5/6 1초 킬러 빈출 어휘
+      { word: "specialize in", pos: "숙어 / 동사구", mean: "~을 전문으로 하다", category: "회사소개", ex: "Our law firm specializes in intellectual property disputes.", tip: "★ 자동사 specialize는 전치사 in과 100% 짝꿍 출제!" },
+      { word: "comply with", pos: "숙어 / 동사구", mean: "(규정·법규를) 준수하다", category: "법규/준수", ex: "All manufacturing facilities must comply with federal safety regulations.", tip: "★ comply with = conform to = observe = adhere to (~을 지키다)" },
+      { word: "refrain from", pos: "숙어 / 동사구", mean: "~을 자제하다, 삼가다", category: "공지/안내", ex: "Please refrain from taking flash photography during the performance.", tip: "★ refrain은 반드시 from + -ing를 수반함!" },
+      { word: "be committed to", pos: "숙어 / 형용사구", mean: "~에 헌신하다, 전념하다", category: "비전/목표", ex: "We are committed to providing exceptional customer service.", tip: "★ to는 전치사! 뒤에 동사원형이 아닌 동명사(-ing) 또는 명사가 옴!" },
+      { word: "in accordance with", pos: "전치사구", mean: "~에 부합하여, ~에 따라", category: "규정/절차", ex: "Chemical disposal must be performed in accordance with state guidelines.", tip: "★ Part 5 빈출 3총사: according to = in accordance with = pursuant to" },
+      { word: "prior to", pos: "전치사구", mean: "~보다 이전에 (= before)", category: "일정/기한", ex: "All badges must be returned prior to your departure from the site.", tip: "★ prior to + 명사/-ing (접속사로 쓰이지 않음에 주의!)" },
+      { word: "regardless of", pos: "전치사구", mean: "~에 상관없이", category: "조건/원칙", ex: "Every employee is treated fairly regardless of job tenure.", tip: "★ Part 5 문맥 빈칸 완성 단골 정답 전치사!" },
+      { word: "in the event of", pos: "전치사구", mean: "~의 경우에 (= in case of)", category: "안전/비상", ex: "In the event of severe weather, the outdoor reception will move indoors.", tip: "★ 뒤에 절(S+V)이 아닌 명사구가 옴에 유의!" }
+    ];
+
+    const TOEIC_GRAMMAR_DB = [
+      {
+        id: "g1",
+        title: "Rule 1. 자리값 공식 (품사 자리 문제 1초 컷)",
+        formula: "관사/소유격 + (부사) + (형용사) + 【명사 자리】<br>주어 + (부사) + 【동사 자리】 + (목적어)",
+        rules: [
+          {
+            desc: "<strong>명사 자리</strong>: 관사(a/an/the), 소유격(my/their/company's), 전치사 바로 뒤에는 반드시 명사가 위치합니다. 보기에 명사가 2개(사람명사 vs 사물명사) 있을 경우 가산/불가산과 문맥 수식 관계를 구분합니다.",
+            ex: "The manager praised his team for their outstanding (contribution / contribute). ➔ 정답: contribution (소유격 their + 형용사 outstanding + 명사 자리)"
+          },
+          {
+            desc: "<strong>형용사 자리</strong>: 명사 앞자리, 혹은 be동사/become/remain/seem 같은 2형식 동사 뒤 주격 보어 자리입니다.",
+            ex: "The newly renovated library remains (accessible / accessibility) to all students. ➔ 정답: accessible (2형식 remains + 보어 형용사)"
+          },
+          {
+            desc: "<strong>부사 자리</strong>: 완전한 문장의 앞/뒤, 조동사와 본동사 사이, be동사와 p.p./-ing 사이, 타동사와 목적어 사이(X ➔ 문장 맨 끝이나 동사 앞)에 들어갑니다.",
+            ex: "The software update was (successfully / success) installed. ➔ 정답: successfully (was + [부사] + installed 수식)"
+          }
+        ],
+        trap: "⚠️ 주의 함정: '-ly'로 끝난다고 무조건 부사가 아닙니다! friendly(친근한), costly(비싼), timely(시기적절한)는 명사+ly로 '형용사'입니다!"
+      },
+      {
+        id: "g2",
+        title: "Rule 2. 수·태·시 일치 공식 (동사 문제 3단계 판별)",
+        formula: "동사 보기 판별 순서: ① 수일치(단수/복수) ➔ ② 태(능동태/수동태) ➔ ③ 시제(시간 부사구)",
+        rules: [
+          {
+            desc: "<strong>1단계: 수일치 (Subject-Verb Agreement)</strong>: 주어가 3인칭 단수이면 동사에 -s/es를 붙입니다. 주어와 동사 사이에 끼어든 수식어구(전치사구, 분사구, 관계사절)를 가로( )로 묶고 진짜 주어 핵(Head)을 찾으세요.",
+            ex: "The list of approved vendors (has / have) been updated. ➔ 진짜 주어는 The list(단수)이므로 has가 정답!"
+          },
+          {
+            desc: "<strong>2단계: 태 (Active vs Passive)</strong>: 뒤에 목적어(명사)가 있으면 능동태, 목적어가 없고 전치사구나 부사만 남으면 수동태(be + p.p.)입니다. (4/5형식 예외 주의)",
+            ex: "The contract was (signed / signing) yesterday. ➔ 목적어가 없고 시간부사구만 있으므로 수동태 signed!"
+          },
+          {
+            desc: "<strong>3단계: 시제 (Tense)</strong>: 문장 내 힌트 단서를 찾습니다.<br>• 과거: yesterday, last year, ago, previously ➔ 과거시제<br>• 현재완료: since + 과거시점, for the past 5 years ➔ have/has p.p.<br>• 미래: next month, upcoming, soon, by tomorrow ➔ will + 동사원형",
+            ex: "Since Ms. Lee joined the firm, sales (have grown / grew) by 30%. ➔ Since절 과거 + 주절 현재완료 have grown 정답!"
+          }
+        ],
+        trap: "⚠️ 기출 킬러: 시간/조건의 부사절(if, when, as soon as, before, after)에서는 미래 시제 대신 '현재 시제'가 미래를 대신합니다!"
+      },
+      {
+        id: "g3",
+        title: "Rule 3. 능동 vs 수동 분사 (현재분사 -ing vs 과거분사 p.p.)",
+        formula: "명사 수식 분사: 명사가 직접 행동하면 【-ing (현재분사)】 / 수동으로 당하면 【p.p. (과거분사)】",
+        rules: [
+          {
+            desc: "<strong>자동사의 분사 수식</strong>: 자동사는 목적어가 없으므로 수동형 p.p.로 명사를 앞에서 수식할 수 없고 항상 -ing입니다.<br>• existing facility (기존 시설)<br>• rising costs (상승하는 비용)<br>• remaining balance (남은 잔액)<br>• leading manufacturer (선도적인 제조업체)",
+            ex: "The company plans to renovate its (existing / existed) laboratory. ➔ existing(기존의) 정답!"
+          },
+          {
+            desc: "<strong>감정동사의 분사</strong>: 사물 주어나 수식 대상이 감정을 유발하면 -ing, 사람이 감정을 느끼면 p.p.입니다.<br>• interesting news (흥미로운 소식) vs interested clients (관심 있는 고객들)<br>• satisfying results (만족스러운 결과) vs satisfied customers (만족한 고객들)",
+            ex: "The attendees were (impressed / impressive) by the presentation. ➔ 사람이 감정을 느꼈으므로 impressed 정답!"
+          }
+        ],
+        trap: "⚠️ 빈출 관용 p.p. 표현: detailed report (상세한 보고서), customized solutions (맞춤형 솔루션), preferred method (선호되는 방식)"
+      },
+      {
+        id: "g4",
+        title: "Rule 4. 접속사 vs 전치사 구분 (Part 5 절대 족보)",
+        formula: "접속사 + 【주어 + 동사 (절)】 vs 전치사 + 【명사/명사구/동명사 (-ing)】",
+        rules: [
+          {
+            desc: "<strong>양보 (~에도 불구하고)</strong>:<br>• 접속사 (뒤에 S+V): although, though, even though, even if<br>• 전치사 (뒤에 N/-ing): despite, in spite of, notwithstanding",
+            ex: "(Despite / Although) the heavy rain, the outdoor race continued. ➔ the heavy rain은 명사구이므로 전치사 Despite 정답!"
+          },
+          {
+            desc: "<strong>이유 (~때문에)</strong>:<br>• 접속사 (뒤에 S+V): because, since, as, now that<br>• 전치사 (뒤에 N/-ing): because of, due to, owing to, on account of",
+            ex: "The flight was canceled (due to / because) mechanical issues. ➔ 명사구 앞이므로 due to 정답!"
+          },
+          {
+            desc: "<strong>시간/기간 (~하는 동안)</strong>:<br>• 접속사 (뒤에 S+V): while (~하는 동안에)<br>• 전치사 (뒤에 N): during + 특정기간 명사 (during the seminar), for + 숫자 기간 (for three weeks)",
+            ex: "Please remain seated (during / while) the takeoff. ➔ 명사 앞이므로 during 정답!"
+          }
+        ],
+        trap: "⚠️ 접속부사 함정: however, therefore, moreover, furthermore 등은 접속사가 아닌 '부사'이므로 두 문장을 쉼표(,)만으로 직접 연결할 수 없습니다!"
+      },
+      {
+        id: "g5",
+        title: "Rule 5. to부정사 vs 동명사(-ing)를 목적어로 취하는 동사",
+        formula: "미래지향적/의지 동사 + to V  vs  과거지향적/현상/중단 동사 + V-ing",
+        rules: [
+          {
+            desc: "<strong>to부정사만을 목적어로 취하는 동사 (3초 암기)</strong>:<br>want, wish, hope, plan, decide, agree, refuse, offer, promise, afford, expect, intend, manage",
+            ex: "The board decided (to postpone / postponing) the shareholder meeting. ➔ decided 뒤 to부정사 정답!"
+          },
+          {
+            desc: "<strong>동명사(-ing)만을 목적어로 취하는 동사 (시험 단골)</strong>:<br>enjoy, finish, avoid, postpone/delay, suggest, recommend, consider, mind, deny, discontinue, practice",
+            ex: "I strongly recommend (reviewing / to review) the draft proposal once more. ➔ recommend 뒤 동명사 reviewing 정답!"
+          },
+          {
+            desc: "<strong>5형식 목적격 보어로 to부정사를 취하는 동사 (목적어가 ~하도록 하다)</strong>:<br>allow, permit, enable, encourage, require, request, invite, advise, remind, cause + O + to V",
+            ex: "The badge allows employees (to enter / entering) the research facility. ➔ allow + O + to V 공식!"
+          }
+        ],
+        trap: "⚠️ 전치사 to + -ing 킬러 족보 (to 뒤에 동사원형 쓰면 바로 오답!):<br>• look forward to -ing (~을 고대하다)<br>• be committed/dedicated/devoted to -ing (~에 헌신하다)<br>• object to -ing (~에 반대하다)<br>• lead to -ing (~로 이어지다)"
+      },
+      {
+        id: "g6",
+        title: "Rule 6. 관계대명사 & 관계부사 고득점 공식",
+        formula: "선행사 유무와 뒷문장의 완전/불완전 여부로 1초에 정답 판별",
+        rules: [
+          {
+            desc: "<strong>who / which / that</strong>: 뒤에 주어나 목적어가 빠진 【불완전한 문장】이 옵니다. who(사람 선행사), which(사물 선행사), that(사람/사물 겸용, 단 전치사/콤마 뒤 사용 불가).",
+            ex: "The candidate (who / which) has extensive marketing experience will be hired. ➔ 사람 주격 관계대명사 who 정답!"
+          },
+          {
+            desc: "<strong>소유격 whose</strong>: 앞뒤 모두 명사가 오며, whose 뒤의 명사는 관사 없이 바로 연결되는 【완전한 구조】를 이룹니다.",
+            ex: "We interviewed several applicants (whose / who) qualifications match our needs. ➔ qualifications(명사) 앞 소유격 whose 정답!"
+          },
+          {
+            desc: "<strong>what vs that 구별 공식</strong>:<br>• what: 선행사 없음 + 뒷문장 불완전 (명사절 역할)<br>• that (접속사): 선행사 없음 + 뒷문장 완전 (주/목/보 명사절)<br>• that (관계대명사): 선행사 있음 + 뒷문장 불완전",
+            ex: "The director announced (that / what) the new branch will open in Tokyo. ➔ 뒷문장이 완전한 절이므로 접속사 that 정답!"
+          }
+        ],
+        trap: "⚠️ 관계부사(where, when, why): 선행사가 장소/시간/이유이고 뒷문장이 완전한 절(S+V+O)로 구성됩니다."
+      }
+    ];
+
+    let currentVGTab = 'vocab';
+    let currentVGCat = 'ALL';
+
+    function showToeicVocabGrammar() {
+      stopAudio();
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+      const vgBtn = document.getElementById('btnTabVocabGrammar');
+      if (vgBtn) vgBtn.classList.add('active');
+
+      document.getElementById('quizMainCard').style.display = 'none';
+      document.getElementById('toeicHandbookContainer').style.display = 'none';
+      const side = document.querySelector('.sidebar');
+      if (side) side.style.display = 'none';
+
+      const box = document.getElementById('toeicVocabGrammarContainer');
+      box.style.display = 'block';
+
+      renderVocabGrammarLayout();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderVocabGrammarLayout() {
+      const box = document.getElementById('toeicVocabGrammarContainer');
+      box.innerHTML = `
+        <div class="vg-wrap">
+          <div class="vg-hero">
+            <h2>📚 토익 800+ 실전 빈출 어휘 & 문법 집중 학습관</h2>
+            <p>단어와 문법이 취약하신 분들을 위해 기출 빅데이터에서 정답으로 가장 많이 출제되는 <strong>핵심 비즈니스 어휘</strong>와 <strong>Part 5/6 1초 컷 문법 공식</strong>을 테마별로 총정리했습니다. 검색창으로 원하는 단어나 문법을 즉시 찾아보세요!</p>
+          </div>
+
+          <div class="vg-subnav">
+            <button class="vg-sub-btn ${currentVGTab === 'vocab' ? 'active' : ''}" onclick="switchVGSubTab('vocab')">🔤 빈출 핵심 단어장 (${TOEIC_VOCAB_DB.length}개)</button>
+            <button class="vg-sub-btn ${currentVGTab === 'grammar' ? 'active' : ''}" onclick="switchVGSubTab('grammar')">📖 Part 5 핵심 문법 6대 공식</button>
+            <button class="vg-sub-btn" onclick="jumpToSolve(currentIdx)" style="margin-left:auto; background:#1B365D; color:white; border-color:#1B365D;">🎯 CBT 문제 풀이로 복귀</button>
+          </div>
+
+          <div id="vgSubContent"></div>
+        </div>
+      `;
+
+      if (currentVGTab === 'vocab') {
+        renderVocabList();
+      } else {
+        renderGrammarList();
+      }
+    }
+
+    function switchVGSubTab(tab) {
+      currentVGTab = tab;
+      renderVocabGrammarLayout();
+    }
+
+    function renderVocabList(searchTerm = '') {
+      const sub = document.getElementById('vgSubContent');
+      if (!sub) return;
+
+      const categories = ['ALL', '업무/행정', '서비스/호텔', '출장/여행', '회계/재정', '사무/시설', '업무/보안', '일정/기획', '인사/복지', '법규/준수', '조건/원칙'];
+      let catBtnsHtml = categories.map(cat => `
+        <button class="vg-category-btn ${currentVGCat === cat ? 'active' : ''}" onclick="filterVGCat('${cat}')">${cat}</button>
+      `).join('');
+
+      let filtered = TOEIC_VOCAB_DB.filter(item => {
+        const matchesCat = (currentVGCat === 'ALL' || item.category.includes(currentVGCat));
+        const s = searchTerm.toLowerCase().trim();
+        const matchesSearch = (!s || item.word.toLowerCase().includes(s) || item.mean.includes(s) || item.tip.toLowerCase().includes(s));
+        return matchesCat && matchesSearch;
+      });
+
+      let cardsHtml = filtered.map(v => `
+        <div class="vocab-card">
+          <div class="v-head">
+            <span class="v-word">${v.word}</span>
+            <span class="v-pos">${v.pos}</span>
+          </div>
+          <div class="v-mean">${v.mean}</div>
+          <div class="v-example"><strong>예문:</strong> ${v.ex}</div>
+          <div class="v-tip">💡 ${v.tip}</div>
+        </div>
+      `).join('');
+
+      if (filtered.length === 0) {
+        cardsHtml = `<div style="grid-column: 1 / -1; text-align:center; padding:40px; color:#64748B;">검색 조건에 맞는 어휘가 없습니다. 다른 검색어를 입력해 보세요.</div>`;
+      }
+
+      sub.innerHTML = `
+        <div class="vg-filter-box">
+          <input type="text" id="vgSearchInput" class="vg-search-input" placeholder="단어, 우리말 뜻, 출제 팁 검색 (예: reimburse, 일정, 전치사)..." value="${searchTerm}" oninput="onVocabSearch(this.value)">
+          <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+            ${catBtnsHtml}
+          </div>
+        </div>
+        <div class="vocab-cards-grid">
+          ${cardsHtml}
+        </div>
+      `;
+    }
+
+    function onVocabSearch(val) {
+      renderVocabList(val);
+    }
+
+    function filterVGCat(cat) {
+      currentVGCat = cat;
+      const s = document.getElementById('vgSearchInput') ? document.getElementById('vgSearchInput').value : '';
+      renderVocabList(s);
+    }
+
+    function renderGrammarList() {
+      const sub = document.getElementById('vgSubContent');
+      if (!sub) return;
+
+      let html = `<div class="grammar-cards-list">`;
+      TOEIC_GRAMMAR_DB.forEach(g => {
+        let rulesHtml = g.rules.map(r => `
+          <div class="g-rule-item">
+            <div>${r.desc}</div>
+            <div class="g-example-box"><strong>실전 기출 적용:</strong> ${r.ex}</div>
+          </div>
+        `).join('');
+
+        html += `
+          <div class="grammar-card">
+            <div class="g-title">${g.title}</div>
+            <div class="g-formula">⚡ 핵심 공식 요약: ${g.formula}</div>
+            ${rulesHtml}
+            <div class="g-trap-box">${g.trap}</div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+      sub.innerHTML = html;
     }
 
     window.onload = init;
