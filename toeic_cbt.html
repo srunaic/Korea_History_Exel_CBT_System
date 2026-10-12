@@ -2092,7 +2092,7 @@ document.addEventListener('copy', e => {
     // [Part 5 초단기 1초 컷 공식 족보 (단어 꼬리표 & 앞뒤 힌트)]
     // ==========================================
     const CHEAT_SHEET_DATA = [
-      {
+{
         tag: "단어 꼬리표 암기법",
         title: "1. 보기 끝글자(꼬리표)만 보고 1초 만에 품사 고르기",
         pattern: "단어 뜻 몰라도 단어 맨 끝 알파벳만 보면 끝납니다!",
@@ -2215,6 +2215,133 @@ document.addEventListener('copy', e => {
           </div>
         `,
         exam: "We strongly recommend _______ the contract terms.<br>→ recommend 뒤에는 -ing! 정답: <span class='ans'>reviewing</span> (to review 탈락)"
+      },
+      {
+        tag: "비교급 1초 짝꿍",
+        title: "9. more 앞 / than 앞 빈칸 (비교급 강조 5총사)",
+        pattern: "빈칸 _______ + more ~ 또는 빈칸 _______ + -er (비교급)",
+        ansText: "정답: much, even, still, far, a lot (훨씬)",
+        tailsHtml: `
+
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>비교급 앞 강조 부사</strong>: <strong>much / even / still / far / a lot</strong><br>
+        • ❌ <strong>절대 오답 함정:</strong> <strong>very는 비교급(more) 앞에 절대 못 옵니다!</strong> (very more ❌)<br>
+        • 뒤에 <strong>than</strong>이 보이면 보기 중에 <strong>more</strong>나 <strong>-er</strong> 들어간 것이 무조건 정답!
+      </div>
+    
+        `,
+        exam: "The new engine is _______ more efficient than the older version.<br>→ more 앞에 올 수 있는 강조 부사는? 정답: <span class='ans'>much</span> (very 탈락!)"
+      },
+      {
+        tag: "앞뒤 1초 판별법",
+        title: "10. 조동사(will, can, must, should) 뒤 빈칸",
+        pattern: "will / can / may / must / should / do + 빈칸 _______",
+        ansText: "정답: 100% 무조건 [동사원형 (기본 형태)]",
+        tailsHtml: `
+
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • 조동사 바로 뒤에는 -s, -ed, -ing가 절대 안 붙은 <strong>순수 동사원형</strong>만 옵니다.<br>
+        • 만약 조동사 뒤에 이미 동사원형이 나와있다면? 그 사이(조동사 + _____ + 동사원형)는 <strong>-ly(부사)</strong> 자리!
+      </div>
+    
+        `,
+        exam: "All visitors must _______ at the security reception desk.<br>→ must(조동사) 뒤이므로 순수 원형! 정답: <span class='ans'>register</span> (registration ❌)"
+      },
+      {
+        tag: "소유격 1초 킬러",
+        title: "11. 명사 바로 앞 빈칸 (소유격 1초 컷)",
+        pattern: "전치사/동사 + 빈칸 _______ + 명사(단어)",
+        ansText: "정답: 99% 무조건 소유격 (my, his, her, their, its, our)",
+        tailsHtml: `
+
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • 뒤에 <strong>이름/물건/서류(명사)</strong>가 바로 오면 누구 것인지 밝혀주는 <strong>소유격(their, its, his, her)</strong>이 정답!<br>
+        • 보기: (A) they (B) their (C) them (D) themselves → <strong>(B) their 소유격</strong> 1초 선택!
+      </div>
+    
+        `,
+        exam: "Employees must submit _______ travel expenses by Friday.<br>→ 뒤에 expenses(명사)가 있으므로 정답: <span class='ans'>their (소유격)</span>"
+      },
+      {
+        tag: "접속사 짝꿍 족보",
+        title: "12. 둘이 짝지어 다니는 1초 상관접속사",
+        pattern: "문장 속에 and, or, nor, but also가 보일 때",
+        ansText: "짝꿍 단어만 찾으면 바로 1초 컷!",
+        tailsHtml: `
+
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>both A and B</strong> (A와 B 둘 다)<br>
+        • <strong>either A or B</strong> (A나 B 둘 중 하나)<br>
+        • <strong>neither A nor B</strong> (A도 B도 아닌)<br>
+        • <strong>not only A but also B</strong> (A뿐만 아니라 B도)<br>
+        ★ 빈칸 뒤에 <strong>or</strong>가 있으면 보기에서 <strong>either</strong> 고르면 끝!
+      </div>
+    
+        `,
+        exam: "You can pay _______ by credit card or in cash.<br>→ 뒤에 or가 보이므로 1초 짝꿍! 정답: <span class='ans'>either</span>"
+      },
+      {
+        tag: "시제 1초 힌트",
+        title: "13. since vs for (현재완료 have/has p.p. 짝꿍)",
+        pattern: "문장에 have p.p. / has p.p. 가 있을 때",
+        ansText: "과거 시점(2020년, 입사 이래)이면 since, 기간(5년 동안)이면 for",
+        tailsHtml: `
+
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>since + 과거 시점/과거동사</strong>: ~이래로 쭉 (since 2015, since he joined)<br>
+        • <strong>for + 숫자 기간</strong>: ~동안 (for 10 years, for three months)<br>
+        ★ 반대로 문장에 <strong>since</strong>가 보이면 보기에서 <strong>have p.p. / has p.p.</strong> 찍기!
+      </div>
+    
+        `,
+        exam: "Mr. Kim has worked at this firm _______ 2018.<br>→ 2018년(특정 과거 시점)이므로 정답: <span class='ans'>since</span> (for 탈락)"
+      },
+      {
+        tag: "전치사 1초 족보",
+        title: "14. 시간 전치사 at / on / in 1초 정리",
+        pattern: "시간/날짜/연도 앞 전치사 빈칸",
+        ansText: "점(at) → 날짜(on) → 넓은 달/연도(in)",
+        tailsHtml: `
+
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>at + 시각/시점</strong>: at 9:00 AM, at noon, at midnight<br>
+        • <strong>on + 특정 날짜/요일</strong>: on Monday, on July 15th, on weekends<br>
+        • <strong>in + 월/계절/연도/오전</strong>: in May, in summer, in 2026, in the morning
+      </div>
+    
+        `,
+        exam: "The keynote speech will commence _______ Monday morning.<br>→ 요일(Monday) 앞이므로 정답: <span class='ans'>on</span>"
+      },
+      {
+        tag: "초단기 꼼수",
+        title: "15. request, suggest, recommend that + 동사원형",
+        pattern: "제안·요구·주장 동사 + that + 주어 + 빈칸 _______",
+        ansText: "주어가 3인칭 단수(he, she, the company)여도 무조건 [동사원형]!",
+        tailsHtml: `
+
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>suggest / recommend / ask / require / mandate that + 주어 + (should 생략) + 동사원형</strong><br>
+        • 주어가 he나 the manager여도 takes(x), took(x) 안 되고 <strong>take(원형)</strong>이나 <strong>be(원형)</strong>가 무조건 정답!
+      </div>
+    
+        `,
+        exam: "The doctor recommended that he _______ a few days off.<br>→ 주어가 he여도 should가 생략되어 원형! 정답: <span class='ans'>take</span> (takes ❌)"
+      },
+      {
+        tag: "토익 1위 정답 부사",
+        title: "16. 보기만 보이면 80% 이상 정답 찍히는 단골 부사",
+        pattern: "보기에 아래 부사가 보이고 빈칸 자리가 부사일 때",
+        ansText: "currently, promptly, already, recently, easily",
+        tailsHtml: `
+
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>currently</strong>: 현재 (is currently -ing / be동사 뒤)<br>
+        • <strong>promptly</strong>: 신속하게 (promptly at 9:00 정각에 / respond promptly 즉시 답변)<br>
+        • <strong>approximately</strong>: 대략 (숫자 바로 앞 빈칸 단골: approximately 50 people)
+      </div>
+    
+        `,
+        exam: "Our customer service team will respond _______ to your inquiry.<br>→ 문의에 '신속하게' 답변하다! 단골 정답: <span class='ans'>promptly</span>"
       }
     ];
 
