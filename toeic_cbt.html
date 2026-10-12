@@ -729,22 +729,29 @@
     }
     .vg-subnav {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       border-bottom: 2px solid #E2E8F0;
       padding-bottom: 12px;
+      align-items: center;
     }
     .vg-sub-btn {
-      padding: 10px 18px;
+      padding: 10px 16px;
       border-radius: 8px;
       border: 1.5px solid #CBD5E1;
       background: #F8FAFC;
       color: #1E293B;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
+      white-space: nowrap;
+      word-break: keep-all;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
     .vg-sub-btn:hover {
       background: #E2E8F0;
@@ -918,12 +925,60 @@
     }
 
     @media (max-width: 768px) {
-      .vg-wrap { padding: 16px; }
-      .vg-hero { padding: 18px 16px; }
-      .vg-hero h2 { font-size: 1.15rem; }
-      .vocab-cards-grid { grid-template-columns: 1fr; }
-      .vg-sub-btn { flex: 1; text-align: center; font-size: 0.82rem; padding: 8px 10px; }
-      .grammar-card { padding: 16px; }
+      .vg-wrap { padding: 14px 12px; }
+      .vg-hero { padding: 16px 14px; margin-bottom: 16px; }
+      .vg-hero h2 { font-size: 1.12rem; line-height: 1.35; }
+      .vg-hero p { font-size: 0.84rem; line-height: 1.55; word-break: keep-all; }
+      .vg-subnav {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+        scrollbar-width: none;
+      }
+      .vg-subnav::-webkit-scrollbar { display: none; }
+      .vg-sub-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 9px 14px;
+        font-size: 0.82rem;
+        border-radius: 8px;
+        word-break: keep-all;
+      }
+      .vg-filter-box {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .vg-search-input {
+        width: 100%;
+        min-width: 0;
+        font-size: 0.88rem;
+        padding: 9px 12px;
+      }
+      .vg-days-scroll {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+      .vg-days-scroll::-webkit-scrollbar { display: none; }
+      .vg-category-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        font-size: 0.78rem;
+        padding: 6px 11px;
+      }
+      .vocab-cards-grid { grid-template-columns: 1fr; gap: 12px; }
+      .vocab-card { padding: 14px 14px; }
+      .grammar-card { padding: 16px 14px; }
     }
 
     /* ========== TOEIC HANDBOOK STYLES ========== */
@@ -1872,7 +1927,7 @@ document.addEventListener('copy', e => {
       sub.innerHTML = `
         <div class="vg-filter-box">
           <input type="text" id="vgSearchInput" class="vg-search-input" placeholder="1,000단어 실시간 검색 (스펠링, 우리말 뜻, 예문, 카테고리)..." value="${searchTerm}" oninput="onVocabSearch(this.value)">
-          <div style="display:flex; gap:5px; flex-wrap:wrap; align-items:center;">
+          <div class="vg-days-scroll" style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
             ${dayBtnsHtml}
           </div>
         </div>
