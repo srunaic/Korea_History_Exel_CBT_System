@@ -8,23 +8,8 @@
 
 **모바일/PC 완벽 연동 공식 웹 서비스**
 
-* 📅 **국가 시험 실시간 D-Day 전광판 & 시험 일정 안내 센터**:  
-  https://korea-history-exel-cbt-system.victoryka123.workers.dev/exam_schedule.html
-
 * 🇰🇷 **한국사능력검정시험(한능검) 실전 CBT 문제은행**:  
   https://korea-history-exel-cbt-system.victoryka123.workers.dev/
-
-* 🇬🇧 **토익(TOEIC) 800+ 실전 1:1 CBT & 초단기 족보**:  
-  https://korea-history-exel-cbt-system.victoryka123.workers.dev/toeic_cbt.html
-
-* 🏛️ **7급 공무원 전산직 실전 CBT 모의고사**:  
-  https://korea-history-exel-cbt-system.victoryka123.workers.dev/civil_service_cbt.html
-
-* 💻 **정보처리기사 실시간 시험일정 & D-Day**:  
-  https://korea-history-exel-cbt-system.victoryka123.workers.dev/Engineer_Information_exam_schedule.html
-
-
----
 
 ## 🔒 저작권 및 지식재산권 보호 고지 (Copyright & Legal Notice)
 
