@@ -2343,6 +2343,195 @@ document.addEventListener('copy', e => {
         `,
         exam: "Our customer service team will respond _______ to your inquiry.<br>→ 문의에 '신속하게' 답변하다! 단골 정답: <span class='ans'>promptly</span>"
       }
+    ,
+      {
+        tag: "전치사 1초 공식",
+        title: "17. 전치사(Before, After, By, Without) 뒤 빈칸 = -ing",
+        pattern: "Before / After / By / Without / In + 빈칸 _______ + 명사",
+        ansText: "전치사 뒤에는 무조건 -ing (동명사)!",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>전치사(Before, After, By, Without, Upon, In) 뒤에</strong> 동사가 와야 하면 반드시 <strong>-ing</strong>!<br>
+        • Before <strong>signing</strong> ✅ / Before <strong>signed</strong> ❌ / Before <strong>sign</strong> ❌<br>
+        ★ Q102 보강: 빈칸 뒤 콤마까지 <strong>동사 없으면 전치사(Due to, Prior to)</strong>, 동사 있으면 <strong>접속사(Because, Since)</strong>!
+      </div>
+    `,
+        exam: "Before _______ the final contract, both attorneys must review it.<br>→ Before(전치사) 뒤이므로 -ing! 정답: <span class='ans'>signing</span> (signed ❌)"
+      },
+      {
+        tag: "분사 1초 판별",
+        title: "18. -ed vs -ing (감정 분사 형용사 1초 컷)",
+        pattern: "사람이 느끼면 -ed, 사물이 시키면 -ing",
+        ansText: "주어가 사람 → -ed (pleased), 주어가 사물/것 → -ing (pleasing)",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>사람 주어</strong>: interested, satisfied, pleased, surprised, disappointed<br>
+        • <strong>사물 주어</strong>: interesting, satisfying, pleasing, surprising, disappointing<br>
+        • <strong>명사 앞 꾸밈</strong>: updated report (과거분사=수동), leading company (현재분사=능동)<br>
+        ★ Q111: <strong>명사 앞 빈칸</strong>에서 "이미 ~된"이면 <strong>-ed</strong>, "~하는/~하고 있는"이면 <strong>-ing</strong>
+      </div>
+    `,
+        exam: "The customers were _______ with the service quality.<br>→ 주어가 customers(사람)이므로 정답: <span class='ans'>satisfied (-ed)</span> (satisfying ❌)"
+      },
+      {
+        tag: "수일치 1초 판별",
+        title: "19. 주어 + _______ (단수/복수 & 수동태 1초 컷)",
+        pattern: "주어가 사람인데 목적어 없으면 = 수동태(be + p.p.)",
+        ansText: "목적어 없으면 수동, 목적어 있으면 능동!",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • 빈칸 뒤에 <strong>목적어(명사)가 없으면</strong> → <strong>수동태(is/was/has been + p.p.)</strong><br>
+        • Ms. Vance _______ to VP → 뒤에 목적어 없음 → <strong>has been promoted</strong> ✅<br>
+        • <strong>단수 주어(Each, Every, The report)</strong> → is / was / has<br>
+        • <strong>복수 주어(Reports, They, All employees)</strong> → are / were / have
+      </div>
+    `,
+        exam: "Ms. Vance _______ to the position of VP.<br>→ 뒤에 목적어 없음(수동) + 승진은 '당하는 것'! 정답: <span class='ans'>has been promoted</span>"
+      },
+      {
+        tag: "대명사 족보",
+        title: "20. 재귀대명사 (-self/-selves) 강조용법 1초 컷",
+        pattern: "주어(사람) + 동사 + _______ (주어 = 빈칸이 같은 사람)",
+        ansText: "주어와 빈칸이 같은 사람이면 → -self / -selves!",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>The CEO herself</strong> attended → 사장님 <strong>본인이 직접</strong> 참석<br>
+        • <strong>by + -self</strong>: by themselves = 혼자서, 스스로<br>
+        • herself / himself / itself / themselves / ourselves<br>
+        ★ 보기에 he/him/his/himself가 나오면 → 주어가 같은 남자(he)면 <strong>himself</strong>!
+      </div>
+    `,
+        exam: "The president _______ will review all applications.<br>→ 사장님 '본인이 직접'! 정답: <span class='ans'>herself</span> (강조용법)"
+      },
+      {
+        tag: "접속사 족보",
+        title: "21. whether A or B (or가 보이면 whether!)",
+        pattern: "빈칸 _______ + ... or ... 패턴이 보일 때",
+        ansText: "뒤에 or가 있으면 무조건 whether!",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>whether A or B</strong> = A인지 B인지 (짝꿍: or)<br>
+        • whether to accept <strong>or</strong> decline = 수락할지 거절할지<br>
+        • that(×), what(×), if(×) 뒤에는 or 짝꿍이 안 옴!<br>
+        ★ 문장에서 <strong>or</strong>가 보이면 → 보기에서 <strong>whether</strong> 바로 찍기!
+      </div>
+    `,
+        exam: "_______ the proposal will be approved or rejected is still unknown.<br>→ or rejected가 보이므로 짝꿍! 정답: <span class='ans'>Whether</span>"
+      },
+      {
+        tag: "관계대명사 족보",
+        title: "22. whose vs which vs who (관계대명사 1초 컷)",
+        pattern: "선행사(사람/사물) + 빈칸 _______ + 무관사 명사",
+        ansText: "빈칸 바로 뒤가 명사(관사 없이)면 whose!",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • 빈칸 뒤 <strong>관사(a/the) 없이 명사가 바로 나오면</strong> → <strong>whose</strong> (소유격)<br>
+        • Dr. Harris, <strong>whose</strong> research paper won → '그녀의' 연구 논문<br>
+        • 빈칸 뒤 <strong>동사가 오면</strong> → <strong>who</strong>(사람) / <strong>which</strong>(사물)<br>
+        • 빈칸 뒤 <strong>주어+동사 완전한 문장</strong>이면 → <strong>which/that</strong>(목적격)
+      </div>
+    `,
+        exam: "The author, _______ latest book sold millions, will visit.<br>→ 뒤에 latest book(무관사 명사)! 정답: <span class='ans'>whose</span> (who ❌)"
+      },
+      {
+        tag: "관계대명사 족보",
+        title: "23. Whoever vs Whomever (주어 자리면 Whoever!)",
+        pattern: "빈칸 _______ + 동사 (빈칸이 문장 맨 앞 주어 자리)",
+        ansText: "빈칸 바로 뒤에 동사가 오면 Whoever!",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>Whoever + 동사</strong> = ~하는 사람 누구든지 (= Anyone who)<br>
+        • <strong>Whatever + 명사</strong> = 어떤 ~이든지 (Whatever changes occur)<br>
+        • Whomever는 토익에서 거의 안 나옴! <strong>Whoever 99% 정답</strong><br>
+        ★ 보기에 Whoever / Whatever / Whichever 나오면 → 뒤 동사 확인 후 바로 찍기!
+      </div>
+    `,
+        exam: "_______ wishes to participate must submit a form by Friday.<br>→ 뒤에 wishes(동사)가 바로! 정답: <span class='ans'>Whoever</span>"
+      },
+      {
+        tag: "★킬러 도치",
+        title: "24. 가정법 도치 (Were / Had / Should + 주어) 킬러",
+        pattern: "문장 맨 앞에 Were / Had / Should + 주어 + 동사",
+        ansText: "If 생략 도치! Were(현재), Had(과거), Should(미래)",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>Were it not for ~</strong> = ~이 없다면 (If it were not for 도치)<br>
+        • <strong>Had we known ~</strong> = 우리가 알았더라면 (If we had known 도치)<br>
+        • <strong>Should you need ~</strong> = 만약 필요하시다면 (If you should need 도치)<br>
+        ★ 문장 맨 앞 빈칸 + 주어(it, you, we) + 동사가 오면 → <strong>Were/Had/Should</strong> 찍기!
+      </div>
+    `,
+        exam: "_______ it not for the generous support, the center could not remain open.<br>→ If 생략 도치 + could(가정법 과거)! 정답: <span class='ans'>Were</span>"
+      },
+      {
+        tag: "to부정사 족보",
+        title: "25. ~하기 위해 (to + 동사원형 = 목적/이유)",
+        pattern: "주어 + 동사 + 목적어 + _______ + 동사원형 (in order to)",
+        ansText: "'~하기 위해'로 해석되면 to + 동사원형!",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>to + 동사원형</strong> = ~하기 위해 (목적의 to부정사)<br>
+        • = <strong>in order to</strong> + 동사원형 / <strong>so as to</strong> + 동사원형<br>
+        • visited the branch <strong>to discuss</strong> ~ = 논의하기 위해 방문<br>
+        ★ 보기에 to discuss / to ensure / to finalize 나오면 → '~하기 위해'로 해석되면 바로 찍기!
+      </div>
+    `,
+        exam: "Ms. Park visited the branch _______ the new contract terms.<br>→ '~하기 위해' 방문! 정답: <span class='ans'>to discuss</span>"
+      },
+      {
+        tag: "연어 족보",
+        title: "26. 토익 필수 연어 (전치사 + 명사 짝꿍) 족보",
+        pattern: "빈칸 앞뒤 전치사/동사와 짝이 되는 단어 고르기",
+        ansText: "토익은 같은 연어를 반복 출제! 외우면 1초 컷!",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>in accordance with</strong> = ~에 따라 (규정/법률 준수)<br>
+        • <strong>comply with</strong> = ~을 준수하다<br>
+        • <strong>grant access to</strong> = ~에 접근 권한을 부여하다<br>
+        • <strong>contribute to</strong> = ~에 기여하다<br>
+        • <strong>result in</strong> = ~을 초래하다<br>
+        • <strong>participate in</strong> = ~에 참가하다<br>
+        • <strong>report directly to</strong> = ~에게 직속 보고하다
+      </div>
+    `,
+        exam: "All operations must be conducted in _______ with safety standards.<br>→ in ___ with = 짝꿍 연어! 정답: <span class='ans'>accordance</span>"
+      },
+      {
+        tag: "어휘 족보",
+        title: "27. 토익 단골 형용사 + 명사 연어 1초 컷",
+        pattern: "빈칸 _______ + 명사 (형용사 + 명사 짝꿍)",
+        ansText: "특정 명사 앞에는 특정 형용사가 짝꿍!",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>substantial</strong> growth/increase = 상당한 성장/증가<br>
+        • <strong>sincere</strong> gratitude/apology = 진심 어린 감사/사과<br>
+        • <strong>rigorous</strong> standards/protocols = 엄격한 기준/규정<br>
+        • <strong>comprehensive</strong> review/plan = 포괄적인 검토/계획<br>
+        • <strong>extensive</strong> experience = 풍부한 경험<br>
+        • <strong>competitive</strong> salary/price = 경쟁력 있는 급여/가격<br>
+        ★ 어색한 형용사(reluctant growth? fragile growth?)는 바로 탈락!
+      </div>
+    `,
+        exam: "The sector experienced _______ growth across the region.<br>→ growth(성장) 앞에 자연스러운 것은? 정답: <span class='ans'>substantial</span> (상당한)"
+      },
+      {
+        tag: "어휘 족보",
+        title: "28. 토익 단골 부사 어휘 (문맥 판별) 확장판",
+        pattern: "동사 + 빈칸 _______ (문맥에 맞는 부사 고르기)",
+        ansText: "만장일치=unanimously, 직접=directly, 상당히=significantly",
+        tailsHtml: `
+      <div style="font-size:0.86rem; color:#334155; line-height:1.6;">
+        • <strong>unanimously</strong> approved = 만장일치로 승인<br>
+        • <strong>significantly</strong> increased = 상당히 증가<br>
+        • <strong>directly</strong> report to = 직속으로 보고하다<br>
+        • <strong>consistently</strong> exceeded = 지속적으로 초과<br>
+        • <strong>subsequently</strong> revised = 이후에 수정<br>
+        • <strong>expedite</strong> delivery = 배송을 신속히 처리하다<br>
+        ★ 부정적 부사(reluctantly, accidentally, scarcely)는 긍정 문맥에서 탈락!
+      </div>
+    `,
+        exam: "The committee members _______ approved the new policy.<br>→ 논의 후 전원 승인! 정답: <span class='ans'>unanimously</span> (만장일치로)"
+      }
     ];
 
     function renderCheatSheetView() {
