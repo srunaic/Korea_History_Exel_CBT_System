@@ -6,3 +6,13 @@ __pycache__/
 .system_generated/
 _src_backup/
 *.py
+
+# 독점적 지식재산권 핵심 소스코드 및 데이터 보호 (Cloudflare 라이브 서비스 전용)
+*.html
+*.bat
+*.cmd
+*.xlsx
+*.xls
+*.csv
+*.txt
+.nojekyll
